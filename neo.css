@@ -93,6 +93,28 @@ nav .nav-inner{
   box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
+/* NAVBAR BUTTON */
+.nav-links .btn-login {
+  padding: 10px 22px;
+  border-radius: 999px;       /* pill shape */
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--accent);  /* techy blue/purple */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-links .btn-login:hover {
+  transition: 250ms ease-in-out background-color, border;
+  transform: translateY(-2px);
+  background-color: transparent;
+  padding: 9px 21px;
+  border: 1px solid var(--accent);
+  box-shadow: 0 6px 16px rgba(91,108,255,0.3); /* subtle glow */
+}
+
 .logo{
   font-weight:700;
   font-size:1.1rem;
@@ -171,7 +193,7 @@ nav .nav-inner{
 }
 
 .section h2{
-  text-align:center;
+  text-align:left;
   font-size:1.8rem;
   font-weight:600;
   margin-bottom:48px;
@@ -230,6 +252,7 @@ nav .nav-inner{
 }
 
 .cta h2{
+  text-align: center;
   font-size:1.8rem;
   margin-bottom:14px;
 }
