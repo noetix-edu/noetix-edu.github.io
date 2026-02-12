@@ -14,13 +14,31 @@
 
 <body>
 
-  <!-- NAVBAR -->
-  <nav>
-    <div class="container nav-inner">
-      <div class="logo">Noetix</div>
-      <a href="#" class="btn btn-secondary">Login</a>
+<!-- HERO NAVBAR (transparent over hero) -->
+<nav id="nav1">
+  <div class="container nav-inner">
+    <div class="logo">Noetix</div>
+    <div class="nav-links">
+      <a href="Course">Courses</a>
+      <a href="#why">Why Noetix</a>
+      <a href="#who">Who It's For</a>
+      <a href="#cta">Join Waitlist</a>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<!-- SCROLL NAVBAR (sticky after hero) -->
+<nav id="nav2">
+  <div class="container nav-inner">
+    <div class="logo">Noetix</div>
+    <div class="nav-links">
+      <a href="Course">Courses</a>
+      <a href="#why">Why Noetix</a>
+      <a href="#who">Who It's For</a>
+      <a href="#cta">Join Waitlist</a>
+    </div>
+  </div>
+</nav>
 
   <!-- HERO -->
   <section class="hero">
@@ -38,7 +56,7 @@
   </section>
 
   <!-- WHY NOETIX -->
-  <section class="section">
+  <section class="section" id="why">
     <div class="container">
       <h2>Why Noetix?</h2>
       <div class="grid">
@@ -61,7 +79,7 @@
   </section>
 
   <!-- WHO IT'S FOR -->
-  <section class="section">
+  <section class="section" id="who">
     <div class="container">
       <h2>Who It’s For</h2>
       <div class="grid">
@@ -109,7 +127,7 @@
   </section>
 
   <!-- FINAL CTA -->
-  <section class="section">
+  <section class="section" id="cta">
     <div class="container">
       <div class="cta">
         <h2>Join the First Cohort of Noetix Learners</h2>
@@ -125,6 +143,26 @@
       © 2026 Noetix Education. All rights reserved.
     </div>
   </footer>
+
+<script>
+const nav1 = document.getElementById('nav1');
+const nav2 = document.getElementById('nav2');
+
+window.addEventListener('scroll', () => {
+  const heroHeight = document.querySelector('.hero').offsetHeight;
+
+  if(window.scrollY < heroHeight - 80){ 
+    nav1.classList.add('visible');
+    nav2.classList.remove('visible');
+  } else {
+    nav1.classList.remove('visible');
+    nav2.classList.add('visible');
+  }
+});
+
+// Trigger on load
+window.dispatchEvent(new Event('scroll'));
+</script>
 
 </body>
 </html>
