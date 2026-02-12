@@ -34,18 +34,63 @@ a{
   padding:0 24px;
 }
 
-/* NAVBAR */
+/* NAVBAR BASE */
 nav{
-  background:#ffffffcc;
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid #e5e7eb;
+  width:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:999;
+  transition: all 0.3s ease;
+  font-family:'Inter', sans-serif;
 }
 
-.nav-inner{
-  height:64px;
+nav .nav-inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:0.75rem 1.5rem;
+}
+
+/* Links */
+.nav-links a{
+  margin-left:20px;
+  font-weight:500;
+  color:var(--text);
+  transition:color 0.25s;
+}
+
+.nav-links a:hover{
+  color:var(--accent);
+}
+
+/* NAV1 - Hero only, not sticky */
+#nav1 {
+  background: transparent;
+  position: absolute; /* NOT fixed */
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+#nav1.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* NAV2 - Sticky after hero (fixed) */
+#nav2 {
+  position: fixed; /* sticky */
+  top: 0;
+  width: 100%;
+  background: white;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+#nav2.visible {
+  opacity: 1;
+  transform: translateY(0);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
 .logo{
@@ -91,7 +136,6 @@ nav{
 .hero{
   padding:120px 0 100px;
   text-align:center;
-  background:radial-gradient(circle at top, #eef2ff 0%, #ffffff 65%);
 }
 
 .hero h1{
