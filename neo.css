@@ -52,9 +52,20 @@ nav .nav-inner{
   padding:0.75rem 1.5rem;
 }
 
+/* Group right-side items */
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
 /* Links */
+.nav-links{
+  display:flex;
+  gap:24px;
+}
+
 .nav-links a{
-  margin-left:20px;
   font-weight:500;
   color:var(--text);
   transition:color 0.25s;
@@ -64,29 +75,31 @@ nav .nav-inner{
   color:var(--accent);
 }
 
-/* NAV1 - Hero only, not sticky */
+/* NAV1 - Hero only */
 #nav1 {
   background: transparent;
-  position: absolute; /* NOT fixed */
+  position: absolute;
   top: 0;
   width: 100%;
   opacity: 0;
   transform: translateY(-100%);
 }
+
 #nav1.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* NAV2 - Sticky after hero (fixed) */
+/* NAV2 - Sticky */
 #nav2 {
-  position: fixed; /* sticky */
+  position: fixed;
   top: 0;
   width: 100%;
   background: white;
   opacity: 0;
   transform: translateY(-100%);
 }
+
 #nav2.visible {
   opacity: 1;
   transform: translateY(0);
@@ -94,33 +107,96 @@ nav .nav-inner{
 }
 
 /* NAVBAR BUTTON */
-.nav-links .btn-login {
+.btn-login {
   padding: 10px 22px;
-  border-radius: 999px;       /* pill shape */
+  border-radius: 999px;
   font-weight: 600;
   font-size: 0.95rem;
-  background: var(--accent);  /* techy blue/purple */
+  background: var(--accent);
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.nav-links .btn-login:hover {
-  transition: 250ms ease-in-out background-color, border;
+.btn-login:hover {
   transform: translateY(-2px);
   background-color: transparent;
-  padding: 9px 21px;
   border: 1px solid var(--accent);
-  box-shadow: 0 6px 16px rgba(91,108,255,0.3); /* subtle glow */
+  box-shadow: 0 6px 16px rgba(91,108,255,0.3);
 }
 
+/* Logo */
 .logo{
   font-weight:700;
   font-size:1.1rem;
   letter-spacing:-0.02em;
   color:var(--primary);
 }
+
+/* Hamburger */
+.hamburger {
+  display:none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* Sidebar (unchanged, but safe) */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background: #111827;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 9999;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+#sidebar.active {
+  transform: translateX(0);
+}
+
+#sidebar a {
+  padding: 8px 32px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+#sidebar a:hover { 
+  color: var(--accent); 
+}
+
+#sidebar .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 32px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Mobile */
+@media(max-width: 768px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .hamburger{
+    display:block;
+  }
+}
+
 
 /* BUTTONS */
 .btn{

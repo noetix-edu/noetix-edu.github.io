@@ -15,29 +15,49 @@
 <body>
 
 <!-- HERO NAVBAR (transparent over hero) -->
+<!-- HERO NAVBAR -->
 <nav id="nav1">
-  <div class="container nav-inner">
-    <div class="logo">Noetix</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="Course.html">Courses</a>
-      <a href="#contact">Contact</a>
-      <a href="#" class="btn-login">Login</a>
-    </div>
+<div class="container nav-inner">
+  <div class="logo">Noetix</div>
+
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="Course.html">Courses</a>
+    <a href="#contact">Contact</a>
   </div>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-login">Login</a>
+    <div class="hamburger">&#9776;</div>
+  </div>
+</div>
 </nav>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <div class="close-btn" id="closeSidebar">&times;</div>
+  <a href="#about">About</a>
+  <a href="Course.html">Courses</a>
+  <a href="#contact">Contact</a>
+</div>
+
 
 <!-- SCROLL NAVBAR (sticky after hero) -->
 <nav id="nav2">
-  <div class="container nav-inner">
-    <div class="logo">Noetix</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="Course.html">Courses</a>
-      <a href="#contact">Contact</a>
-      <a href="#" style="color: #2563eb;">Login</a>
-    </div>
+<div class="container nav-inner">
+  <div class="logo">Noetix</div>
+
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="Course.html">Courses</a>
+    <a href="#contact">Contact</a>
   </div>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-login">Login</a>
+    <div class="hamburger">&#9776;</div>
+  </div>
+</div>
 </nav>
 
 
@@ -160,6 +180,22 @@ window.addEventListener('scroll', () => {
     nav2.classList.add('visible');
   }
 });
+
+const hamburgers = document.querySelectorAll('.hamburger');
+const sidebar = document.getElementById('sidebar');
+const closeBtn = document.getElementById('closeSidebar');
+
+hamburgers.forEach(hamburger => {
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.add('active');
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+});
+
+
 
 // Trigger on load
 window.dispatchEvent(new Event('scroll'));
