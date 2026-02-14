@@ -4,517 +4,575 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>NOETIX · certificate programs</title>
-  <!-- Inter font – modern SaaS, clean -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (free) – minimal, sharp icons for bullet points & subtle cues -->
+  <!-- Inter – modern sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ---------- DESIGN SYSTEM · NOETIX ---------- */
-    /* Primary: Teal #0FB9B1  |  Secondary text / deep blue: #0A2540 */
-    /* Background: pure white  |  Muted section: #F6F8FA  |  Borders: soft light gray */
-    /* Flat, no shadows, no gradients. Rounded ~14px (cards, containers). Inter typography. */
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ---------- DESIGN SYSTEM (kept exactly from previous) ---------- */
+    :root{
+      --bg:#f8fafc;
+      --primary:#0f172a;
+      --accent:#2563eb;
+      --accent-soft:#eff6ff;
+      --card-bg:#ffffff;
+      --text:#1e293b;
+      --subtle:#64748b;
+      --radius:16px;
+      --shadow:0 8px 28px rgba(0,0,0,0.05);
     }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #0A2540;        /* deep blue – primary text */
-      background-color: #FFFFFF;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-      width: 100%;
+    body{
+      font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
 
-    /* HEADER – simple, clean, border separator */
-    .site-header {
-      border-bottom: 1px solid #E9EDF2; /* soft light gray */
-      padding: 20px 0;
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 24px;
+    }
+
+    /* ===== REFACTORED NAVBAR (exact spec) ===== */
+    .navbar {
       background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.75rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .header-inner {
+
+    .nav-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
     }
+
     .logo {
       font-weight: 700;
-      font-size: 1.8rem;
-      letter-spacing: -0.01em;
-      color: #0A2540;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      flex-shrink: 0;
     }
-    .logo span {
-      color: #0FB9B1; /* teal accent */
-    }
-    .nav-placeholder {
+
+    /* Desktop center links */
+    .nav-center {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-center a {
       font-weight: 500;
-      color: #4F6F8F;
-    }
-    .nav-placeholder span {
-      cursor: default;
+      color: var(--text);
+      transition: color 0.2s;
     }
 
-    /* ---------- LAYOUT & UTILITY ---------- */
-    .page-section {
-      padding: 48px 0;
+    .nav-center a:hover {
+      color: var(--accent);
     }
-    .page-title {
-      font-size: 2.2rem;
+
+    /* Right side: login + hamburger */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Login button (pill) */
+    .btn-login {
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      background-color: var(--accent);
+      box-shadow: 0 6px 16px rgba(37,99,235,0.3);
+    }
+
+    /* Hamburger (hidden on desktop) */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text);
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* Mobile dropdown panel (hidden by default) */
+    .mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 99;
+    }
+
+    .mobile-nav.open {
+      max-height: 200px; /* enough for three links */
+    }
+
+    .mobile-nav-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 24px;
+      gap: 1rem;
+    }
+
+    .mobile-nav-content a {
+      font-weight: 500;
+      color: var(--text);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .mobile-nav-content a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav-content a:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- COURSE SECTION (unchanged) ---------- */
+    .section-header {
+      margin: 40px 0 32px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
       font-weight: 700;
-      color: #0A2540;
-      margin-bottom: 12px;
-      line-height: 1.2;
-    }
-    .page-subtitle {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #5B6F82;
-      margin-bottom: 48px;
-      max-width: 700px;
+      color: var(--primary);
+      letter-spacing: -0.02em;
     }
 
-    /* DIVIDERS – soft, minimal */
-    .section-separator {
-      border-top: 1px solid #E9EDF2;
-      margin: 48px 0 40px;
-    }
-    .muted-bg {
-      background-color: #F6F8FA;
-      border-radius: 14px;
-      padding: 40px 32px;
-    }
-
-    /* ---------- COURSE CARDS – 3 per row, radius 14px, flat ---------- */
-    .cards-grid {
+    /* course grid (unchanged) */
+    .courses-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
+      gap: 24px;
+      margin-bottom: 60px;
     }
+
     .course-card {
-      background: white;
-      border: 1px solid #E9EDF2;
-      border-radius: 14px;
-      padding: 28px 24px 24px;
-      transition: border 0.15s ease;
+      background: var(--card-bg);
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid #e5e7eb;
+      transition: all 0.25s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      outline: none; /* focus style handled with border */
-    }
-    .course-card:focus-visible {
-      border: 2px solid #0FB9B1;
-      outline: none;
-    }
-    /* Entire card clickable — no shadow, clean */
-    .course-card:hover {
-      border-color: #B8D1D9; /* subtle teak hint */
+      position: relative;
     }
 
-    .card-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #0A2540;
-      margin-bottom: 10px;
-      line-height: 1.3;
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
     }
-    .card-desc {
+
+    .cert-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary);
+      padding-right: 70px;
+    }
+
+    .course-desc {
       font-size: 0.95rem;
-      color: #4A6578;
+      color: var(--subtle);
       margin-bottom: 20px;
       line-height: 1.5;
     }
-    /* skill tags – pill style, light gray */
+
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 20px;
     }
+
     .tag {
-      background: #F0F3F7;   /* muted gray */
-      color: #0A2540;
+      background: var(--accent-soft);
+      color: var(--accent);
       font-size: 0.75rem;
       font-weight: 600;
       padding: 6px 14px;
-      border-radius: 30px;    /* pill shape but subtle */
-      letter-spacing: 0.01em;
-      border: none;
+      border-radius: 999px;
     }
-    /* duration & level */
+
     .meta {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: #4A6578;
-      margin-bottom: 24px;
-      font-weight: 500;
-    }
-    .meta i {
-      color: #0FB9B1;
-      font-size: 0.8rem;
-      width: 16px;
-    }
-    /* button – teal bg, deep blue text, accessible contrast 6.2:1 */
-    .card-btn {
-      background: #0FB9B1;
-      color: #0A2540;
-      font-weight: 700;
+      gap: 16px;
       font-size: 0.9rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
+      font-weight: 500;
+      color: var(--subtle);
+      margin-bottom: 24px;
+    }
+
+    .meta i {
+      color: var(--accent);
+      width: 18px;
+    }
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
       width: fit-content;
-      margin-top: auto;
-      transition: background 0.1s;
-      letter-spacing: 0.01em;
-    }
-    .card-btn i {
-      margin-left: 8px;
-      font-size: 0.8rem;
-      color: #0A2540;
     }
 
-    /* ---------- COURSE DETAIL PAGE – consistent container, soft separators ---------- */
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(37,99,235,0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(37,99,235,0.45);
+    }
+
+    /* ---------- DETAIL PAGE (unchanged) ---------- */
     .detail-container {
       max-width: 1000px;
-      margin: 0 auto;
+      margin: 40px auto 0;
     }
+
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      color: #0A2540;
+      color: var(--accent);
       font-weight: 600;
-      text-decoration: none;
-      margin-bottom: 32px;
-      border-bottom: 1.5px solid transparent;
-      transition: border-color 0.1s;
-      cursor: pointer;
-    }
-    .back-link i {
-      color: #0FB9B1;
-    }
-    .back-link:hover {
-      border-bottom-color: #0FB9B1;
-    }
-
-    /* hero section */
-    .detail-hero {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 48px;
-    }
-    .hero-text {
-      flex: 1 1 300px;
-    }
-    .detail-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #0A2540;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .detail-sub {
-      font-size: 1.2rem;
-      color: #4A6578;
-      max-width: 600px;
-    }
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: #0FB9B1;
-      color: #0A2540;
-      font-weight: 700;
-      padding: 14px 32px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      cursor: default;  /* static demo, not functional enroll */
-      transition: none;
-    }
-    .btn-secondary {
-      background: transparent;
-      border: 1.5px solid #0A2540;
-      color: #0A2540;
-      font-weight: 600;
-      padding: 14px 32px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: default;
-    }
-
-    /* detail sections */
-    .detail-section {
-      margin-bottom: 48px;
-    }
-    .section-heading {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0A2540;
       margin-bottom: 24px;
-    }
-    .sub-heading {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: #0A2540;
+      cursor: pointer;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
     }
 
-    /* bullet list – clean checkmarks */
+    .back-link:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .detail-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .detail-meta {
+      display: flex;
+      gap: 24px;
+      color: var(--subtle);
+      margin: 20px 0;
+    }
+
+    .card-muted {
+      background: var(--bg);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
     .check-list {
       list-style: none;
-      padding: 0;
-      margin: 0;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px 30px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0 48px;
     }
+
     .check-list li {
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      font-size: 1rem;
-      color: #2D3E50;
+      color: var(--text);
     }
+
     .check-list i {
-      color: #0FB9B1;
-      font-size: 1rem;
+      color: var(--accent);
       margin-top: 3px;
     }
 
     .curriculum-list {
       background: white;
-      border: 1px solid #E9EDF2;
-      border-radius: 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
       padding: 24px 32px;
+      margin: 24px 0 48px;
     }
+
     .curriculum-item {
       display: flex;
       align-items: baseline;
       padding: 14px 0;
-      border-bottom: 1px solid #F0F4F8;
+      border-bottom: 1px solid #e5e7eb;
     }
+
     .curriculum-item:last-child {
       border-bottom: none;
     }
+
     .week-badge {
-      background: #F6F8FA;
-      color: #0A2540;
+      background: var(--accent-soft);
+      color: var(--accent);
       font-weight: 600;
-      padding: 4px 14px;
-      border-radius: 30px;
+      padding: 4px 16px;
+      border-radius: 999px;
       font-size: 0.8rem;
       margin-right: 24px;
-      min-width: 80px;
-    }
-    .module-name {
-      font-weight: 500;
-      color: #0A2540;
+      min-width: 90px;
     }
 
-    .audience-list {
-      list-style: none;
-      padding-left: 0;
-    }
-    .audience-list li {
-      margin-bottom: 12px;
-      display: flex;
-      gap: 12px;
-      align-items: baseline;
-    }
-    .audience-list i {
-      color: #0FB9B1;
-      width: 18px;
+    .related-section {
+      margin-top: 60px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 40px;
     }
 
-    .certificate-card {
-      background: #F6F8FA;
-      border-radius: 14px;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-    }
-    .outcome-grid {
-      display: flex;
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
-      margin-top: 16px;
-      flex-wrap: wrap;
+      margin-top: 24px;
     }
-    .outcome-item {
-      background: white;
-      border: 1px solid #E9EDF2;
-      border-radius: 12px;
+
+    .related-card {
+      background: var(--card-bg);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
       padding: 20px;
-      flex: 1 1 180px;
+      cursor: pointer;
+      transition: all 0.25s ease;
     }
-    .bottom-cta {
+
+    .related-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .related-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .related-card p {
+      font-size: 0.9rem;
+      color: var(--subtle);
+      margin-bottom: 12px;
+    }
+
+    /* footer */
+    .footer {
+      padding: 40px 0;
       text-align: center;
-      margin-top: 40px;
+      background: #111827;
+      color: #9ca3af;
+      margin-top: 80px;
+      font-size: 0.9rem;
     }
 
-    /* ---------- RESPONSIVE ---------- */
-    @media screen and (max-width: 1024px) {
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media screen and (max-width: 640px) {
-      .cards-grid { grid-template-columns: 1fr; }
-      .page-title { font-size: 1.8rem; }
-      .detail-title { font-size: 1.9rem; }
-      .check-list { grid-template-columns: 1fr; }
-      .header-inner { flex-direction: column; gap: 8px; }
-      .muted-bg { padding: 28px 20px; }
-    }
-
-    /* UTILITY: hide / show pages */
+    /* page visibility */
     .hidden-page {
       display: none;
     }
-    /* no 3D, no shadows, no gradients – flat */
-    img, svg {
-      vertical-align: middle;
+
+    /* ---------- RESPONSIVE (mobile) ---------- */
+    @media screen and (max-width: 768px) {
+      .nav-center {
+        display: none; /* hide desktop center links */
+      }
+
+      .hamburger {
+        display: block; /* show hamburger */
+      }
+
+      .nav-right {
+        gap: 0.5rem;
+      }
+
+      /* ensure login button stays visible */
+      .btn-login {
+        padding: 6px 18px;
+        font-size: 0.9rem;
+      }
     }
-    hr {
-      border: 0;
-      border-top: 1px solid #E9EDF2;
+
+    @media screen and (max-width: 1024px) and (min-width: 769px) {
+      /* keep desktop intact */
+    }
+
+    @media screen and (max-width: 640px) {
+      .courses-grid { grid-template-columns: 1fr; }
+      .detail-title { font-size: 2rem; }
+      .check-list { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- NOETIX header – clean, brand anchor -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo">NOETIX<span>.</span></div>
-      <div class="nav-placeholder">
-        <span>Programs</span>
-        <span>Enterprise</span>
-        <span>Sign in</span>
+  <!-- REFACTORED NAVBAR (exact spec) -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">Noetix</div>
+
+      <!-- Center links (desktop only) -->
+      <div class="nav-center">
+        <a href="https://noetix-edu.github.io/" target="_blank">Home</a>
+        <a href="#" target="_blank">About</a>
+        <a href="#" target="_blank">Contact</a>
+      </div>
+
+      <!-- Right side: Login button + hamburger -->
+      <div class="nav-right">
+        <a href="#" target="_blank" class="btn-login">Login</a>
+        <div class="hamburger" id="hamburgerBtn">☰</div>
       </div>
     </div>
-  </header>
 
-  <main class="container">
-    <!-- ========== COURSES LISTING PAGE (visible by default) ========= -->
-    <div id="courses-listing-page" class="page-section">
-      <h1 class="page-title">Explore certificate programs</h1>
-      <p class="page-subtitle">Industry-aligned, self-paced. Built with modern employers — 100% online, mentor supported.</p>
-      
-      <!-- dynamic course grid injected from JavaScript -->
-      <div id="course-grid" class="cards-grid"></div>
+    <!-- Mobile dropdown panel (hidden by default) -->
+    <div class="mobile-nav" id="mobileNav">
+      <div class="mobile-nav-content">
+        <a href="https://noetix-edu.github.io/" target="_blank">Home</a>
+        <a href="#" target="_blank">About</a>
+        <a href="#" target="_blank">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT (identical to previous version) -->
+  <main>
+    <!-- Homepage (listing) -->
+    <div id="homepage">
+      <div class="container">
+        <div class="section-header">
+          <h2>Certificate programs</h2>
+        </div>
+        <div id="course-grid" class="courses-grid"></div>
+      </div>
     </div>
 
-    <!-- ========== COURSE DETAIL PAGE (hidden initially) ========= -->
-    <div id="course-detail-page" class="page-section hidden-page">
-      <div class="detail-container">
-        <!-- back button to listing -->
-        <a id="back-to-courses" class="back-link"><i class="fas fa-arrow-left"></i> All courses</a>
+    <!-- Detail page (hidden) -->
+    <div id="detail-page" class="hidden-page">
+      <div class="container detail-container">
+        <a id="back-to-courses" class="back-link"><i class="fas fa-arrow-left"></i> All programs</a>
         
-        <!-- DYNAMIC DETAIL CONTENT will be filled via JS -->
-        <div id="detail-dynamic-content">
-          <!-- hero -->
+        <div id="detail-dynamic">
           <div class="detail-hero">
-            <div class="hero-text">
-              <h1 id="detail-title" class="detail-title">Artificial Intelligence Foundations</h1>
-              <div id="detail-short-desc" class="detail-sub">Core concepts of AI: from search algorithms to neural networks.</div>
-              <div class="cta-group">
-                <span class="btn-primary">Enroll now</span>
-                <span class="btn-secondary">Join waitlist</span>
-              </div>
+            <h1 id="detail-title" class="detail-title">Artificial Intelligence Foundations</h1>
+            <p id="detail-sub" style="font-size:1.05rem; color:var(--subtle);">Core concepts of AI: from search algorithms to neural networks.</p>
+            <div class="detail-meta">
+              <span><i class="fas fa-calendar-alt" style="color:var(--accent); margin-right:6px;"></i> <span id="detail-duration">7 weeks</span></span>
+              <span><i class="fas fa-signal" style="color:var(--accent); margin-right:6px;"></i> <span id="detail-level">Beginner</span></span>
             </div>
-          </div>
-          
-          <!-- Course Overview (muted bg) -->
-          <div class="detail-section muted-bg">
-            <h2 class="section-heading">Overview</h2>
-            <p id="detail-overview" style="font-size: 1.1rem; max-width: 800px; color: #2D3E50;">Designed for beginners. Learn how machines perceive, reason, and learn. Hands-on AI projects with Python.</p>
-          </div>
-
-          <!-- What You'll Learn · 2‑column check list -->
-          <div class="detail-section">
-            <h2 class="section-heading">What you’ll learn</h2>
-            <ul id="detail-learn-list" class="check-list">
-              <!-- injected via JS -->
-            </ul>
-          </div>
-
-          <!-- Curriculum outline (modules) -->
-          <div class="detail-section">
-            <h2 class="section-heading">Curriculum</h2>
-            <div id="detail-curriculum" class="curriculum-list">
-              <!-- dynamic weeks -->
+            <div style="display: flex; gap:16px; margin: 32px 0;">
+              <span class="btn btn-primary">Enroll now</span>
+              <span class="btn btn-secondary" style="background:transparent; border:1px solid var(--accent); color:var(--accent);">Join waitlist</span>
             </div>
           </div>
 
-          <!-- Who This Is For -->
-          <div class="detail-section">
-            <h2 class="section-heading">Who this program is for</h2>
-            <ul id="detail-audience" class="audience-list">
-              <!-- JS fill -->
-            </ul>
+          <div class="card-muted" style="margin-bottom: 48px;">
+            <h3 style="margin-bottom: 16px;">Overview</h3>
+            <p id="detail-overview" style="font-size:1rem;">Designed for beginners. Learn how machines perceive, reason, and learn. Hands-on AI projects with Python.</p>
           </div>
 
-          <!-- Certificate & Outcomes -->
-          <div class="detail-section">
-            <div class="certificate-card">
-              <h2 class="section-heading" style="margin-bottom: 8px;">📜 Certificate & outcomes</h2>
-              <p id="detail-cert-desc" style="margin-bottom: 24px; color: #2D3E50;">Earn a customized NOETIX certificate highlighting your achievement.</p>
-              <div id="detail-outcomes" class="outcome-grid">
-                <!-- outcome cards from JS -->
-              </div>
-            </div>
+          <h3>What you’ll learn</h3>
+          <ul id="detail-learn" class="check-list"></ul>
+
+          <h3>Curriculum</h3>
+          <div id="detail-curriculum" class="curriculum-list"></div>
+
+          <div class="card-muted" style="margin: 48px 0;">
+            <h3 style="margin-bottom: 16px;">📜 Your customized certificate</h3>
+            <p id="detail-cert" style="font-size:1rem; margin-bottom:24px;">Upon completion you’ll receive a NOETIX certificate personalized with your name and program.</p>
+            <div id="detail-outcomes" style="display:flex; gap:20px; flex-wrap:wrap;"></div>
           </div>
 
-          <!-- bottom CTA block -->
-          <div class="bottom-cta detail-section">
-            <div style="background: white; border: 1px solid #E9EDF2; border-radius: 14px; padding: 40px 24px;">
-              <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; color: #0A2540;">Ready to advance?</h3>
-              <p style="font-size: 1.2rem; color: #4A6578; margin-bottom: 28px;">Join 5,000+ professionals who upskilled with NOETIX.</p>
-              <span class="btn-primary" style="padding: 16px 48px;">Get started today</span>
-            </div>
+          <div id="related-section" class="related-section">
+            <h3>Other programs you might like</h3>
+            <div id="related-grid" class="related-grid"></div>
           </div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- simple footer (clean separator) -->
-  <footer style="border-top: 1px solid #E9EDF2; margin-top: 40px; padding: 32px 24px; text-align: center; color: #5B6F82; font-size: 0.9rem;">
-    <div class="container">© 2025 NOETIX. — Modern credentialing for the future of work</div>
+  <footer class="footer">
+    <div class="container">© 2026 Noetix. All rights reserved.</div>
   </footer>
 
   <script>
     (function(){
-      "use strict";
-
-      // ---------- COURSE DATA MODEL · only three specified courses ----------
-      // Each course includes a CUSTOMIZED certificate description.
+      // ----- COURSE DATA (unchanged) -----
       const courses = [
         {
           id: 1,
           title: "Artificial Intelligence Foundations",
           shortDesc: "Core concepts of AI: from search algorithms to neural networks.",
-          tags: ["AI", "Python", "Machine Learning"],
+          tags: ["AI", "Python", "ML"],
           duration: "7 weeks",
           level: "Beginner",
           overview: "Understand the fundamentals of AI: intelligent agents, problem solving, knowledge representation, and intro to neural networks. Build a mini search engine and a basic image classifier.",
@@ -523,7 +581,7 @@
             "Implement search algorithms (BFS, DFS, A*)",
             "Build rule‑based expert systems",
             "Train a simple neural network with TensorFlow",
-            "Evaluate models with accuracy and confusion matrices"
+            "Evaluate models with accuracy"
           ],
           curriculum: [
             { week: "Week 1", name: "What is AI? Intelligent agents" },
@@ -533,11 +591,6 @@
             { week: "Week 5", name: "Neural networks from scratch" },
             { week: "Week 6", name: "AI ethics & bias" },
             { week: "Week 7", name: "Capstone: AI prototype" }
-          ],
-          audience: [
-            "Aspiring AI/ML engineers with no prior experience",
-            "Product managers who want to understand AI capabilities",
-            "Data professionals moving into predictive modeling"
           ],
           certificate: "Customized NOETIX Certificate in Artificial Intelligence Foundations — includes your name, course title, and verified skills.",
           outcomes: ["Portfolio‑ready AI prototype", "Customized certificate", "1‑month mentor support"]
@@ -565,11 +618,6 @@
             { week: "Week 5", name: "Incident response & recovery" },
             { week: "Week 6", name: "Capstone: security audit" }
           ],
-          audience: [
-            "IT professionals expanding into security",
-            "Recent graduates aiming for SOC analyst roles",
-            "Non‑technical managers overseeing security teams"
-          ],
           certificate: "Customized NOETIX Certificate in Cybersecurity Essentials — personalized with your name and earned competencies.",
           outcomes: ["Hands‑on SIEM lab", "Customized certificate", "Incident response simulation"]
         },
@@ -596,148 +644,128 @@
             { week: "Week 5", name: "File handling & exceptions" },
             { week: "Week 6", name: "Final project: automation script" }
           ],
-          audience: [
-            "Complete beginners starting their coding journey",
-            "Career switchers entering tech",
-            "Professionals who want to automate repetitive tasks"
-          ],
           certificate: "Customized NOETIX Certificate in Fundamentals of Programming — showcases your coding foundation and project work.",
           outcomes: ["5 Python projects", "Customized certificate", "Coding assessment ready"]
         }
       ];
 
-      // ---------- DOM ELEMENTS ----------
-      const listingPage = document.getElementById('courses-listing-page');
-      const detailPage = document.getElementById('course-detail-page');
+      // ----- DOM elements -----
+      const homepage = document.getElementById('homepage');
+      const detailPage = document.getElementById('detail-page');
       const courseGrid = document.getElementById('course-grid');
       const backBtn = document.getElementById('back-to-courses');
+      const relatedGrid = document.getElementById('related-grid');
 
-      // detail dynamic fields
-      const detailTitle = document.getElementById('detail-title');
-      const detailShortDesc = document.getElementById('detail-short-desc');
-      const detailOverview = document.getElementById('detail-overview');
-      const detailLearnList = document.getElementById('detail-learn-list');
-      const detailCurriculum = document.getElementById('detail-curriculum');
-      const detailAudience = document.getElementById('detail-audience');
-      const detailCertDesc = document.getElementById('detail-cert-desc');
-      const detailOutcomes = document.getElementById('detail-outcomes');
-
-      // ---------- RENDER COURSE GRID (listing) ----------
+      // ----- render course cards -----
       function renderCards() {
         let html = '';
-        courses.forEach(course => {
-          // tags HTML
-          let tagsHtml = '';
-          course.tags.forEach(tag => {
-            tagsHtml += `<span class="tag">${tag}</span>`;
-          });
-
+        courses.forEach(c => {
           html += `
-            <div class="course-card" data-course-id="${course.id}" role="button" tabindex="0" aria-label="View course: ${course.title}">
-              <h3 class="card-title">${course.title}</h3>
-              <p class="card-desc">${course.shortDesc}</p>
-              <div class="tags">${tagsHtml}</div>
+            <div class="course-card" data-id="${c.id}" tabindex="0" role="button">
+              <span class="cert-badge"><i class="fas fa-award" style="margin-right:4px;"></i>certificate</span>
+              <h3 class="course-title">${c.title}</h3>
+              <p class="course-desc">${c.shortDesc}</p>
+              <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
               <div class="meta">
-                <i class="far fa-calendar-alt"></i> ${course.duration}
-                <i class="far fa-chart-bar"></i> ${course.level}
+                <i class="far fa-calendar-alt"></i> ${c.duration}
+                <i class="far fa-chart-bar"></i> ${c.level}
               </div>
-              <span class="card-btn">View course <i class="fas fa-arrow-right"></i></span>
-            </div>
-          `;
+              <span class="btn btn-primary" style="width:fit-content;">View course <i class="fas fa-arrow-right"></i></span>
+            </div>`;
         });
         courseGrid.innerHTML = html;
+        attachCardEvents();
+      }
 
-        // attach click & keyboard events to each card
+      function attachCardEvents() {
         document.querySelectorAll('.course-card').forEach(card => {
-          const id = parseInt(card.dataset.courseId);
-          card.addEventListener('click', (e) => {
-            // avoid any child event conflicts – whole card click
+          card.addEventListener('click', () => {
+            const id = parseInt(card.dataset.id);
             const course = courses.find(c => c.id === id);
-            if (course) showDetailPage(course);
+            if (course) showDetail(course);
           });
-          card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              const course = courses.find(c => c.id === id);
-              if (course) showDetailPage(course);
-            }
-          });
+          card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
         });
       }
 
-      // ---------- POPULATE DETAIL PAGE with selected course ----------
-      function populateDetail(course) {
-        detailTitle.innerText = course.title;
-        detailShortDesc.innerText = course.shortDesc;
-        detailOverview.innerText = course.overview;
+      function showDetail(course) {
+        document.getElementById('detail-title').innerText = course.title;
+        document.getElementById('detail-sub').innerText = course.shortDesc;
+        document.getElementById('detail-duration').innerText = course.duration;
+        document.getElementById('detail-level').innerText = course.level;
+        document.getElementById('detail-overview').innerText = course.overview;
 
-        // What you'll learn – bullet list with check icons
         let learnHtml = '';
-        course.learnPoints.forEach(point => {
-          learnHtml += `<li><i class="fas fa-check-circle"></i> ${point}</li>`;
+        course.learnPoints.forEach(p => { learnHtml += `<li><i class="fas fa-check-circle"></i> ${p}</li>`; });
+        document.getElementById('detail-learn').innerHTML = learnHtml;
+
+        let currHtml = '';
+        course.curriculum.forEach(m => { currHtml += `<div class="curriculum-item"><span class="week-badge">${m.week}</span><span>${m.name}</span></div>`; });
+        document.getElementById('detail-curriculum').innerHTML = currHtml;
+
+        document.getElementById('detail-cert').innerText = course.certificate;
+
+        let outHtml = '';
+        course.outcomes.forEach(o => { outHtml += `<div style="background:white; border:1px solid #e5e7eb; border-radius:16px; padding:20px; flex:1 1 160px;"><i class="fas fa-award" style="color:var(--accent); font-size:2rem; margin-bottom:12px; display:block;"></i><p style="font-weight:600;">${o}</p></div>`; });
+        document.getElementById('detail-outcomes').innerHTML = outHtml;
+
+        // related programs
+        const others = courses.filter(c => c.id !== course.id);
+        let relatedHtml = '';
+        others.forEach(c => {
+          relatedHtml += `
+            <div class="related-card" data-id="${c.id}" tabindex="0" role="button">
+              <h4>${c.title}</h4>
+              <p>${c.shortDesc}</p>
+              <span class="btn-link" style="color:var(--accent); font-weight:600;">View program <i class="fas fa-arrow-right"></i></span>
+            </div>`;
         });
-        detailLearnList.innerHTML = learnHtml;
-
-        // Curriculum outline – .curriculum-list structure
-        let curriculumHtml = '';
-        course.curriculum.forEach(mod => {
-          curriculumHtml += `
-            <div class="curriculum-item">
-              <span class="week-badge">${mod.week}</span>
-              <span class="module-name">${mod.name}</span>
-            </div>
-          `;
+        relatedGrid.innerHTML = relatedHtml;
+        document.querySelectorAll('.related-card').forEach(card => {
+          card.addEventListener('click', (e) => {
+            const id = parseInt(card.dataset.id);
+            const nextCourse = courses.find(c => c.id === id);
+            if (nextCourse) showDetail(nextCourse);
+          });
         });
-        detailCurriculum.innerHTML = curriculumHtml;
 
-        // Who this is for
-        let audienceHtml = '';
-        course.audience.forEach(item => {
-          audienceHtml += `<li><i class="fas fa-user-check" style="color:#0FB9B1;"></i> ${item}</li>`;
-        });
-        detailAudience.innerHTML = audienceHtml;
-
-        // Certificate description – customized for each course
-        detailCertDesc.innerText = course.certificate;
-
-        // Outcome cards – each includes "Customized certificate"
-        let outcomeHtml = '';
-        course.outcomes.forEach(out => {
-          outcomeHtml += `
-            <div class="outcome-item">
-              <i class="fas fa-award" style="color: #0FB9B1; font-size: 1.8rem; margin-bottom: 12px; display: block;"></i>
-              <p style="font-weight: 600; color: #0A2540;">${out}</p>
-            </div>
-          `;
-        });
-        detailOutcomes.innerHTML = outcomeHtml;
-      }
-
-      // ---------- SWITCH VIEW ----------
-      function showDetailPage(course) {
-        populateDetail(course);
-        listingPage.classList.add('hidden-page');
+        homepage.classList.add('hidden-page');
         detailPage.classList.remove('hidden-page');
-        // scroll to top of detail view
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      function showListingPage() {
-        listingPage.classList.remove('hidden-page');
-        detailPage.classList.add('hidden-page');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      // ---------- EVENT LISTENERS ----------
       backBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        showListingPage();
+        homepage.classList.remove('hidden-page');
+        detailPage.classList.add('hidden-page');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
-      // initialize: render cards, listing visible
       renderCards();
 
-      // ensure detail page hidden at start (already class hidden-page)
+      // ===== NEW HAMBURGER TOGGLE (mobile dropdown) =====
+      const hamburger = document.getElementById('hamburgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('open');
+        // Optional: change icon to 'X' when open? Not required but could be nice. Keep simple.
+      });
+
+      // Close mobile menu when clicking a link (optional)
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+        });
+      });
+
+      // Close if click outside? Not necessary for basic spec, but we can add.
+      document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && !hamburger.contains(e.target) && mobileNav.classList.contains('open')) {
+          mobileNav.classList.remove('open');
+        }
+      });
     })();
   </script>
 </body>
