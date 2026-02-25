@@ -241,7 +241,7 @@ nav .nav-inner{
   font-weight:700;
   letter-spacing:-0.03em;
   max-width:760px;
-  margin:0 auto 16px;
+  margin:2rem auto 16px;
   background:linear-gradient(90deg,#0f172a,#2563eb);
   background-clip:text;
   -webkit-background-clip:text;
@@ -317,6 +317,18 @@ nav .nav-inner{
   line-height:1.5;
 }
 
+.see-more{
+  margin-top:18px;
+  padding: 0 2rem;
+  text-align:right;
+}
+
+.see-more a{
+  text-decoration:none;
+  font-weight:600;
+  color:var(--accent);
+}
+
 /* CTA SECTION */
 .cta{
   text-align:center;
@@ -355,5 +367,11 @@ footer{
   }
   .section{
     padding:60px 0;
+  }
+  .section h2{
+    text-align: center;
+  }
+  .see-more{
+    text-align: center;
   }
 }
