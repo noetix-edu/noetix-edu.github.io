@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>NOETIX · About</title>
+  <!-- Inter – modern sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- NOETIX DESIGN SYSTEM (updated color theme) ---------- */
+    :root{
+      --bg: #f8fafc;
+      --primary: #0f172a;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --accent-soft: #eff6ff;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --subtle: #64748b;
+      --border-light: #E2E8F0;
+      --radius: 16px;
+      --shadow: 0 8px 28px rgba(0,0,0,0.05);
+      --container-max: 1100px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #FFFFFF;
+      color: var(--text);
+      line-height:1.6;
+      padding-top: 70px; /* fixed navbar */
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      max-width: var(--container-max);
+      margin:0 auto;
+      padding:0 24px;
+    }
+
+    /* ---------- NAVBAR (updated colors) ---------- */
+    nav{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:999;
+      transition: all 0.3s ease;
+      font-family:'Inter', sans-serif;
+      background: white;
+      border-bottom: 1px solid var(--border-light);
+    }
+    nav .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0.75rem 1.5rem;
+      max-width: var(--container-max);
+      margin:0 auto;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    /* Desktop center links */
+    .nav-center {
+      display: flex;
+      gap: 2.5rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-center a {
+      font-weight: 500;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .nav-center a:hover {
+      color: var(--accent);
+    }
+    /* Right side: login + hamburger */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .btn-login {
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      background-color: var(--accent-dark);
+      box-shadow: 0 6px 16px rgba(37,99,235,0.3);
+    }
+    /* Hamburger (hidden on desktop) */
+    .hamburger {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text);
+      line-height: 1;
+      user-select: none;
+    }
+    /* Mobile dropdown panel */
+    .mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: white;
+      border-bottom: 1px solid var(--border-light);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 99;
+    }
+    .mobile-nav.open {
+      max-height: 200px;
+    }
+    .mobile-nav-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 24px;
+      gap: 1rem;
+    }
+    .mobile-nav-content a {
+      font-weight: 500;
+      color: var(--text);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .mobile-nav-content a:last-child {
+      border-bottom: none;
+    }
+    .mobile-nav-content a:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- BUTTONS & CARDS (updated colors) ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1.5px solid transparent;
+      background: transparent;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+      box-shadow: 0 10px 28px rgba(37,99,235,0.45);
+    }
+    .btn-secondary {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn-secondary:hover {
+      background: var(--accent-soft);
+    }
+
+    /* cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .card-muted {
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    /* section spacing */
+    .section {
+      padding: 60px 0;
+    }
+    .section-sm {
+      padding: 40px 0;
+    }
+    .section-header {
+      margin-bottom: 40px;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--subtle);
+      max-width: 720px;
+    }
+
+    /* grid system */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    /* hero */
+    .hero {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--subtle);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* footer */
+    .footer {
+      padding: 40px 0;
+      text-align: center;
+      background: #111827;
+      color: #9ca3af;
+      margin-top: 80px;
+      font-size: 0.9rem;
+    }
+
+    /* responsive */
+    @media screen and (max-width: 1024px) {
+      .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media screen and (max-width: 768px) {
+      .nav-center { display: none; }
+      .hamburger { display: block; }
+      .nav-right { gap: 0.5rem; }
+      .btn-login { padding: 6px 18px; font-size: 0.9rem; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR (updated colors) -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">Noetix</div>
+      <div class="nav-center">
+        <a href="index.html" target="_blank">Home</a>
+        <a href="Course.html" target="_blank">Courses</a>
+        <a href="#" target="_blank">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a href="#" target="_blank" class="btn-login">Login</a>
+        <div class="hamburger" id="hamburgerBtn">☰</div>
+      </div>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <div class="mobile-nav-content">
+        <a href="index" target="_blank">Home</a>
+        <a href="Course" target="_blank">Courses</a>
+        <a href="#" target="_blank">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <h1>About NOETIX</h1>
+        <p>Building future-ready technical skills for students through industry-aligned, project-driven learning.</p>
+      </div>
+    </section>
+
+    <!-- MISSION & VISION (two cards) -->
+    <section class="section">
+      <div class="container">
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">Our Mission</h3>
+            <p style="color: var(--subtle);">To bridge the future skills gap by equipping school students with practical, career‑focused technical competencies — from AI and cybersecurity to core programming — through structured, self‑paced programs.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">Our Vision</h3>
+            <p style="color: var(--subtle);">To become a trusted learning partner for schools by building a scalable, credible platform that integrates skill-based education into mainstream schooling, enabling students to develop relevant competencies early in their academic journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT MAKES NOETIX DIFFERENT (3 features) -->
+    <section class="section-sm" style="background: var(--bg);">
+      <div class="container">
+        <div class="section-header">
+          <h2>What makes NOETIX different</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <i class="fas fa-microchip" style="color: var(--accent); font-size: 2rem; margin-bottom: 20px; display: block;"></i>
+            <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px;">Industry‑aligned curriculum</h3>
+            <p style="color: var(--subtle);">Designed with input from tech employers so you learn exactly what the industry needs.</p>
+          </div>
+          <div class="card">
+            <i class="fas fa-laptop-code" style="color: var(--accent); font-size: 2rem; margin-bottom: 20px; display: block;"></i>
+            <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px;">Certification-Focused Learning</h3>
+            <p style="color: var(--subtle);">Students earn certifications that validate their skills and strengthen their academic and career profiles.</p>
+          </div>
+          <div class="card">
+            <i class="fas fa-clock" style="color: var(--accent); font-size: 2rem; margin-bottom: 20px; display: block;"></i>
+            <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px;">Self‑paced programs</h3>
+            <p style="color: var(--subtle);">Learn on your own schedule with 6–12 week programs that fit around school and life.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO WE SERVE + OUR APPROACH (two cards) -->
+    <section class="section">
+      <div class="container">
+        <div class="grid-2">
+          <div class="card-muted">
+            <h3 style="font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">Who we serve</h3>
+            <p style="color: var(--subtle); margin-bottom: 16px;">NOETIX is built for school students, beginners, and aspiring technologists who want to gain practical skills before college or the workforce. No prior experience required — just curiosity and drive.</p>
+            <p style="color: var(--subtle);">Our programs are also trusted by educators and after‑school programs looking to offer future‑ready credentials.</p>
+          </div>
+          <div class="card-muted">
+            <h3 style="font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">Our approach</h3>
+            <p style="color: var(--subtle); margin-bottom: 16px;">We break complex topics into structured learning paths: concise videos, hands‑on exercises, and real‑world projects. Each program ends with a customized, verifiable certificate that showcases your new skills.</p>
+            <p style="color: var(--subtle);">Our platform is purpose-built for school learners, focusing on clarity, accessibility, and outcomes. NOETIX is not just another online course marketplace. We work closely with schools to integrate skill-based learning into the academic journey, ensuring students gain relevant competencies alongside their formal education.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="section-sm" style="background: var(--bg);">
+      <div class="container" style="text-align: center;">
+        <h2 style="font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">Start building future‑ready skills</h2>
+        <p style="font-size: 1.1rem; color: var(--subtle); max-width: 600px; margin: 0 auto 32px;">Join thousands of students who’ve already earned NOETIX certificates.</p>
+        <a href="#" class="btn btn-primary">Explore Courses</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Noetix. All rights reserved.</div>
+  </footer>
+
+  <!-- HAMBURGER TOGGLE SCRIPT (identical to courses page) -->
+  <script>
+    (function(){
+      const hamburger = document.getElementById('hamburgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileNav.classList.toggle('open');
+      });
+
+      mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!mobileNav.contains(e.target) && !hamburger.contains(e.target) && mobileNav.classList.contains('open')) {
+          mobileNav.classList.remove('open');
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
+
