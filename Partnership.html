@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Noetix · Request Partnership Proposal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ─── DESIGN SYSTEM ─────────────────────────────────────────── */
+    :root {
+      --bg:           #f8fafc;
+      --primary:      #0f172a;
+      --accent:       #2563eb;
+      --accent-soft:  #eff6ff;
+      --card-bg:      #ffffff;
+      --text:         #1e293b;
+      --subtle:       #64748b;
+      --radius:       16px;
+      --shadow:       0 8px 28px rgba(0,0,0,0.05);
+      /* extended tokens (never override roots above) */
+      --border:       #e2e8f0;
+      --shadow-hover: 0 16px 40px rgba(0,0,0,0.09);
+      --container:    1200px;
+      --space-section: 80px;
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding-top: 64px; /* fixed navbar height */
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── CONTAINER ─────────────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── NAVBAR ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 64px;
+      z-index: 999;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 2.5rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-center a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .nav-center a:hover { color: var(--accent); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-login {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-login:hover {
+      background: #1d4ed8;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--text);
+      line-height: 1;
+      padding: 4px;
+    }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      position: absolute;
+      top: 64px; left: 0;
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.28s ease-out;
+      z-index: 998;
+    }
+
+    .mobile-nav.open { max-height: 220px; }
+
+    .mobile-nav-content {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 24px 20px;
+      gap: 0;
+    }
+
+    .mobile-nav-content a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text);
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .mobile-nav-content a:last-child { border-bottom: none; }
+    .mobile-nav-content a:hover { color: var(--accent); }
+
+    /* ─── SECTION SPACING ───────────────────────────────────────── */
+    .section     { padding: var(--space-section) 0; }
+    .section-sm  { padding: 64px 0; }
+
+    /* ─── TYPOGRAPHY HIERARCHY ──────────────────────────────────── */
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    /* h1: appears once, in hero */
+    h1 { font-size: clamp(2.2rem, 4vw, 3rem); }
+
+    /* h2: section headings */
+    h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      margin-bottom: 40px;
+    }
+
+    /* h3: card / sub-section headings */
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--subtle);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    /* ─── BADGE ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.01em;
+      padding: 5px 16px;
+      border-radius: 999px;
+      margin: 20px 0 28px;
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+      border: 1.5px solid transparent;
+      background: transparent;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      min-width: 200px;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.28);
+    }
+
+    /* active press: subtle sink */
+    .btn-primary:active { box-shadow: none; }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── FOCUS-VISIBLE (accessibility) ────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .form-control:focus-visible {
+      outline: none; /* handled by box-shadow below */
+    }
+
+    /* ─── CARDS ─────────────────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 32px;
+      border: 1px solid transparent;
+      transition: box-shadow 0.22s, border-color 0.22s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: #e2e8f0;
+    }
+
+    .card p { max-width: 100%; }
+
+    /* ─── 3-COLUMN GRID ─────────────────────────────────────────── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 72px;
+      text-align: center;
+    }
+
+    .hero h1 { margin-bottom: 16px; }
+
+    .hero .hero-sub {
+      font-size: 1.1rem;
+      margin: 0 auto 0;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .hero .badge { margin: 24px 0 32px; }
+
+    /* ─── FORM SECTION ──────────────────────────────────────────── */
+    .form-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 48px;
+      border: 1px solid transparent;
+    }
+
+    .form-section-title {
+      margin-bottom: 32px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 40px;
+      align-items: start;
+    }
+
+    /* ─── FORM CONTROLS ─────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.005em;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      line-height: 1;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-control::placeholder { color: #94a3b8; }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    /* Select: custom arrow, right padding to avoid overlap */
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 44px; /* prevent text overlapping arrow */
+      cursor: pointer;
+    }
+
+    /* Textarea: full height control */
+    textarea.form-control {
+      height: auto;
+      min-height: 108px;
+      max-height: 240px;
+      padding: 14px 16px;
+      line-height: 1.6;
+      resize: vertical;
+    }
+
+    /* Required asterisk */
+    .req { color: var(--accent); }
+
+    /* ─── CHECKBOX ──────────────────────────────────────────────── */
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 28px 0 32px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .checkbox-row label {
+      font-size: 0.9rem;
+      color: var(--subtle);
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    /* ─── SUBMIT AREA ───────────────────────────────────────────── */
+    .submit-area {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* ─── FORM FOOTER ───────────────────────────────────────────── */
+    .form-footer {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .form-footer p {
+      display: inline;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      max-width: 100%;
+    }
+
+    .form-footer p + p::before {
+      content: " · ";
+      color: #cbd5e1;
+    }
+
+    /* ─── SUCCESS CARD ──────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 64px 48px;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .success-card .success-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      margin: 0 auto 24px;
+    }
+
+    .success-card .success-icon i {
+      color: var(--accent);
+      font-size: 1.5rem;
+    }
+
+    .success-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .success-card p {
+      margin: 0 auto;
+      max-width: 420px;
+    }
+
+    .success-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 28px auto;
+    }
+
+    .success-cta-label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 16px !important;
+      max-width: 100%;
+    }
+
+    .btn-speak {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+      border: 1.5px solid var(--primary);
+      transition: background 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-speak:hover {
+      background: #1e293b;
+      box-shadow: 0 6px 20px rgba(15,23,42,0.2);
+    }
+
+    .btn-speak i { font-size: 0.85rem; }
+
+    /* ─── MODAL ─────────────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.14);
+      padding: 48px 40px 40px;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      animation: slideUp 0.25s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--subtle);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .modal-close:hover { background: #f1f5f9; color: var(--text); }
+
+    .modal-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-icon i { color: var(--accent); font-size: 1.2rem; }
+
+    .modal-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+
+    .modal-card > p {
+      font-size: 0.9rem;
+      max-width: 100%;
+      margin-bottom: 28px;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+    }
+
+    .modal-option:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 2px 12px rgba(37,99,235,0.08);
+    }
+
+    .option-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--subtle);
+      font-size: 0.9rem;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .modal-option:hover .option-icon {
+      background: #dbeafe;
+      color: var(--accent);
+    }
+
+    .option-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .option-label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .option-detail {
+      font-size: 0.82rem;
+      color: var(--subtle);
+    }
+
+    /* hidden utility */
+    .hidden { display: none !important; }
+
+    /* ─── MAIN FOOTER ───────────────────────────────────────────── */
+    .main-footer {
+      background: var(--primary);
+      color: #cbd5e1;
+      padding: 36px 0;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .main-footer p {
+      font-size: 0.875rem;
+      color: #64748b;
+      max-width: 100%;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      :root { --space-section: 64px; }
+
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+
+      .nav-center { display: none; }
+      .hamburger  { display: block; }
+      .nav-right  { gap: 0.75rem; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --space-section: 48px; }
+
+      .grid-3 { grid-template-columns: 1fr; }
+
+      .hero { padding: 48px 0 40px; }
+
+      .form-section { padding: 32px 20px; }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .submit-area {
+        justify-content: stretch;
+      }
+
+      .submit-area .btn {
+        width: 100%;
+      }
+
+      h2 { margin-bottom: 28px; }
+
+      .btn-login { height: 34px; padding: 0 16px; font-size: 0.875rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .form-section { padding: 28px 16px; }
+      .success-card { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Noetix</div>
+
+    <div class="nav-center">
+      <a href="about.html">About</a>
+      <a href="course.html">Courses</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="nav-right">
+      <button class="btn-login" type="button">Login</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="mobile-nav-content">
+      <a href="about.html">About</a>
+      <a href="course.html">Courses</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="container">
+      <h1>Request a Partnership Proposal</h1>
+      <p class="hero-sub">Submit your institution details to receive a structured program overview and partnership outline.</p>
+      <div class="badge">Founding School Cohort — Limited Enrollment</div>
+      <a href="#partnership-form" class="btn btn-primary">Request Proposal</a>
+    </div>
+  </section>
+
+  <!-- ══════════ WHAT TO EXPECT ══════════ -->
+  <section class="section">
+    <div class="container">
+      <h2>What to Expect</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Review &amp; Qualification</h3>
+          <p>We review your institution details and confirm program suitability.</p>
+        </div>
+        <div class="card">
+          <h3>Proposal Overview</h3>
+          <p>You receive a structured outline of program format, delivery model, and certification process.</p>
+        </div>
+        <div class="card">
+          <h3>Optional Follow&#8209;Up Call</h3>
+          <p>A short coordination call to finalize timelines and execution details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FORM SECTION ══════════ -->
+  <section id="partnership-form" class="section-sm">
+    <div class="container">
+      <h2 class="form-section-title">Institution Details</h2>
+
+      <!-- FORM CARD -->
+      <div id="formCard" class="form-section">
+        <form id="partnerForm" novalidate>
+
+          <div class="form-grid">
+            <!-- LEFT COLUMN -->
+            <div>
+              <div class="form-group">
+                <label for="schoolName">School Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="schoolName" name="schoolName" class="form-control" placeholder="e.g. Delhi Public School" autocomplete="organization" required>
+              </div>
+
+              <div class="form-group">
+                <label for="cityState">City &amp; State <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="cityState" name="cityState" class="form-control" placeholder="e.g. Mumbai, Maharashtra" required>
+              </div>
+
+              <div class="form-group">
+                <label for="schoolBoard">School Board</label>
+                <select id="schoolBoard" name="schoolBoard" class="form-control">
+                  <option value="" disabled selected>Select board</option>
+                  <option value="ICSE">ICSE</option>
+                  <option value="CBSE">CBSE</option>
+                  <option value="State">State Board</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="studentStrength">Total Student Strength</label>
+                <select id="studentStrength" name="studentStrength" class="form-control">
+                  <option value="" disabled selected>Select range</option>
+                  <option value="lt200">&lt;200</option>
+                  <option value="200-500">200–500</option>
+                  <option value="501-1000">501–1000</option>
+                  <option value="1000+">1000+</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="grades">Grades Interested</label>
+                <select id="grades" name="grades" class="form-control">
+                  <option value="" disabled selected>Select grades</option>
+                  <option value="8-10">8–10</option>
+                  <option value="9-12">9–12</option>
+                  <option value="8-12">8–12</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="estimatedStudents">Estimated Students for Program</label>
+                <select id="estimatedStudents" name="estimatedStudents" class="form-control">
+                  <option value="" disabled selected>Select range</option>
+                  <option value="10-30">10–30</option>
+                  <option value="30-60">30–60</option>
+                  <option value="60-100">60–100</option>
+                  <option value="100+">100+</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div>
+              <div class="form-group">
+                <label for="contactName">Primary Contact Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="contactName" name="contactName" class="form-control" placeholder="Full name" autocomplete="name" required>
+              </div>
+
+              <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role" class="form-control">
+                  <option value="" disabled selected>Select role</option>
+                  <option value="principal">Principal</option>
+                  <option value="coordinator">Academic Coordinator</option>
+                  <option value="admin">Administrator</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Official School Email <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="name@school.edu" autocomplete="email" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 00000 00000" autocomplete="tel">
+              </div>
+
+              <div class="form-group">
+                <label for="timeline">Preferred Start Timeline</label>
+                <select id="timeline" name="timeline" class="form-control">
+                  <option value="" disabled selected>Select timeline</option>
+                  <option value="next-term">Next Term</option>
+                  <option value="next-quarter">Next Quarter</option>
+                  <option value="undecided">Undecided</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Any specific requirements or questions…"></textarea>
+              </div>
+            </div>
+          </div><!-- /form-grid -->
+
+          <!-- Acknowledgement -->
+          <div class="checkbox-row">
+            <input type="checkbox" id="understand" name="understand">
+            <label for="understand">We understand that Noetix delivers structured, fixed-format academic programs.</label>
+          </div>
+
+          <!-- Submit -->
+          <div class="submit-area">
+            <button type="submit" class="btn btn-primary">Request Proposal</button>
+          </div>
+
+        </form>
+      </div><!-- /formCard -->
+
+      <!-- SUCCESS CARD (hidden until submission) -->
+      <div id="successCard" class="success-card hidden" role="alert" aria-live="polite">
+        <div class="success-icon">
+          <i class="fas fa-check" aria-hidden="true"></i>
+        </div>
+        <h3>Request Submitted</h3>
+        <p>Thank you. Our team will review your institution details and respond within 48 business hours.</p>
+
+        <div class="success-divider"></div>
+
+        <p class="success-cta-label">Prefer to connect sooner?</p>
+        <button type="button" class="btn btn-speak" id="speakBtn">
+          <i class="fas fa-phone-alt" aria-hidden="true"></i>
+          Speak with Our Team
+        </button>
+      </div>
+
+      <!-- SPEAK MODAL -->
+      <div id="speakModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+          <button class="modal-close" id="modalClose" aria-label="Close">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+          <div class="modal-icon">
+            <i class="fas fa-headset" aria-hidden="true"></i>
+          </div>
+          <h3 id="modalTitle">Talk to a Partnership Advisor</h3>
+          <p>Our team is available Monday – Friday, 9 AM to 6 PM IST. Choose how you'd like to connect.</p>
+
+          <div class="modal-options">
+            <a href="tel:+918000000000" class="modal-option">
+              <span class="option-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+              <span class="option-body">
+                <span class="option-label">Call Us</span>
+                <span class="option-detail">+91 80000 00000</span>
+              </span>
+            </a>
+            <a href="mailto:partnerships@noetix.in" class="modal-option">
+              <span class="option-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+              <span class="option-body">
+                <span class="option-label">Email Us</span>
+                <span class="option-detail">partnerships@noetix.in</span>
+              </span>
+            </a>
+            <a href="#" class="modal-option">
+              <span class="option-icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>
+              <span class="option-body">
+                <span class="option-label">Schedule a Call</span>
+                <span class="option-detail">Pick a time that works for you</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer strip -->
+      <div class="form-footer">
+        <p>We respond within 48 business hours.</p>
+        <p>All institutional information remains confidential.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="main-footer">
+  <div class="container">
+    <p>© 2026 Noetix Education. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  /* ── Hamburger toggle ──────────────────────────────── */
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      mobileNav.setAttribute('aria-hidden', !isOpen);
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (mobileNav.classList.contains('open') &&
+          !mobileNav.contains(e.target) &&
+          !hamburger.contains(e.target)) {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  /* ── Form submission ───────────────────────────────── */
+  const form       = document.getElementById('partnerForm');
+  const formCard   = document.getElementById('formCard');
+  const successCard = document.getElementById('successCard');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Swap form → success card without layout jump
+    formCard.classList.add('hidden');
+    successCard.classList.remove('hidden');
+    // Scroll to success card top smoothly
+    successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  /* ── Speak modal ───────────────────────────────────── */
+  const speakBtn   = document.getElementById('speakBtn');
+  const speakModal = document.getElementById('speakModal');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal() {
+    speakModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    speakModal.classList.add('hidden');
+    document.body.style.overflow = '';
+    speakBtn.focus();
+  }
+
+  if (speakBtn)   speakBtn.addEventListener('click', openModal);
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+
+  // Close on backdrop click
+  speakModal && speakModal.addEventListener('click', (e) => {
+    if (e.target === speakModal) closeModal();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && speakModal && !speakModal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
+
+  /* ── Smooth scroll for hero CTA ────────────────────── */
+  const heroCta = document.querySelector('a[href="#partnership-form"]');
+  if (heroCta) {
+    heroCta.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('partnership-form').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+</script>
+
+</body>
+</html>

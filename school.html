@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Noetix · School Partnerships</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* ─── DESIGN SYSTEM ────────────────────────────────────────── */
+    :root {
+      --bg:           #f8fafc;
+      --primary:      #0f172a;
+      --accent:       #2563eb;
+      --accent-soft:  #eff6ff;
+      --card-bg:      #ffffff;
+      --text:         #1e293b;
+      --subtle:       #64748b;
+      --radius:       16px;
+      --shadow:       0 8px 28px rgba(0,0,0,0.05);
+      /* extended (never override roots) */
+      --border:         #e2e8f0;
+      --shadow-hover:   0 16px 40px rgba(0,0,0,0.09);
+      --container:      1200px;
+      --space-section:  80px;
+    }
+
+    /* ─── RESET ────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── CONTAINER ─────────────────────────────────────────────── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── SECTION SPACING ───────────────────────────────────────── */
+    .section    { padding: var(--space-section) 0; }
+    .section-sm { padding: 64px 0; }
+
+    /* ─── TYPOGRAPHY ────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    /* h1: hero only */
+    h1 {
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
+      letter-spacing: -0.03em;
+    }
+
+    /* h2: section headings */
+    h2 {
+      font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+      margin-bottom: 40px;
+    }
+
+    /* h3: card titles */
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    /* h4: footer headings */
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    p {
+      color: var(--subtle);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    /* ─── FOCUS VISIBLE ─────────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
+      border: 1.5px solid transparent;
+      background: transparent;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      border-color: #1d4ed8;
+      box-shadow: 0 6px 20px rgba(37,99,235,0.28);
+    }
+
+    .btn-secondary {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: #dbeafe;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.12);
+    }
+
+    /* ─── CARDS ─────────────────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 32px;
+      border: 1px solid transparent;
+      transition: box-shadow 0.22s, border-color 0.22s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border);
+    }
+
+    .card p { max-width: 100%; }
+
+    /* ─── GRIDS ─────────────────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .hero > .hero-grid > div > p {
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      line-height: 0;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* ─── SECTION INTRO ─────────────────────────────────────────── */
+    .section-intro {
+      margin-bottom: 40px;
+    }
+
+    .section-intro h2 { margin-bottom: 0; }
+
+    /* ─── STEPS ─────────────────────────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .step {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid transparent;
+      transition: box-shadow 0.22s, border-color 0.22s;
+    }
+
+    .step:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border);
+    }
+
+    .step-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 16px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .step h3 { margin-bottom: 10px; }
+    .step p  { max-width: 100%; }
+
+    /* ─── PROGRAM LIST ──────────────────────────────────────────── */
+    .program-list {
+      list-style: none;
+      margin: 16px 0 24px;
+    }
+
+    .program-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--subtle);
+      line-height: 1.55;
+      padding: 5px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .program-list li:last-child { border-bottom: none; }
+
+    .program-list i {
+      color: var(--accent);
+      font-size: 0.65rem;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ─── OUTCOMES ──────────────────────────────────────────────── */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .outcomes-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .outcomes-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.975rem;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .outcomes-list li:first-child { border-top: 1px solid var(--border); }
+
+    .outcomes-list i {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .cert-placeholder {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      line-height: 0;
+    }
+
+    .cert-placeholder img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* ─── CTA FULL WIDTH ────────────────────────────────────────── */
+    .cta-full {
+      background: var(--accent-soft);
+      border-top: 1px solid #dbeafe;
+      border-bottom: 1px solid #dbeafe;
+      text-align: center;
+      padding: var(--space-section) 24px;
+    }
+
+    .cta-full h2 {
+      margin-bottom: 14px;
+    }
+
+    .cta-full .cta-sub {
+      margin: 0 auto 36px;
+      max-width: 560px;
+      font-size: 1rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--primary);
+      padding: 56px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-section p {
+      color: #94a3b8;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .footer-section p i {
+      color: #64748b;
+      width: 16px;
+      margin-right: 8px;
+    }
+
+    .footer-section a { color: #93c5fd; }
+    .footer-section a:hover { color: #bfdbfe; text-decoration: underline; }
+
+    .footer-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li { margin-bottom: 10px; }
+
+    .footer-links a {
+      color: #94a3b8;
+      font-size: 0.875rem;
+      transition: color 0.18s;
+    }
+
+    .footer-links a:hover { color: #e2e8f0; }
+
+    .footer-divider {
+      border: 0;
+      border-top: 1px solid #1e293b;
+      margin: 0;
+    }
+
+    .footer-bottom {
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      color: #475569;
+      font-size: 0.8rem;
+      max-width: 100%;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      :root { --space-section: 64px; }
+
+      .grid-4       { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid    { grid-template-columns: 1fr; gap: 40px; }
+      .outcomes-grid{ grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid  { grid-template-columns: 1fr 1fr; gap: 40px; }
+
+      .hero { padding: 64px 0 56px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --space-section: 48px; }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .steps { grid-template-columns: 1fr; }
+
+      .hero { padding: 48px 0 40px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+
+      .cta-actions { flex-direction: column; align-items: stretch; }
+      .cta-actions .btn { width: 100%; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      h2 { margin-bottom: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .card,
+      .step { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div>
+        <span class="hero-eyebrow">School Partnerships</span>
+        <h1>Engineering Future&#8209;Ready Students Through Structured Technology Programs</h1>
+        <p>Noetix partners directly with schools to deliver industry-aligned technology education in AI, Cybersecurity, and Programming — built for real classrooms.</p>
+        <div class="hero-actions">
+          <a href="Partnership.html" class="btn btn-primary">Request Partnership Proposal</a>
+          <a href="#" class="btn btn-secondary">Download Program Brochure</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="https://i.ibb.co/dw5ByBX2/photo-2026-02-28-12-11-38.jpg" alt="Noetix program in a classroom">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WHY PARTNER ══════════ -->
+<section class="section">
+  <div class="container">
+    <h2>Built Specifically for Schools</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Structured Curriculum</h3>
+        <p>Designed to integrate seamlessly into academic schedules with measurable learning outcomes.</p>
+      </div>
+      <div class="card">
+        <h3>Industry-Relevant Certifications</h3>
+        <p>Students graduate with portfolio-ready projects and verifiable certificates.</p>
+      </div>
+      <div class="card">
+        <h3>Scalable Delivery Model</h3>
+        <p>From workshops to semester-long programs — adaptable to your institution's needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROGRAM MODELS ══════════ -->
+<section class="section">
+  <div class="container">
+    <h2>Program Structure &amp; Delivery Model</h2>
+    <div class="grid-4">
+      <div class="card">
+        <h3>Structured Program Delivery</h3>
+        <p>Fixed-duration programs delivered by Noetix instructors with defined curriculum, assessments, and certification.</p>
+      </div>
+      <div class="card">
+        <h3>Structured Student Cohorts</h3>
+        <p>Students grouped in focused batches to maintain high engagement and measurable outcomes.</p>
+      </div>
+      <div class="card">
+        <h3>Industry-Focused Curriculum</h3>
+        <p>Curriculum aligned with real-world technology applications and project-based learning.</p>
+      </div>
+      <div class="card">
+        <h3>Certification &amp; Portfolio Track</h3>
+        <p>Students complete portfolio-ready projects and receive formal certification upon successful assessment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section class="section">
+  <div class="container">
+    <h2>Simple 3-Step Implementation</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3>School Onboarding</h3>
+        <p>We finalize the program schedule and participating student groups with your team.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3>Student Enrollment</h3>
+        <p>Interested students enroll into structured cohorts for the selected program.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3>Delivery &amp; Certification</h3>
+        <p>Students complete fixed curriculum modules, assessments, and receive certification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CORE PROGRAMS ══════════ -->
+<section class="section">
+  <div class="container">
+    <h2>Core Technology Programs</h2>
+    <div class="grid-3">
+
+      <div class="card">
+        <h3>Artificial Intelligence Foundations</h3>
+        <ul class="program-list">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Python for AI</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Machine Learning Basics</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Real-world AI Projects</li>
+        </ul>
+        <a href="#" class="btn btn-secondary">View Curriculum</a>
+      </div>
+
+      <div class="card">
+        <h3>Cybersecurity Essentials</h3>
+        <ul class="program-list">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Network Security</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Ethical Hacking Basics</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Threat Analysis Labs</li>
+        </ul>
+        <a href="#" class="btn btn-secondary">View Curriculum</a>
+      </div>
+
+      <div class="card">
+        <h3>Fundamentals of Programming</h3>
+        <ul class="program-list">
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> HTML, CSS, JavaScript</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Backend Basics</li>
+          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Deploy Real Applications</li>
+        </ul>
+        <a href="#" class="btn btn-secondary">View Curriculum</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ OUTCOMES ══════════ -->
+<section class="section">
+  <div class="container">
+    <div class="outcomes-grid">
+
+      <div>
+        <h2>Measurable Student Outcomes</h2>
+        <ul class="outcomes-list">
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Practical technical proficiency</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Portfolio-ready projects</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Confidence in problem-solving</li>
+          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Recognized certification</li>
+        </ul>
+      </div>
+
+      <div class="cert-placeholder">
+        <img src="https://i.pinimg.com/1200x/07/32/fb/0732fbd706c0dcd2c06176d36f610c86.jpg" alt="Noetix certificate sample">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<div class="cta-full">
+  <div class="container">
+    <h2>Let's Build Future-Ready Classrooms Together</h2>
+    <p class="cta-sub">Schedule a 20-minute consultation to explore partnership opportunities.</p>
+    <div class="cta-actions">
+      <a href="Partnership.html" class="btn btn-primary">Request Partnership Proposal</a>
+      <a href="#" class="btn btn-secondary">Schedule a Demo</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-section">
+        <div class="footer-logo">Noetix</div>
+        <p><i class="fas fa-envelope" aria-hidden="true"></i> partnerships@noetix.in</p>
+        <p><i class="fas fa-clock" aria-hidden="true"></i> We respond within 48 business hours.</p>
+      </div>
+
+      <div class="footer-section">
+        <p class="footer-heading">Links</p>
+        <ul class="footer-links">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <p class="footer-heading">Partnerships</p>
+        <p>Ready to bring Noetix to your school? Contact us to get started.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="footer-divider">
+
+  <div class="container footer-bottom">
+    <p>© 2026 Noetix Education. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
