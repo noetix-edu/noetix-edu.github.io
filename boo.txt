@@ -1,1 +1,234 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Noetix Education</title>
+
+  <!-- Primary Meta -->
+  <meta name="title" content="Noetix | Future-Ready Technology Education for Students">
+  <meta name="description" content="Noetix is an EdTech startup empowering students aged 12–18 with industry-relevant certificate programs in Cybersecurity, Artificial Intelligence, and Advanced Coding. Project-driven learning designed to build real-world technical expertise.">
+  <meta name="author" content="WebStacks">
+  <meta name="keywords" content="EdTech, Cybersecurity for Students, AI Courses for Teens, Coding Certification, Data Technology Education, STEM Programs, Tech Education Startup">
+
+  <!-- Mobile Optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Search Engine -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (Social Preview) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Noetix | Engineering Future-Ready Minds">
+  <meta property="og:description" content="Industry-focused certificate programs in Cybersecurity, AI, and Coding for students aged 12–18. Structured, project-driven, and future-ready.">
+  <meta property="og:image" content="https://noetix-edu.github.io/Noetix.png">
+  <meta property="og:url" content="https://noetix-edu.github.io">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Noetix | Future-Ready Tech Education">
+  <meta name="twitter:description" content="Certificate programs in Cybersecurity, AI, and Advanced Coding for the next generation of innovators.">
+  <meta name="twitter:image" content="https://noetix-edu.github.io/Noetix.png">
+
+  <!-- Theme Color (for mobile browsers) -->
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="neo.css">
+</head>
+
+<body>
+
+<!-- HERO NAVBAR (transparent over hero) -->
+<!-- HERO NAVBAR -->
+<nav id="nav1">
+<div class="container nav-inner">
+  <div class="logo">Noetix</div>
+
+  <div class="nav-links">
+    <a href="about">About</a>
+    <a href="Course">Courses</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-login">Login</a>
+    <div class="hamburger">&#9776;</div>
+  </div>
+</div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <div class="close-btn" id="closeSidebar">&times;</div>
+  <a href="about">About</a>
+  <a href="Course">Courses</a>
+  <a href="#contact">Contact</a>
+</div>
+
+
+<!-- SCROLL NAVBAR (sticky after hero) -->
+<nav id="nav2">
+<div class="container nav-inner">
+  <div class="logo">Noetix</div>
+
+  <div class="nav-links">
+    <a href="about">About</a>
+    <a href="Course">Courses</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-login">Login</a>
+    <div class="hamburger">&#9776;</div>
+  </div>
+</div>
+</nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Engineering Future-Ready Minds Through Technology Education.</h1>
+      <p>
+        Noetix equips school students with industry-relevant technical skills through
+        structured, project-driven certificate programs.
+      </p>
+      <div class="hero-actions">
+        <a href="Course" class="btn btn-primary">Explore Courses</a>
+        <a href="#" class="btn btn-secondary">For Schools</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY NOETIX -->
+  <section class="section" id="why">
+    <div class="container">
+      <h2>Why Noetix?</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Industry-Aligned Curriculum</h3>
+          <p>Designed around real-world technologies and practical application.</p>
+        </div>
+
+        <div class="card">
+          <h3>Project-Based Learning</h3>
+          <p>Students build tangible projects that demonstrate mastery.</p>
+        </div>
+
+        <div class="card">
+          <h3>Verified Certificates</h3>
+          <p>Credible certification that strengthens academic and career portfolios.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section" id="who">
+    <div class="container">
+      <h2>Who It’s For</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Students (Grades 8–12)</h3>
+          <p>Young learners ready to explore advanced technical domains.</p>
+        </div>
+
+        <div class="card">
+          <h3>Beginner Technologists</h3>
+          <p>No prior experience required — just curiosity and commitment.</p>
+        </div>
+
+        <div class="card">
+          <h3>Future Innovators</h3>
+          <p>Students who want to stay ahead of rapid technological evolution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="section" id="courses">
+    <div class="container">
+      <h2>Popular Certificate Programs</h2>
+      <div class="course-grid">
+
+        <div class="course-card">
+          <h3>Artificial Intelligence Foundations</h3>
+          <p>Understand core AI principles and explore real-world applications.</p>
+        </div>
+
+        <div class="course-card">
+          <h3>Cybersecurity Essentials</h3>
+          <p>Learn how digital systems are protected and how online threats are mitigated.</p>
+        </div>
+
+        <div class="course-card">
+          <h3>Fundamentals of Programming</h3>
+          <p>Develop computational thinking through structured coding exercises.</p>
+        </div>
+
+      </div>
+    <div class="see-more"> <a href="Course">See More →</a> </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section" id="cta">
+    <div class="container">
+      <div class="cta">
+        <h2>Join the First Cohort of Noetix Learners</h2>
+        <p>Start building real technical expertise today.</p>
+        <a href="#" class="btn btn-primary">Join Waitlist</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      © 2026 Noetix Education. All rights reserved.
+    </div>
+  </footer>
+
+<script>
+const nav1 = document.getElementById('nav1');
+const nav2 = document.getElementById('nav2');
+
+window.addEventListener('scroll', () => {
+  const heroHeight = document.querySelector('.hero').offsetHeight;
+
+  if(window.scrollY < heroHeight - 80){ 
+    nav1.classList.add('visible');
+    nav2.classList.remove('visible');
+  } else {
+    nav1.classList.remove('visible');
+    nav2.classList.add('visible');
+  }
+});
+
+const hamburgers = document.querySelectorAll('.hamburger');
+const sidebar = document.getElementById('sidebar');
+const closeBtn = document.getElementById('closeSidebar');
+
+hamburgers.forEach(hamburger => {
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.add('active');
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+});
+
+
+
+// Trigger on load
+window.dispatchEvent(new Event('scroll'));
+</script>
+
+</body>
+</html>
