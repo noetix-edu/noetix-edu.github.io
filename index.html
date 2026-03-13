@@ -617,55 +617,42 @@ nav.scrolled{box-shadow:0 4px 24px rgba(15,23,42,.08)}
 
 <div class="section-sep" id="sep2"></div>
 
-<!-- ═══ FOR SCHOOLS ═══ -->
-<section class="dark-section" id="schools">
-  <div class="spotlight" id="sp1"></div>
+<!-- ═══ WHO IT'S FOR ═══ -->
+<section class="dark-section" id="who-dark">
+  <div class="spotlight" id="sp2"></div>
   <div class="container">
-    <div class="schools-layout">
-      <div class="reveal">
-        <span class="dk-eyebrow">Institutions</span>
-        <h2>Designed for Schools</h2>
-        <p class="section-desc">NOETIX partners with forward-thinking institutions to introduce future-ready technology education alongside traditional academics — seamlessly, measurably.</p>
-        <a href="#contact" class="btn-neon ripple-tgt">Partner With Us <span class="neon-arrow">›</span></a>
-        <!-- interactive stepper -->
-        <div class="stepper">
-          <p class="stepper-ttl">How it works</p>
-          <div class="step-tabs">
-            <div class="step-tab active" data-s="0">Register</div>
-            <div class="step-tab" data-s="1">Pilot</div>
-            <div class="step-tab" data-s="2">Rollout</div>
-            <div class="step-tab" data-s="3">Certify</div>
-          </div>
-          <div class="step-panels">
-            <div class="step-panel active" data-s="0"><strong>School Registration</strong><p>Your school signs up and completes an onboarding call. We assess cohort size, timetable, and the best-fit program track.</p></div>
-            <div class="step-panel" data-s="1"><strong>Pilot Cohort Launch</strong><p>A focused 4-week pilot with 15–20 students. The school receives a progress report and student outcomes at the end.</p></div>
-            <div class="step-panel" data-s="2"><strong>Full Program Rollout</strong><p>We scale to the full program — integrated into your schedule with minimal disruption and dedicated Noetix instructors.</p></div>
-            <div class="step-panel" data-s="3"><strong>Certificates Issued</strong><p>Each student receives an industry-aligned Noetix certificate verifiable online. Schools get aggregated outcome data.</p></div>
-          </div>
-        </div>
-        <div class="schools-stats">
-          <div class="school-stat"><div class="school-stat-num" data-target="12" data-suffix="+">12+</div><div class="school-stat-label">Schools</div></div>
-          <div class="school-stat"><div class="school-stat-num" data-target="500" data-suffix="+">500+</div><div class="school-stat-label">Trained</div></div>
-          <div class="school-stat"><div class="school-stat-num" data-target="3">3</div><div class="school-stat-label">Programs</div></div>
+    <div class="who-layout">
+      <div>
+        <span class="dk-eyebrow reveal">Audience</span>
+        <h2 class="reveal d1">Who It's For</h2>
+        <div class="who-list">
+          <div class="who-item reveal d1"><span class="who-num">01</span><div><h4>Students (Grades 8–12)</h4><p>Young learners ready to explore advanced technical domains and build real-world skills early.</p></div></div>
+          <div class="who-item reveal d2"><span class="who-num">02</span><div><h4>Beginner Technologists</h4><p>No prior experience required — just curiosity and commitment to learn something new.</p></div></div>
+          <div class="who-item reveal d3"><span class="who-num">03</span><div><h4>Future Innovators</h4><p>Students who want to stay ahead of rapid technological evolution and stand out in applications.</p></div></div>
         </div>
       </div>
-
-      <div class="glass-panel reveal d1">
-        <div class="glass-panel-header">
-          <span class="glass-panel-label">Partnership Model</span>
-          <span class="accepting-badge">Accepting Applications</span>
-        </div>
-        <div class="partnership-item">
-          <div class="pi-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-          <div class="pi-body"><h4>School Integration</h4><p>Programs delivered alongside existing curriculum with minimal disruption.</p></div>
-        </div>
-        <div class="partnership-item">
-          <div class="pi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div class="pi-body"><h4>Future Skills Exposure</h4><p>Early exposure to AI, cybersecurity, and programming before higher education.</p></div>
-        </div>
-        <div class="partnership-item">
-          <div class="pi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-          <div class="pi-body"><h4>Scalable Implementation</h4><p>Flexible programs for any school size — pilots to institution-wide rollouts.</p></div>
+      <div class="dash-wrap reveal d2">
+        <div class="dash-panel">
+          <div class="dash-bar"><div class="wd r"></div><div class="wd y"></div><div class="wd g"></div><span class="dash-ttl">noetix — student_dashboard.jsx</span></div>
+          <div class="dash-editor">
+            <div class="cl"><span class="ln">1</span><span><span class="cc">// Noetix Student Portal</span></span></div>
+            <div class="cl"><span class="ln">2</span><span><span class="ck">import</span> <span class="cv">{ useState }</span> <span class="ck">from</span> <span class="cs">'react'</span></span></div>
+            <div class="cl"><span class="ln">3</span><span></span></div>
+            <div class="cl"><span class="ln">4</span><span><span class="ck">const</span> <span class="cf">Dashboard</span> = () => {</span></div>
+            <div class="cl"><span class="ln">5</span><span>&nbsp;&nbsp;<span class="ck">const</span> [<span class="cv">track</span>] = <span class="cf">useState</span>(<span class="cs">'AI'</span>)<span class="code-cur"></span></span></div>
+          </div>
+          <div class="dash-body">
+            <div class="dash-card"><div class="d-lbl">Enrollment</div><div class="d-txt">Grades 8–12 · No prior experience · Certificate on completion</div></div>
+            <div class="dash-card">
+              <div class="d-lbl b">Track Progress</div>
+              <div class="pb-wrap" id="dashBars">
+                <div class="pb-row"><span class="pb-lbl">AI Foundations</span><div class="pb-track"><div class="pb-fill f-neon" data-w="72"></div></div><span class="pb-pct">72%</span></div>
+                <div class="pb-row"><span class="pb-lbl">Cybersecurity</span><div class="pb-track"><div class="pb-fill f-blue" data-w="45"></div></div><span class="pb-pct">45%</span></div>
+                <div class="pb-row"><span class="pb-lbl">Programming</span><div class="pb-track"><div class="pb-fill f-purple" data-w="88"></div></div><span class="pb-pct">88%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-foot"><a href="#" class="cohort-btn">Cohort Open</a></div>
         </div>
       </div>
     </div>
@@ -760,43 +747,55 @@ nav.scrolled{box-shadow:0 4px 24px rgba(15,23,42,.08)}
 </section>
 
 <div class="section-sep" id="sep4"></div>
-
-<!-- ═══ WHO IT'S FOR ═══ -->
-<section class="dark-section" id="who-dark">
-  <div class="spotlight" id="sp2"></div>
+<!-- ═══ FOR SCHOOLS ═══ -->
+<section class="dark-section" id="schools">
+  <div class="spotlight" id="sp1"></div>
   <div class="container">
-    <div class="who-layout">
-      <div>
-        <span class="dk-eyebrow reveal">Audience</span>
-        <h2 class="reveal d1">Who It's For</h2>
-        <div class="who-list">
-          <div class="who-item reveal d1"><span class="who-num">01</span><div><h4>Students (Grades 8–12)</h4><p>Young learners ready to explore advanced technical domains and build real-world skills early.</p></div></div>
-          <div class="who-item reveal d2"><span class="who-num">02</span><div><h4>Beginner Technologists</h4><p>No prior experience required — just curiosity and commitment to learn something new.</p></div></div>
-          <div class="who-item reveal d3"><span class="who-num">03</span><div><h4>Future Innovators</h4><p>Students who want to stay ahead of rapid technological evolution and stand out in applications.</p></div></div>
+    <div class="schools-layout">
+      <div class="reveal">
+        <span class="dk-eyebrow">Institutions</span>
+        <h2>Designed for Schools</h2>
+        <p class="section-desc">NOETIX partners with forward-thinking institutions to introduce future-ready technology education alongside traditional academics — seamlessly, measurably.</p>
+        <a href="#contact" class="btn-neon ripple-tgt">Partner With Us <span class="neon-arrow">›</span></a>
+        <!-- interactive stepper -->
+        <div class="stepper">
+          <p class="stepper-ttl">How it works</p>
+          <div class="step-tabs">
+            <div class="step-tab active" data-s="0">Register</div>
+            <div class="step-tab" data-s="1">Pilot</div>
+            <div class="step-tab" data-s="2">Rollout</div>
+            <div class="step-tab" data-s="3">Certify</div>
+          </div>
+          <div class="step-panels">
+            <div class="step-panel active" data-s="0"><strong>School Registration</strong><p>Your school signs up and completes an onboarding call. We assess cohort size, timetable, and the best-fit program track.</p></div>
+            <div class="step-panel" data-s="1"><strong>Pilot Cohort Launch</strong><p>A focused 4-week pilot with 15–20 students. The school receives a progress report and student outcomes at the end.</p></div>
+            <div class="step-panel" data-s="2"><strong>Full Program Rollout</strong><p>We scale to the full program — integrated into your schedule with minimal disruption and dedicated Noetix instructors.</p></div>
+            <div class="step-panel" data-s="3"><strong>Certificates Issued</strong><p>Each student receives an industry-aligned Noetix certificate verifiable online. Schools get aggregated outcome data.</p></div>
+          </div>
+        </div>
+        <div class="schools-stats">
+          <div class="school-stat"><div class="school-stat-num" data-target="12" data-suffix="+">12+</div><div class="school-stat-label">Schools</div></div>
+          <div class="school-stat"><div class="school-stat-num" data-target="500" data-suffix="+">500+</div><div class="school-stat-label">Trained</div></div>
+          <div class="school-stat"><div class="school-stat-num" data-target="3">3</div><div class="school-stat-label">Programs</div></div>
         </div>
       </div>
-      <div class="dash-wrap reveal d2">
-        <div class="dash-panel">
-          <div class="dash-bar"><div class="wd r"></div><div class="wd y"></div><div class="wd g"></div><span class="dash-ttl">noetix — student_dashboard.jsx</span></div>
-          <div class="dash-editor">
-            <div class="cl"><span class="ln">1</span><span><span class="cc">// Noetix Student Portal</span></span></div>
-            <div class="cl"><span class="ln">2</span><span><span class="ck">import</span> <span class="cv">{ useState }</span> <span class="ck">from</span> <span class="cs">'react'</span></span></div>
-            <div class="cl"><span class="ln">3</span><span></span></div>
-            <div class="cl"><span class="ln">4</span><span><span class="ck">const</span> <span class="cf">Dashboard</span> = () => {</span></div>
-            <div class="cl"><span class="ln">5</span><span>&nbsp;&nbsp;<span class="ck">const</span> [<span class="cv">track</span>] = <span class="cf">useState</span>(<span class="cs">'AI'</span>)<span class="code-cur"></span></span></div>
-          </div>
-          <div class="dash-body">
-            <div class="dash-card"><div class="d-lbl">Enrollment</div><div class="d-txt">Grades 8–12 · No prior experience · Certificate on completion</div></div>
-            <div class="dash-card">
-              <div class="d-lbl b">Track Progress</div>
-              <div class="pb-wrap" id="dashBars">
-                <div class="pb-row"><span class="pb-lbl">AI Foundations</span><div class="pb-track"><div class="pb-fill f-neon" data-w="72"></div></div><span class="pb-pct">72%</span></div>
-                <div class="pb-row"><span class="pb-lbl">Cybersecurity</span><div class="pb-track"><div class="pb-fill f-blue" data-w="45"></div></div><span class="pb-pct">45%</span></div>
-                <div class="pb-row"><span class="pb-lbl">Programming</span><div class="pb-track"><div class="pb-fill f-purple" data-w="88"></div></div><span class="pb-pct">88%</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="dash-foot"><a href="#" class="cohort-btn">Cohort Open</a></div>
+
+      <div class="glass-panel reveal d1">
+        <div class="glass-panel-header">
+          <span class="glass-panel-label">Partnership Model</span>
+          <span class="accepting-badge">Accepting Applications</span>
+        </div>
+        <div class="partnership-item">
+          <div class="pi-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="pi-body"><h4>School Integration</h4><p>Programs delivered alongside existing curriculum with minimal disruption.</p></div>
+        </div>
+        <div class="partnership-item">
+          <div class="pi-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="pi-body"><h4>Future Skills Exposure</h4><p>Early exposure to AI, cybersecurity, and programming before higher education.</p></div>
+        </div>
+        <div class="partnership-item">
+          <div class="pi-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="pi-body"><h4>Scalable Implementation</h4><p>Flexible programs for any school size — pilots to institution-wide rollouts.</p></div>
         </div>
       </div>
     </div>
