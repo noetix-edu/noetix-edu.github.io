@@ -1,1076 +1,560 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Noetix · Request Partnership Proposal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ─── DESIGN SYSTEM ─────────────────────────────────────────── */
-    :root {
-      --bg:           #f8fafc;
-      --primary:      #0f172a;
-      --accent:       #2563eb;
-      --accent-soft:  #eff6ff;
-      --card-bg:      #ffffff;
-      --text:         #1e293b;
-      --subtle:       #64748b;
-      --radius:       16px;
-      --shadow:       0 8px 28px rgba(0,0,0,0.05);
-      /* extended tokens (never override roots above) */
-      --border:       #e2e8f0;
-      --shadow-hover: 0 16px 40px rgba(0,0,0,0.09);
-      --container:    1200px;
-      --space-section: 80px;
-    }
-
-    /* ─── RESET ─────────────────────────────────────────────────── */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      padding-top: 64px; /* fixed navbar height */
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    /* ─── CONTAINER ─────────────────────────────────────────────── */
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ─── NAVBAR ────────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 64px;
-      z-index: 999;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.35rem;
-      letter-spacing: -0.03em;
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-
-    .nav-center {
-      display: flex;
-      gap: 2.5rem;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .nav-center a {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text);
-      transition: color 0.2s;
-    }
-
-    .nav-center a:hover { color: var(--accent); }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .btn-login {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 36px;
-      padding: 0 20px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      font-family: inherit;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-login:hover {
-      background: #1d4ed8;
-      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
-    }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--text);
-      line-height: 1;
-      padding: 4px;
-    }
-
-    /* Mobile nav drawer */
-    .mobile-nav {
-      position: absolute;
-      top: 64px; left: 0;
-      width: 100%;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.28s ease-out;
-      z-index: 998;
-    }
-
-    .mobile-nav.open { max-height: 220px; }
-
-    .mobile-nav-content {
-      display: flex;
-      flex-direction: column;
-      padding: 12px 24px 20px;
-      gap: 0;
-    }
-
-    .mobile-nav-content a {
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--text);
-      padding: 12px 0;
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .mobile-nav-content a:last-child { border-bottom: none; }
-    .mobile-nav-content a:hover { color: var(--accent); }
-
-    /* ─── SECTION SPACING ───────────────────────────────────────── */
-    .section     { padding: var(--space-section) 0; }
-    .section-sm  { padding: 64px 0; }
-
-    /* ─── TYPOGRAPHY HIERARCHY ──────────────────────────────────── */
-    h1, h2, h3 {
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      color: var(--primary);
-      line-height: 1.2;
-    }
-
-    /* h1: appears once, in hero */
-    h1 { font-size: clamp(2.2rem, 4vw, 3rem); }
-
-    /* h2: section headings */
-    h2 {
-      font-size: clamp(1.6rem, 2.5vw, 2rem);
-      margin-bottom: 40px;
-    }
-
-    /* h3: card / sub-section headings */
-    h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: var(--subtle);
-      line-height: 1.7;
-      max-width: 680px;
-    }
-
-    /* ─── BADGE ─────────────────────────────────────────────────── */
-    .badge {
-      display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.8rem;
-      letter-spacing: 0.01em;
-      padding: 5px 16px;
-      border-radius: 999px;
-      margin: 20px 0 28px;
-    }
-
-    /* ─── BUTTONS ───────────────────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      height: 48px;
-      padding: 0 28px;
-      border-radius: var(--radius);
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
-      border: 1.5px solid transparent;
-      background: transparent;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      min-width: 200px;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-      border-color: #1d4ed8;
-      box-shadow: 0 6px 20px rgba(37,99,235,0.28);
-    }
-
-    /* active press: subtle sink */
-    .btn-primary:active { box-shadow: none; }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1.5px solid var(--border);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ─── FOCUS-VISIBLE (accessibility) ────────────────────────── */
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-
-    .form-control:focus-visible {
-      outline: none; /* handled by box-shadow below */
-    }
-
-    /* ─── CARDS ─────────────────────────────────────────────────── */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 36px 32px;
-      border: 1px solid transparent;
-      transition: box-shadow 0.22s, border-color 0.22s;
-    }
-
-    .card:hover {
-      box-shadow: var(--shadow-hover);
-      border-color: #e2e8f0;
-    }
-
-    .card p { max-width: 100%; }
-
-    /* ─── 3-COLUMN GRID ─────────────────────────────────────────── */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    /* ─── HERO ──────────────────────────────────────────────────── */
-    .hero {
-      padding: 80px 0 72px;
-      text-align: center;
-    }
-
-    .hero h1 { margin-bottom: 16px; }
-
-    .hero .hero-sub {
-      font-size: 1.1rem;
-      margin: 0 auto 0;
-      max-width: 560px;
-      line-height: 1.7;
-    }
-
-    .hero .badge { margin: 24px 0 32px; }
-
-    /* ─── FORM SECTION ──────────────────────────────────────────── */
-    .form-section {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 48px;
-      border: 1px solid transparent;
-    }
-
-    .form-section-title {
-      margin-bottom: 32px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0 40px;
-      align-items: start;
-    }
-
-    /* ─── FORM CONTROLS ─────────────────────────────────────────── */
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      font-size: 0.875rem;
-      letter-spacing: 0.005em;
-      color: var(--text);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-
-    .form-control {
-      width: 100%;
-      height: 48px;
-      padding: 0 16px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text);
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      line-height: 1;
-      transition: border-color 0.18s, box-shadow 0.18s;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .form-control::placeholder { color: #94a3b8; }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
-    }
-
-    /* Select: custom arrow, right padding to avoid overlap */
-    select.form-control {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 16px;
-      padding-right: 44px; /* prevent text overlapping arrow */
-      cursor: pointer;
-    }
-
-    /* Textarea: full height control */
-    textarea.form-control {
-      height: auto;
-      min-height: 108px;
-      max-height: 240px;
-      padding: 14px 16px;
-      line-height: 1.6;
-      resize: vertical;
-    }
-
-    /* Required asterisk */
-    .req { color: var(--accent); }
-
-    /* ─── CHECKBOX ──────────────────────────────────────────────── */
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin: 28px 0 32px;
-    }
-
-    .checkbox-row input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      flex-shrink: 0;
-      accent-color: var(--accent);
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .checkbox-row label {
-      font-size: 0.9rem;
-      color: var(--subtle);
-      line-height: 1.55;
-      cursor: pointer;
-    }
-
-    /* ─── SUBMIT AREA ───────────────────────────────────────────── */
-    .submit-area {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-
-    /* ─── FORM FOOTER ───────────────────────────────────────────── */
-    .form-footer {
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .form-footer p {
-      display: inline;
-      font-size: 0.85rem;
-      color: #94a3b8;
-      max-width: 100%;
-    }
-
-    .form-footer p + p::before {
-      content: " · ";
-      color: #cbd5e1;
-    }
-
-    /* ─── SUCCESS CARD ──────────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .success-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 64px 48px;
-      text-align: center;
-      max-width: 560px;
-      margin: 0 auto;
-      animation: fadeUp 0.4s ease forwards;
-    }
-
-    .success-card .success-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      margin: 0 auto 24px;
-    }
-
-    .success-card .success-icon i {
-      color: var(--accent);
-      font-size: 1.5rem;
-    }
-
-    .success-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-    }
-
-    .success-card p {
-      margin: 0 auto;
-      max-width: 420px;
-    }
-
-    .success-divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-      margin: 28px auto;
-    }
-
-    .success-cta-label {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-bottom: 16px !important;
-      max-width: 100%;
-    }
-
-    .btn-speak {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      height: 48px;
-      padding: 0 28px;
-      border-radius: var(--radius);
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      background: var(--primary);
-      color: #fff;
-      border: 1.5px solid var(--primary);
-      transition: background 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-speak:hover {
-      background: #1e293b;
-      box-shadow: 0 6px 20px rgba(15,23,42,0.2);
-    }
-
-    .btn-speak i { font-size: 0.85rem; }
-
-    /* ─── MODAL ─────────────────────────────────────────────────── */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.45);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 1100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      animation: fadeIn 0.2s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .modal-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.14);
-      padding: 48px 40px 40px;
-      width: 100%;
-      max-width: 480px;
-      position: relative;
-      animation: slideUp 0.25s ease forwards;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 18px; right: 18px;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--subtle);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.18s, color 0.18s;
-    }
-
-    .modal-close:hover { background: #f1f5f9; color: var(--text); }
-
-    .modal-icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      background: var(--accent-soft);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-icon i { color: var(--accent); font-size: 1.2rem; }
-
-    .modal-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
-
-    .modal-card > p {
-      font-size: 0.9rem;
-      max-width: 100%;
-      margin-bottom: 28px;
-    }
-
-    .modal-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .modal-option {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
-    }
-
-    .modal-option:hover {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      box-shadow: 0 2px 12px rgba(37,99,235,0.08);
-    }
-
-    .option-icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      background: #f1f5f9;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      color: var(--subtle);
-      font-size: 0.9rem;
-      transition: background 0.18s, color 0.18s;
-    }
-
-    .modal-option:hover .option-icon {
-      background: #dbeafe;
-      color: var(--accent);
-    }
-
-    .option-body {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .option-label {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-
-    .option-detail {
-      font-size: 0.82rem;
-      color: var(--subtle);
-    }
-
-    /* hidden utility */
-    .hidden { display: none !important; }
-
-    /* ─── MAIN FOOTER ───────────────────────────────────────────── */
-    .main-footer {
-      background: var(--primary);
-      color: #cbd5e1;
-      padding: 36px 0;
-      margin-top: 40px;
-      text-align: center;
-    }
-
-    .main-footer p {
-      font-size: 0.875rem;
-      color: #64748b;
-      max-width: 100%;
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
-    @media (max-width: 1024px) {
-      :root { --space-section: 64px; }
-
-      .grid-3 { grid-template-columns: repeat(2, 1fr); }
-
-      .nav-center { display: none; }
-      .hamburger  { display: block; }
-      .nav-right  { gap: 0.75rem; }
-    }
-
-    @media (max-width: 768px) {
-      :root { --space-section: 48px; }
-
-      .grid-3 { grid-template-columns: 1fr; }
-
-      .hero { padding: 48px 0 40px; }
-
-      .form-section { padding: 32px 20px; }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .submit-area {
-        justify-content: stretch;
-      }
-
-      .submit-area .btn {
-        width: 100%;
-      }
-
-      h2 { margin-bottom: 28px; }
-
-      .btn-login { height: 34px; padding: 0 16px; font-size: 0.875rem; }
-    }
-
-    @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      .form-section { padding: 28px 16px; }
-      .success-card { padding: 48px 24px; }
-    }
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS (unchanged, kept identical)
+═══════════════════════════════════════════ */
+:root{
+  --bg:#F8FAFC;--surface:#FFFFFF;--text:#0F172A;--muted:#64748B;
+  --border:#E2E8F0;--border-2:#CBD5E1;--alt:#F1F5F9;
+  --green:#A3E635;--green-d:#84CC16;--green-glow:rgba(163,230,53,.22);
+  --green-tint:#F7FEE7;--green-ring:rgba(163,230,53,.35);
+  --blue:#3B82F6;--blue-d:#2563EB;--blue-glow:rgba(59,130,246,.18);
+  --blue-tint:#EFF6FF;--blue-ring:rgba(59,130,246,.35);
+  --purple:#7C3AED;--purple-tint:#F5F3FF;--purple-ring:rgba(124,58,237,.3);
+  --dk-bg:#0b0f14;--dk-bg2:#0e1117;
+  --dk-surface:rgba(255,255,255,.04);--dk-border:rgba(255,255,255,.07);
+  --dk-text:#E6EDF3;--dk-muted:#9DA7B3;
+  --neon:#00E6A8;--neon-glow:rgba(0,230,168,.18);--neon2:#4F9DFF;
+  --sh-sm:0 2px 8px rgba(15,23,42,.05);
+  --sh-md:0 8px 24px rgba(15,23,42,.08);
+  --sh-lg:0 20px 48px rgba(15,23,42,.10);
+  --r12:12px;--r16:16px;--r20:20px;--r24:24px;--r999:999px;
+  --container:1200px;--nav-h:72px;--font:'Plus Jakarta Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+.container{max-width:var(--container);margin:0 auto;padding:0 32px}
+
+/* scroll progress, navbar, hero, cards, footer – all styles exactly as original */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));z-index:9999;border-radius:0 2px 2px 0;pointer-events:none;transition:width .1s linear}
+nav#mainNav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(248,250,252,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+nav#mainNav.scrolled{box-shadow:0 4px 24px rgba(15,23,42,.08)}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:20px;font-weight:800;letter-spacing:-.04em;display:flex;align-items:center;gap:7px}
+.logo-mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#111}
+.nav-center{display:flex;gap:30px}
+.nav-center a{font-size:14px;font-weight:600;color:var(--muted);transition:color .18s;position:relative;padding-bottom:2px}
+.nav-center a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--green);border-radius:2px;transition:width .22s ease}
+.nav-center a:hover{color:var(--text)}
+.nav-center a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn-login{font-size:14px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:var(--r999);transition:color .18s,background .18s;background:none;border:none;cursor:pointer;font-family:var(--font)}
+.btn-login:hover{color:var(--text);background:var(--alt)}
+.btn-nav-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--r999);background:var(--green);color:#111;font-family:var(--font);font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;letter-spacing:.01em;position:relative;overflow:hidden}
+.btn-nav-cta:hover{background:var(--green-d);transform:translateY(-1px);box-shadow:0 4px 16px var(--green-glow)}
+.hamburger{display:none;cursor:pointer;font-size:20px;padding:6px;color:var(--text);line-height:1;background:none;border:none}
+.mobile-nav{display:none;background:var(--surface);border-top:1px solid var(--border);overflow:hidden;max-height:0;transition:max-height .3s ease}
+.mobile-nav.open{max-height:320px}
+.mobile-nav-content{display:flex;flex-direction:column;padding:16px 32px;gap:4px}
+.mobile-nav-content a{font-size:15px;font-weight:600;color:var(--muted);padding:10px 0;border-bottom:1px solid var(--border);transition:color .18s}
+.mobile-nav-content a:hover{color:var(--text)}
+.mob-cta{margin:10px 0;text-align:center;padding:12px 0;background:var(--green);border-radius:var(--r12);font-weight:700;color:#111!important;border:none!important}
+.hero{padding-top:calc(var(--nav-h) + 80px);padding-bottom:80px;position:relative;overflow:hidden;text-align:center}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 60% at 80% 10%,rgba(163,230,53,.09),transparent 60%),radial-gradient(ellipse 60% 70% at 15% 80%,rgba(59,130,246,.08),transparent 55%),radial-gradient(ellipse 55% 55% at 50% 50%,rgba(124,58,237,.04),transparent 65%);animation:meshPulse 12s ease-in-out infinite alternate}
+@keyframes meshPulse{0%{opacity:.7;transform:scale(1)}100%{opacity:1;transform:scale(1.04)}}
+.hero-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.orb-1{top:-160px;right:-100px;width:520px;height:520px;background:radial-gradient(circle at 40% 40%,rgba(163,230,53,.09),transparent 60%)}
+.orb-2{bottom:-120px;left:-130px;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 60%)}
+.hero .container{position:relative;z-index:1;max-width:720px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:var(--r999);background:var(--blue-tint);border:1px solid rgba(59,130,246,.22);color:var(--blue-d);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px}
+.badge-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(32px,4.5vw,56px);font-weight:800;line-height:1.1;letter-spacing:-.04em;color:var(--text);margin-bottom:18px}
+.hl-grad{background:linear-gradient(135deg,#A3E635 0%,#3B82F6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.sparkle-wrapper{position:relative;display:inline-block}
+.sparkle-svg{position:absolute;pointer-events:none;z-index:20;font-style:normal;-webkit-text-fill-color:initial;background:none;-webkit-background-clip:unset;background-clip:unset;animation:spkAnim .8s infinite;transform-origin:center;line-height:1}
+@keyframes spkAnim{0%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(75deg)}50%{opacity:1;transform:translate(-50%,-50%) scale(var(--scale)) rotate(120deg)}100%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(150deg)}}
+.hero-sub{font-size:clamp(15px,1.5vw,17px);color:var(--muted);line-height:1.72;max-width:520px;margin:0 auto 32px;font-weight:400}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r12);font-family:var(--font);font-size:15px;font-weight:700;letter-spacing:.01em;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;position:relative;overflow:hidden;border:none}
+.btn:active{transform:scale(.975)!important}
+.btn-primary{background:var(--green);color:#111827;box-shadow:0 4px 14px var(--green-glow)}
+.btn-primary:hover{background:var(--green-d);box-shadow:0 8px 28px rgba(163,230,53,.4);transform:translateY(-2px)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border)!important;box-shadow:var(--sh-sm)}
+.btn-secondary:hover{border-color:var(--border-2)!important;box-shadow:var(--sh-md);transform:translateY(-2px)}
+.ripple-wave{position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);animation:ripOut .55s linear;pointer-events:none}
+@keyframes ripOut{to{transform:scale(4);opacity:0}}
+.section{padding:100px 0}
+.section-sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);overflow:hidden;position:relative}
+.section-sep::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(163,230,53,.5),transparent);animation:sepLine 1.8s ease forwards;animation-play-state:paused}
+.section-sep.run::after{animation-play-state:running}
+@keyframes sepLine{to{left:100%}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--blue-d);margin-bottom:14px}
+.eyebrow::before{content:'';width:16px;height:2px;background:currentColor;border-radius:2px}
+.section h2{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12;color:var(--text);margin-bottom:14px}
+.section-sub{font-size:15.5px;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:48px}
+#expect{background:var(--bg)}
+.expect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.f-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);padding:28px;position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s;cursor:default}
+.f-card:hover{transform:translateY(-6px)}
+.f-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r20) var(--r20) 0 0;opacity:0;transition:opacity .22s}
+.f-card:hover::after{opacity:1}
+.fc-g::after{background:linear-gradient(90deg,var(--green),var(--blue-d))}.fc-b::after{background:linear-gradient(90deg,var(--blue),var(--purple))}.fc-p::after{background:linear-gradient(90deg,var(--purple),var(--green))}
+.fc-g:hover{border-color:var(--green-ring);box-shadow:0 20px 48px rgba(163,230,53,.1)}.fc-b:hover{border-color:var(--blue-ring);box-shadow:0 20px 48px rgba(59,130,246,.1)}.fc-p:hover{border-color:var(--purple-ring);box-shadow:0 20px 48px rgba(124,58,237,.08)}
+.f-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:transform .3s ease;flex-shrink:0}
+.f-card:hover .f-icon{transform:scale(1.15) rotate(-6deg)}
+.fi-g{background:var(--green-tint)}.fi-b{background:var(--blue-tint)}.fi-p{background:var(--purple-tint)}
+.f-icon svg{width:22px;height:22px;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fi-g svg{stroke:var(--green-d)}.fi-b svg{stroke:var(--blue-d)}.fi-p svg{stroke:var(--purple)}
+.f-card h3{font-size:15.5px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:7px}
+.f-card p{font-size:13.5px;color:var(--muted);line-height:1.65;max-width:100%}
+#partnership-form{padding:80px 0 100px;background:var(--bg)}
+.form-section-title{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12;color:var(--text);margin-bottom:8px}
+.form-section-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:40px;max-width:560px}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);padding:48px;box-shadow:var(--sh-md)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start}
+.form-group{margin-bottom:22px}
+.form-group label{display:block;font-weight:700;font-size:13px;letter-spacing:.01em;color:var(--text);margin-bottom:8px;line-height:1.4}
+.form-control{width:100%;height:48px;padding:0 16px;font-family:var(--font);font-size:14px;font-weight:500;color:var(--text);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r12);line-height:1;transition:border-color .18s,box-shadow .18s,background .18s;-webkit-appearance:none;appearance:none;outline:none}
+.form-control::placeholder{color:#94a3b8}
+.form-control:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12);background:var(--surface)}
+select.form-control{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:44px;cursor:pointer}
+textarea.form-control{height:auto;min-height:110px;max-height:240px;padding:14px 16px;line-height:1.6;resize:vertical}
+.req{color:var(--blue-d)}
+.checkbox-row{display:flex;align-items:flex-start;gap:12px;margin:28px 0 32px}
+.checkbox-row input[type="checkbox"]{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--green);cursor:pointer;border-radius:4px}
+.checkbox-row label{font-size:13.5px;color:var(--muted);line-height:1.6;cursor:pointer;font-weight:500}
+.submit-area{display:flex;justify-content:flex-end;align-items:center}
+.contact-team-area{margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.contact-team-card{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border-radius:var(--r16);background:linear-gradient(135deg,rgba(59,130,246,.06),rgba(163,230,53,.08));border:1px solid rgba(59,130,246,.14)}
+.contact-team-copy{display:flex;flex-direction:column;gap:4px}
+.contact-team-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-d)}
+.contact-team-copy h3{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.contact-team-copy p{font-size:13px;line-height:1.65;color:var(--muted);max-width:420px}
+.contact-team-card .btn{flex-shrink:0}
+.form-footer{margin-top:28px;padding-top:24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.form-footer p{display:inline;font-size:12.5px;color:#94a3b8;max-width:100%}
+.form-footer-sep{color:#CBD5E1;font-size:12.5px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.success-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);box-shadow:var(--sh-lg);padding:64px 48px;text-align:center;max-width:560px;margin:0 auto;animation:fadeUp .4s ease forwards}
+.success-icon{display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:var(--green-tint);border:2px solid var(--green-ring);margin:0 auto 24px}
+.success-icon svg{width:26px;height:26px;stroke:var(--green-d);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.success-card h3{font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:10px}
+.success-card>p{font-size:14px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto}
+.success-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:2px;margin:28px auto}
+.success-cta-label{font-size:12.5px;color:#94a3b8;margin-bottom:14px!important}
+.btn-speak{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:var(--r12);font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;background:var(--text);color:#fff;border:none;transition:background .2s,box-shadow .2s,transform .18s}
+.btn-speak:hover{background:#1e293b;transform:translateY(-1px);box-shadow:0 6px 20px rgba(15,23,42,.2)}
+.btn-speak svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:1100;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .2s ease forwards}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-card{background:var(--surface);border-radius:var(--r24);box-shadow:0 32px 80px rgba(0,0,0,.18),0 0 0 1px var(--border);padding:48px 40px 40px;width:100%;max-width:480px;position:relative;animation:slideUp .25s ease forwards}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{position:absolute;top:18px;right:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:none;border:1.5px solid var(--border);border-radius:8px;color:var(--muted);font-size:14px;cursor:pointer;transition:background .18s,color .18s,border-color .18s;font-family:var(--font)}
+.modal-close:hover{background:var(--alt);color:var(--text);border-color:var(--border-2)}
+.modal-icon{width:48px;height:48px;border-radius:var(--r12);background:var(--blue-tint);border:1px solid rgba(59,130,246,.22);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.modal-icon svg{width:22px;height:22px;stroke:var(--blue-d);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modal-card h3{font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:8px}
+.modal-card>p{font-size:13.5px;color:var(--muted);max-width:100%;margin-bottom:28px;line-height:1.7}
+.modal-options{display:flex;flex-direction:column;gap:10px}
+.modal-option{display:flex;align-items:center;gap:16px;padding:16px;border:1.5px solid var(--border);border-radius:var(--r16);text-decoration:none;color:var(--text);transition:border-color .18s,background .18s,box-shadow .18s,transform .18s}
+.modal-option:hover{border-color:var(--blue-ring);background:var(--blue-tint);box-shadow:0 4px 16px var(--blue-glow);transform:translateY(-1px)}
+.option-icon{width:40px;height:40px;border-radius:10px;background:var(--alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s}
+.option-icon svg{width:18px;height:18px;stroke:var(--muted);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .18s}
+.modal-option:hover .option-icon{background:rgba(59,130,246,.12)}
+.modal-option:hover .option-icon svg{stroke:var(--blue-d)}
+.option-body{display:flex;flex-direction:column;gap:2px}
+.option-label{font-weight:700;font-size:13.5px;color:var(--text)}
+.option-detail{font-size:12px;color:var(--muted)}
+.hidden{display:none!important}
+.site-footer{background:var(--surface);border-top:1px solid var(--border);padding:0 0 28px}
+.footer-brand-row{display:flex;gap:40px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;padding:48px 0 36px;border-bottom:1px solid var(--border);margin-bottom:36px}
+.footer-brand{max-width:270px}
+.footer-brand-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.fc-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.fc-item svg{width:13px;height:13px;stroke:var(--muted);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.fc-item a{color:var(--text);transition:color .18s}.fc-item a:hover{color:var(--blue)}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:32px}
+.footer-col h3{font-size:12px;font-weight:700;color:var(--text);margin-bottom:13px;text-transform:uppercase;letter-spacing:.06em}
+.footer-col ul{display:flex;flex-direction:column;gap:9px}
+.footer-col a{font-size:13.5px;color:var(--muted);transition:color .18s}.footer-col a:hover{color:var(--text)}
+.footer-divider{height:1px;background:var(--border);margin-bottom:18px}
+.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.footer-copy{font-size:12.5px;color:var(--muted)}
+.footer-legal{display:flex;gap:12px;flex-wrap:wrap}
+.footer-legal a{font-size:12.5px;color:var(--muted);transition:color .18s}.footer-legal a:hover{color:var(--text)}
+.social-links{display:flex;gap:8px}
+.btn-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .18s}
+.btn-icon:hover{background:var(--alt);color:var(--text);border-color:var(--border-2)}
+.btn-icon svg{width:17px;height:17px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@media(max-width:960px){
+  .expect-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .nav-center{display:none}.hamburger{display:block}.mobile-nav{display:block}
+  .btn-login,.btn-nav-cta{display:none}
+  .hero{padding-top:calc(var(--nav-h) + 48px);padding-bottom:56px}
+  .section,#partnership-form{padding:64px 0}
+  .expect-grid{grid-template-columns:1fr}
+  .form-card{padding:32px 24px}
+  .form-grid{grid-template-columns:1fr;gap:0}
+  .submit-area{justify-content:stretch}
+  .submit-area .btn{width:100%;justify-content:center}
+  .contact-team-card{flex-direction:column;align-items:flex-start}
+  .contact-team-card .btn{width:100%;justify-content:center}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:24px 14px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .footer-brand-row{gap:24px}
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .btn{justify-content:center;width:100%}
+  .success-card{padding:48px 24px}
+  .modal-card{padding:40px 24px 32px}
+  .footer-grid{grid-template-columns:1fr}
+  .expect-grid{grid-template-columns:1fr}
+}
   </style>
 </head>
 <body>
 
-<!-- ══════════ NAVBAR ══════════ -->
-<nav>
-  <div class="nav-inner">
-    <div class="logo">Noetix</div>
+<div id="scroll-progress"></div>
 
+<nav id="mainNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
     <div class="nav-center">
       <a href="about.html">About</a>
-      <a href="course.html">Courses</a>
+      <a href="Course.html">Courses</a>
+      <a href="index.html#schools">For Schools</a>
       <a href="contact.html">Contact</a>
     </div>
-
     <div class="nav-right">
       <button class="btn-login" type="button">Login</button>
-      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <button class="btn-nav-cta" onclick="document.getElementById('partnership-form').scrollIntoView({behavior:'smooth'})">Request Proposal →</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
   </div>
-
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="mobile-nav-content">
       <a href="about.html">About</a>
-      <a href="course.html">Courses</a>
+      <a href="Course.html">Courses</a>
+      <a href="index.html#schools">For Schools</a>
       <a href="contact.html">Contact</a>
+      <a href="#partnership-form" class="mob-cta">Request Proposal</a>
     </div>
   </div>
 </nav>
 
-<main>
-
-  <!-- ══════════ HERO ══════════ -->
-  <section class="hero">
-    <div class="container">
-      <h1>Request a Partnership Proposal</h1>
-      <p class="hero-sub">Submit your institution details to receive a structured program overview and partnership outline.</p>
-      <div class="badge">Founding School Cohort — Limited Enrollment</div>
-      <a href="#partnership-form" class="btn btn-primary">Request Proposal</a>
-    </div>
-  </section>
-
-  <!-- ══════════ WHAT TO EXPECT ══════════ -->
-  <section class="section">
-    <div class="container">
-      <h2>What to Expect</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Review &amp; Qualification</h3>
-          <p>We review your institution details and confirm program suitability.</p>
-        </div>
-        <div class="card">
-          <h3>Proposal Overview</h3>
-          <p>You receive a structured outline of program format, delivery model, and certification process.</p>
-        </div>
-        <div class="card">
-          <h3>Optional Follow&#8209;Up Call</h3>
-          <p>A short coordination call to finalize timelines and execution details.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ FORM SECTION ══════════ -->
-  <section id="partnership-form" class="section-sm">
-    <div class="container">
-      <h2 class="form-section-title">Institution Details</h2>
-
-      <!-- FORM CARD -->
-      <div id="formCard" class="form-section">
-        <form id="partnerForm" novalidate>
-
-          <div class="form-grid">
-            <!-- LEFT COLUMN -->
-            <div>
-              <div class="form-group">
-                <label for="schoolName">School Name <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="schoolName" name="schoolName" class="form-control" placeholder="e.g. Delhi Public School" autocomplete="organization" required>
-              </div>
-
-              <div class="form-group">
-                <label for="cityState">City &amp; State <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="cityState" name="cityState" class="form-control" placeholder="e.g. Mumbai, Maharashtra" required>
-              </div>
-
-              <div class="form-group">
-                <label for="schoolBoard">School Board</label>
-                <select id="schoolBoard" name="schoolBoard" class="form-control">
-                  <option value="" disabled selected>Select board</option>
-                  <option value="ICSE">ICSE</option>
-                  <option value="CBSE">CBSE</option>
-                  <option value="State">State Board</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="studentStrength">Total Student Strength</label>
-                <select id="studentStrength" name="studentStrength" class="form-control">
-                  <option value="" disabled selected>Select range</option>
-                  <option value="lt200">&lt;200</option>
-                  <option value="200-500">200–500</option>
-                  <option value="501-1000">501–1000</option>
-                  <option value="1000+">1000+</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="grades">Grades Interested</label>
-                <select id="grades" name="grades" class="form-control">
-                  <option value="" disabled selected>Select grades</option>
-                  <option value="8-10">8–10</option>
-                  <option value="9-12">9–12</option>
-                  <option value="8-12">8–12</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="estimatedStudents">Estimated Students for Program</label>
-                <select id="estimatedStudents" name="estimatedStudents" class="form-control">
-                  <option value="" disabled selected>Select range</option>
-                  <option value="10-30">10–30</option>
-                  <option value="30-60">30–60</option>
-                  <option value="60-100">60–100</option>
-                  <option value="100+">100+</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- RIGHT COLUMN -->
-            <div>
-              <div class="form-group">
-                <label for="contactName">Primary Contact Name <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="contactName" name="contactName" class="form-control" placeholder="Full name" autocomplete="name" required>
-              </div>
-
-              <div class="form-group">
-                <label for="role">Role</label>
-                <select id="role" name="role" class="form-control">
-                  <option value="" disabled selected>Select role</option>
-                  <option value="principal">Principal</option>
-                  <option value="coordinator">Academic Coordinator</option>
-                  <option value="admin">Administrator</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="email">Official School Email <span class="req" aria-hidden="true">*</span></label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="name@school.edu" autocomplete="email" required>
-              </div>
-
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 00000 00000" autocomplete="tel">
-              </div>
-
-              <div class="form-group">
-                <label for="timeline">Preferred Start Timeline</label>
-                <select id="timeline" name="timeline" class="form-control">
-                  <option value="" disabled selected>Select timeline</option>
-                  <option value="next-term">Next Term</option>
-                  <option value="next-quarter">Next Quarter</option>
-                  <option value="undecided">Undecided</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="notes">Additional Notes</label>
-                <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Any specific requirements or questions…"></textarea>
-              </div>
-            </div>
-          </div><!-- /form-grid -->
-
-          <!-- Acknowledgement -->
-          <div class="checkbox-row">
-            <input type="checkbox" id="understand" name="understand">
-            <label for="understand">We understand that Noetix delivers structured, fixed-format academic programs.</label>
-          </div>
-
-          <!-- Submit -->
-          <div class="submit-area">
-            <button type="submit" class="btn btn-primary">Request Proposal</button>
-          </div>
-
-        </form>
-      </div><!-- /formCard -->
-
-      <!-- SUCCESS CARD (hidden until submission) -->
-      <div id="successCard" class="success-card hidden" role="alert" aria-live="polite">
-        <div class="success-icon">
-          <i class="fas fa-check" aria-hidden="true"></i>
-        </div>
-        <h3>Request Submitted</h3>
-        <p>Thank you. Our team will review your institution details and respond within 48 business hours.</p>
-
-        <div class="success-divider"></div>
-
-        <p class="success-cta-label">Prefer to connect sooner?</p>
-        <button type="button" class="btn btn-speak" id="speakBtn">
-          <i class="fas fa-phone-alt" aria-hidden="true"></i>
-          Speak with Our Team
-        </button>
-      </div>
-
-      <!-- SPEAK MODAL -->
-      <div id="speakModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-card">
-          <button class="modal-close" id="modalClose" aria-label="Close">
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-          <div class="modal-icon">
-            <i class="fas fa-headset" aria-hidden="true"></i>
-          </div>
-          <h3 id="modalTitle">Talk to a Partnership Advisor</h3>
-          <p>Our team is available Monday – Friday, 9 AM to 6 PM IST. Choose how you'd like to connect.</p>
-
-          <div class="modal-options">
-            <a href="tel:+918000000000" class="modal-option">
-              <span class="option-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
-              <span class="option-body">
-                <span class="option-label">Call Us</span>
-                <span class="option-detail">+91 80000 00000</span>
-              </span>
-            </a>
-            <a href="mailto:partnerships@noetix.in" class="modal-option">
-              <span class="option-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>
-              <span class="option-body">
-                <span class="option-label">Email Us</span>
-                <span class="option-detail">partnerships@noetix.in</span>
-              </span>
-            </a>
-            <a href="#" class="modal-option">
-              <span class="option-icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span>
-              <span class="option-body">
-                <span class="option-label">Schedule a Call</span>
-                <span class="option-detail">Pick a time that works for you</span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer strip -->
-      <div class="form-footer">
-        <p>We respond within 48 business hours.</p>
-        <p>All institutional information remains confidential.</p>
-      </div>
-
-    </div>
-  </section>
-</main>
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer class="main-footer">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
   <div class="container">
-    <p>© 2026 Noetix Education. All rights reserved.</p>
+    <div class="hero-badge"><span class="badge-dot"></span>Founding School Cohort — Limited Enrollment</div>
+    <h1>Request a <span class="sparkle-wrapper" id="heroSparkles"><em class="hl-grad">Partnership</em></span> Proposal</h1>
+    <p class="hero-sub">Submit your institution details to receive a structured program overview and partnership outline.</p>
+    <div class="hero-actions">
+      <a href="#partnership-form" class="btn btn-primary ripple-tgt">Request Proposal</a>
+      <a href="index.html#schools" class="btn btn-secondary">Learn About Schools ↓</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep1"></div>
+
+<!-- WHAT TO EXPECT -->
+<section class="section" id="expect">
+  <div class="container">
+    <div class="eyebrow reveal">Partnership Process</div>
+    <h2 class="reveal d1">What to Expect</h2>
+    <p class="section-sub reveal d2">A clear, three-step process designed to get your school up and running with minimal friction.</p>
+    <div class="expect-grid">
+      <div class="f-card fc-g reveal"> <!-- cards unchanged --> 
+        <div class="f-icon fi-g"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg></div>
+        <h3>Review &amp; Qualification</h3><p>We review your institution details and confirm program suitability.</p>
+      </div>
+      <div class="f-card fc-b reveal d1">
+        <div class="f-icon fi-b"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <h3>Proposal Overview</h3><p>You receive a structured outline of program format, delivery model, and certification process.</p>
+      </div>
+      <div class="f-card fc-p reveal d2">
+        <div class="f-icon fi-p"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <h3>Optional Follow‑Up Call</h3><p>A short coordination call to finalize timelines and execution details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep2"></div>
+
+<!-- FORM SECTION (with added checkbox and contact button) -->
+<section id="partnership-form" style="padding:80px 0 100px;background:var(--bg)">
+  <div class="container">
+    <div class="eyebrow reveal">School Application</div>
+    <h2 class="form-section-title reveal d1">Institution Details</h2>
+    <p class="form-section-sub reveal d2">Fill in your institution's information below. We'll review and get back to you within 48 hours.</p>
+
+    <!-- FORM CARD -->
+    <div id="formCard" class="form-card reveal d2">
+      <form id="partnerForm" novalidate>
+        <div class="form-grid">
+          <!-- LEFT COLUMN (unchanged) -->
+          <div>
+            <div class="form-group"><label for="schoolName">School Name <span class="req" aria-hidden="true">*</span></label><input type="text" id="schoolName" name="schoolName" class="form-control" placeholder="e.g. Delhi Public School" autocomplete="organization" required></div>
+            <div class="form-group"><label for="cityState">City &amp; State <span class="req" aria-hidden="true">*</span></label><input type="text" id="cityState" name="cityState" class="form-control" placeholder="e.g. Mumbai, Maharashtra" required></div>
+            <div class="form-group"><label for="schoolBoard">School Board</label><select id="schoolBoard" name="schoolBoard" class="form-control"><option value="" disabled selected>Select board</option><option value="ICSE">ICSE</option><option value="CBSE">CBSE</option><option value="State">State Board</option><option value="Other">Other</option></select></div>
+            <div class="form-group"><label for="studentStrength">Total Student Strength</label><select id="studentStrength" name="studentStrength" class="form-control"><option value="" disabled selected>Select range</option><option value="lt200">&lt;200</option><option value="200-500">200–500</option><option value="501-1000">501–1000</option><option value="1000+">1000+</option></select></div>
+            <div class="form-group"><label for="grades">Grades Interested</label><select id="grades" name="grades" class="form-control"><option value="" disabled selected>Select grades</option><option value="8-10">8–10</option><option value="9-12">9–12</option><option value="8-12">8–12</option></select></div>
+            <div class="form-group"><label for="estimatedStudents">Estimated Students for Program</label><select id="estimatedStudents" name="estimatedStudents" class="form-control"><option value="" disabled selected>Select range</option><option value="10-30">10–30</option><option value="30-60">30–60</option><option value="60-100">60–100</option><option value="100+">100+</option></select></div>
+          </div>
+          <!-- RIGHT COLUMN (unchanged) -->
+          <div>
+            <div class="form-group"><label for="contactName">Primary Contact Name <span class="req" aria-hidden="true">*</span></label><input type="text" id="contactName" name="contactName" class="form-control" placeholder="Full name" autocomplete="name" required></div>
+            <div class="form-group"><label for="role">Role</label><select id="role" name="role" class="form-control"><option value="" disabled selected>Select role</option><option value="principal">Principal</option><option value="coordinator">Academic Coordinator</option><option value="admin">Administrator</option><option value="other">Other</option></select></div>
+            <div class="form-group"><label for="email">Official School Email <span class="req" aria-hidden="true">*</span></label><input type="email" id="email" name="email" class="form-control" placeholder="name@school.edu" autocomplete="email" required></div>
+            <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 00000 00000" autocomplete="tel"></div>
+            <div class="form-group"><label for="timeline">Preferred Start Timeline</label><select id="timeline" name="timeline" class="form-control"><option value="" disabled selected>Select timeline</option><option value="next-term">Next Term</option><option value="next-quarter">Next Quarter</option><option value="undecided">Undecided</option></select></div>
+            <div class="form-group"><label for="notes">Additional Notes</label><textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Any specific requirements or questions…"></textarea></div>
+          </div>
+        </div><!-- /form-grid -->
+
+        <!-- Original acknowledgement checkbox -->
+        <div class="checkbox-row">
+          <input type="checkbox" id="understand" name="understand">
+          <label for="understand">We understand that Noetix delivers structured, fixed-format academic programs.</label>
+        </div>
+
+        <!--  ADDED: Accept terms & policy checkbox (required) -->
+        <div class="checkbox-row">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">I accept the <a href="#" style="text-decoration:underline; color:var(--blue);">Terms & Conditions</a> and <a href="#" style="text-decoration:underline; color:var(--blue);">Privacy Policy</a>.</label>
+        </div>
+
+        <!-- Submit area -->
+        <div class="submit-area">
+          <button type="submit" class="btn btn-primary ripple-tgt">Request Proposal</button>
+        </div>
+      </form>
+
+      <div class="contact-team-area reveal d3">
+        <div class="contact-team-card">
+          <div class="contact-team-copy">
+            <span class="contact-team-label">Need a Faster Response?</span>
+            <h3>Talk to the Noetix Partnership Team</h3>
+            <p>If you would rather connect directly before submitting, our team can help with timelines, onboarding, and program fit.</p>
+          </div>
+          <button type="button" class="btn btn-secondary" id="contactTeamBtn">Contact Noetix Team</button>
+        </div>
+      </div>
+
+    </div><!-- /formCard -->
+
+    <!-- SUCCESS CARD (hidden until submission) -->
+    <div id="successCard" class="success-card hidden" role="alert" aria-live="polite">
+      <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3>Request Submitted</h3>
+      <p>Thank you. Our team will review your institution details and respond within 48 business hours.</p>
+      <div class="success-divider"></div>
+      <p class="success-cta-label">Prefer to connect sooner?</p>
+      <button type="button" class="btn-speak" id="speakBtn"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Speak with Our Team</button>
+    </div>
+
+    <!-- SPEAK MODAL (unchanged) -->
+    <div id="speakModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        <div class="modal-icon"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <h3 id="modalTitle">Talk to a Partnership Advisor</h3>
+        <p>Our team is available Monday – Friday, 9 AM to 6 PM IST. Choose how you'd like to connect.</p>
+        <div class="modal-options">
+          <a href="tel:+918000000000" class="modal-option"><span class="option-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span class="option-body"><span class="option-label">Call Us</span><span class="option-detail">+91 80000 00000</span></span></a>
+          <a href="/cdn-cgi/l/email-protection#b2dad7dededdf2dcddd7c6dacb9dd6d7c6" class="modal-option"><span class="option-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span class="option-body"><span class="option-label">Email Us</span><span class="option-detail"><span class="__cf_email__" data-cfemail="caa2afa6a6a58aa4a5afbea3b2e4afafbe">[email&#160;protected]</span></span></span></a>
+          <a href="#" class="modal-option"><span class="option-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="option-body"><span class="option-label">Schedule a Call</span><span class="option-detail">Pick a time that works for you</span></span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form footer -->
+    <div class="form-footer">
+      <p>We respond within 48 business hours.</p>
+      <span class="form-footer-sep">·</span>
+      <p>All institutional information remains confidential.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (unchanged) -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:11px"><div class="logo-mark">N</div>Noetix</div>
+        <p class="footer-brand-desc">Future-ready technology education for students in Grades 8–12. Building the next generation of AI, cybersecurity, and programming talent through project-driven, certified programs.</p>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="/cdn-cgi/l/email-protection#a3cbc6cfcfcce3cdccc6d7cadb8dc6c7d6"><span class="__cf_email__" data-cfemail="9ef6fbf2f2f1def0f1fbeaf7e6b0fbfaeb">[email&#160;protected]</span></a></div>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Dubai, UAE &amp; Online</div>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col"><h3>Company</h3><ul><li><a href="#">About Noetix</a></li><li><a href="#">Our Mission</a></li><li><a href="#">Leadership</a></li><li><a href="#">Careers</a></li><li><a href="#">Press &amp; Media</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Programs</h3><ul><li><a href="#">AI Foundations</a></li><li><a href="#">Cybersecurity Essentials</a></li><li><a href="#">Fundamentals of Programming</a></li><li><a href="#">Certifications</a></li><li><a href="#">Cohort Schedule</a></li></ul></div>
+      <div class="footer-col"><h3>Resources</h3><ul><li><a href="#">Parent Guide</a></li><li><a href="#">School Partnership</a></li><li><a href="#">Student FAQs</a></li><li><a href="#">Success Stories</a></li><li><a href="#">Learning Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Legal</h3><ul><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Accessibility</a></li></ul></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Noetix Education. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a></div>
+      <div class="social-links">
+        <a href="#" class="btn-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+      </div>
+    </div>
   </div>
 </footer>
 
-<script>
-  /* ── Hamburger toggle ──────────────────────────────── */
-  const hamburger = document.getElementById('hamburgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ─── SCROLL PROGRESS + NAV ─── */
+const spBar = document.getElementById('scroll-progress');
+const mainNav = document.getElementById('mainNav');
+const hbg = document.getElementById('hamburgerBtn');
+const mobn = document.getElementById('mobileNav');
 
-  if (hamburger && mobileNav) {
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = mobileNav.classList.toggle('open');
-      hamburger.setAttribute('aria-expanded', isOpen);
-      mobileNav.setAttribute('aria-hidden', !isOpen);
-    });
+window.addEventListener('scroll', () => {
+  const pct = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100, 100);
+  spBar.style.width = pct + '%';
+  mainNav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
 
-    mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileNav.setAttribute('aria-hidden', 'true');
-      });
-    });
+hbg.addEventListener('click', e => {
+  e.stopPropagation();
+  const isOpen = mobn.classList.toggle('open');
+  hbg.setAttribute('aria-expanded', isOpen);
+  mobn.setAttribute('aria-hidden', !isOpen);
+});
 
-    document.addEventListener('click', (e) => {
-      if (mobileNav.classList.contains('open') &&
-          !mobileNav.contains(e.target) &&
-          !hamburger.contains(e.target)) {
-        mobileNav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileNav.setAttribute('aria-hidden', 'true');
-      }
-    });
+mobn.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobn.classList.remove('open');
+  hbg.setAttribute('aria-expanded', 'false');
+  mobn.setAttribute('aria-hidden', 'true');
+}));
+
+document.addEventListener('click', e => {
+  if (mobn.classList.contains('open') && !mobn.contains(e.target) && !hbg.contains(e.target)) {
+    mobn.classList.remove('open');
+    hbg.setAttribute('aria-expanded', 'false');
+    mobn.setAttribute('aria-hidden', 'true');
   }
+});
 
-  /* ── Form submission ───────────────────────────────── */
-  const form       = document.getElementById('partnerForm');
-  const formCard   = document.getElementById('formCard');
+/* ─── REVEAL OBSERVER ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  const sepObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('run'); });
+  }, { threshold: .5 });
+  document.querySelectorAll('.section-sep').forEach(el => sepObs.observe(el));
+
+  /* ─── RIPPLE ─── */
+  document.querySelectorAll('.ripple-tgt').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-wave';
+      ripple.style.left = (e.clientX - rect.left) + 'px';
+      ripple.style.top = (e.clientY - rect.top) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  /* ─── FORM SUBMISSION with terms validation ─── */
+  const form = document.getElementById('partnerForm');
+  const formCard = document.getElementById('formCard');
   const successCard = document.getElementById('successCard');
+  const termsChk = document.getElementById('terms');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Swap form → success card without layout jump
+  form.addEventListener('submit', e => {
+    e.preventDefault();   // always prevent default
+
+    // validate terms checkbox (required)
+    if (termsChk && !termsChk.checked) {
+      alert('Please accept the Terms & Conditions and Privacy Policy to proceed.');
+      return;
+    }
+
+    // if valid, hide form and show success
     formCard.classList.add('hidden');
     successCard.classList.remove('hidden');
-    // Scroll to success card top smoothly
     successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ── Speak modal ───────────────────────────────────── */
-  const speakBtn   = document.getElementById('speakBtn');
+  /* ─── SPEAK MODAL ─── */
+  const speakBtn = document.getElementById('speakBtn');
   const speakModal = document.getElementById('speakModal');
   const modalClose = document.getElementById('modalClose');
 
   function openModal() {
     speakModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    modalClose.focus();
+    if(modalClose) modalClose.focus();
   }
-
   function closeModal() {
     speakModal.classList.add('hidden');
     document.body.style.overflow = '';
-    speakBtn.focus();
+    if(speakBtn) speakBtn.focus();
   }
 
-  if (speakBtn)   speakBtn.addEventListener('click', openModal);
+  if (speakBtn) speakBtn.addEventListener('click', openModal);
   if (modalClose) modalClose.addEventListener('click', closeModal);
-
-  // Close on backdrop click
-  speakModal && speakModal.addEventListener('click', (e) => {
-    if (e.target === speakModal) closeModal();
+  if (speakModal) speakModal.addEventListener('click', e => { if (e.target === speakModal) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && speakModal && !speakModal.classList.contains('hidden')) closeModal();
   });
 
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && speakModal && !speakModal.classList.contains('hidden')) {
-      closeModal();
-    }
-  });
+  /* ADDED: Contact Noetix Team button opens the same modal */
+  const contactTeamBtn = document.getElementById('contactTeamBtn');
+  if (contactTeamBtn) contactTeamBtn.addEventListener('click', openModal);
 
-  /* ── Smooth scroll for hero CTA ────────────────────── */
-  const heroCta = document.querySelector('a[href="#partnership-form"]');
-  if (heroCta) {
-    heroCta.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.getElementById('partnership-form').scrollIntoView({ behavior: 'smooth' });
-    });
+  /* ─── SPARKLE EFFECT ─── */
+  const sparkWrapper = document.querySelector('.sparkle-wrapper');
+  if (sparkWrapper) {
+    setInterval(() => {
+      const sp = document.createElement('span');
+      sp.className = 'sparkle-svg';
+      sp.style.setProperty('--scale', (0.5 + Math.random()).toFixed(2));
+      sp.style.left = (Math.random() * 100) + '%';
+      sp.style.top = (Math.random() * 100) + '%';
+      sp.innerHTML = '✦';
+      const stars = ['✦','✧','⋆','✶'];
+      sp.innerHTML = '✦';
+      sparkWrapper.appendChild(sp);
+      setTimeout(() => sp.remove(), 800);
+    }, 600);
   }
-</script>
 
+  /* ─── SMOOTH SCROLL FOR ANCHOR LINKS ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>

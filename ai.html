@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noetix | AI Foundations — Certificate Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — exact match to Noetix system
+═══════════════════════════════════════════ */
+:root{
+  --bg:#F8FAFC;--surface:#FFFFFF;--text:#0F172A;--muted:#64748B;
+  --border:#E2E8F0;--border-2:#CBD5E1;--alt:#F1F5F9;
+  --green:#A3E635;--green-d:#84CC16;--green-glow:rgba(163,230,53,.22);
+  --green-tint:#F7FEE7;--green-ring:rgba(163,230,53,.35);
+  --blue:#3B82F6;--blue-d:#2563EB;--blue-glow:rgba(59,130,246,.18);
+  --blue-tint:#EFF6FF;--blue-ring:rgba(59,130,246,.35);
+  --purple:#7C3AED;--purple-tint:#F5F3FF;--purple-ring:rgba(124,58,237,.3);
+  --dk-bg:#0b0f14;--dk-bg2:#0e1117;
+  --dk-surface:rgba(255,255,255,.04);--dk-border:rgba(255,255,255,.07);
+  --dk-text:#E6EDF3;--dk-muted:#9DA7B3;
+  --neon:#00E6A8;--neon-glow:rgba(0,230,168,.18);--neon2:#4F9DFF;
+  --sh-sm:0 2px 8px rgba(15,23,42,.05);
+  --sh-md:0 8px 24px rgba(15,23,42,.08);
+  --sh-lg:0 20px 48px rgba(15,23,42,.10);
+  --r12:12px;--r16:16px;--r20:20px;--r24:24px;--r999:999px;
+  --container:1200px;--nav-h:72px;--font:'Plus Jakarta Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+.container{max-width:var(--container);margin:0 auto;padding:0 32px}
+
+/* ─── SCROLL PROGRESS ─── */
+#scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--green),var(--blue),var(--purple));z-index:9999;border-radius:0 2px 2px 0;pointer-events:none;transition:width .1s linear}
+
+/* ─── NAVBAR ─── */
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(248,250,252,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+#mainNav.scrolled{box-shadow:0 4px 24px rgba(15,23,42,.08)}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:20px;font-weight:800;letter-spacing:-.04em;display:flex;align-items:center;gap:7px}
+.logo-mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#111}
+.nav-center{display:flex;gap:30px}
+.nav-center a{font-size:14px;font-weight:600;color:var(--muted);transition:color .18s;position:relative;padding-bottom:2px}
+.nav-center a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--green);border-radius:2px;transition:width .22s ease}
+.nav-center a:hover,.nav-center a.active{color:var(--text)}
+.nav-center a:hover::after,.nav-center a.active::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn-login{font-size:14px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:var(--r999);transition:color .18s,background .18s;background:none;border:none;cursor:pointer;font-family:var(--font)}
+.btn-login:hover{color:var(--text);background:var(--alt)}
+.btn-nav-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:var(--r999);background:var(--green);color:#111;font-family:var(--font);font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all .2s;letter-spacing:.01em;position:relative;overflow:hidden}
+.btn-nav-cta:hover{background:var(--green-d);transform:translateY(-1px);box-shadow:0 4px 16px var(--green-glow)}
+.hamburger{display:none;cursor:pointer;font-size:20px;padding:6px;color:var(--text);line-height:1;background:none;border:none}
+.mobile-nav{display:none;background:var(--surface);border-top:1px solid var(--border);overflow:hidden;max-height:0;transition:max-height .3s ease}
+.mobile-nav.open{max-height:340px}
+.mobile-nav-content{display:flex;flex-direction:column;padding:16px 32px;gap:4px}
+.mobile-nav-content a{font-size:15px;font-weight:600;color:var(--muted);padding:10px 0;border-bottom:1px solid var(--border);transition:color .18s}
+.mobile-nav-content a:hover{color:var(--text)}
+.mob-cta{margin:10px 0;text-align:center;padding:12px 0;background:var(--green);border-radius:var(--r12);font-weight:700;color:#111!important;border:none!important}
+
+/* ─── SHARED BUTTONS ─── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r12);font-family:var(--font);font-size:15px;font-weight:700;letter-spacing:.01em;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s;position:relative;overflow:hidden;border:none}
+.btn:active{transform:scale(.975)!important}
+.btn-primary{background:var(--green);color:#111827;box-shadow:0 4px 14px var(--green-glow)}
+.btn-primary:hover{background:var(--green-d);box-shadow:0 8px 28px rgba(163,230,53,.4);transform:translateY(-2px)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border)!important;box-shadow:var(--sh-sm)}
+.btn-secondary:hover{border-color:var(--border-2)!important;box-shadow:var(--sh-md);transform:translateY(-2px)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 4px 14px var(--blue-glow)}
+.btn-blue:hover{background:var(--blue-d);box-shadow:0 8px 28px rgba(59,130,246,.4);transform:translateY(-2px)}
+.ripple-wave{position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);animation:ripOut .55s linear;pointer-events:none}
+@keyframes ripOut{to{transform:scale(4);opacity:0}}
+
+/* ─── SECTIONS ─── */
+.section{padding:100px 0}
+.section-sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);overflow:hidden;position:relative}
+.section-sep::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(163,230,53,.5),transparent);animation:sepLine 1.8s ease forwards;animation-play-state:paused}
+.section-sep.run::after{animation-play-state:running}
+@keyframes sepLine{to{left:100%}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--blue-d);margin-bottom:14px}
+.eyebrow::before{content:'';width:16px;height:2px;background:currentColor;border-radius:2px}
+.eyebrow-neon{color:var(--neon)}
+.eyebrow-neon::before{background:var(--neon)}
+.section-title{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12;color:var(--text);margin-bottom:14px}
+.section-sub{font-size:15.5px;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:48px}
+
+/* ─── DARK BASE ─── */
+.dark-section{position:relative;overflow:hidden;padding:100px 0;color:var(--dk-text);
+  background:radial-gradient(circle at 18% 30%,rgba(0,230,168,.07),transparent 40%),
+             radial-gradient(circle at 82% 65%,rgba(79,157,255,.07),transparent 40%),
+             linear-gradient(180deg,var(--dk-bg),var(--dk-bg2))}
+.dark-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.dark-section .container{position:relative;z-index:10}
+.dk-eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--neon);margin-bottom:14px;display:block}
+.dark-section h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--dk-text);margin-bottom:16px}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+.hero{padding-top:calc(var(--nav-h) + 72px);padding-bottom:80px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 80% 60% at 70% 0%,rgba(59,130,246,.1),transparent 60%),
+             radial-gradient(ellipse 60% 70% at 10% 85%,rgba(163,230,53,.08),transparent 55%),
+             radial-gradient(ellipse 50% 50% at 48% 48%,rgba(124,58,237,.04),transparent 65%);
+  animation:meshPulse 12s ease-in-out infinite alternate}
+@keyframes meshPulse{0%{opacity:.7;transform:scale(1)}100%{opacity:1;transform:scale(1.04)}}
+.hero-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.orb-1{top:-160px;right:-80px;width:500px;height:500px;background:radial-gradient(circle at 40% 40%,rgba(59,130,246,.12),transparent 60%)}
+.orb-2{bottom:-100px;left:-130px;width:380px;height:380px;background:radial-gradient(circle,rgba(163,230,53,.08),transparent 60%)}
+.hero .container{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+
+/* Hero left */
+.course-breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:20px}
+.course-breadcrumb a{transition:color .18s}.course-breadcrumb a:hover{color:var(--text)}
+.crumb-sep{color:var(--border-2)}
+.hero-badge-row{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.h-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--r999);font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.hb-blue{background:var(--blue-tint);border:1px solid rgba(59,130,246,.22);color:var(--blue-d)}
+.hb-green{background:var(--green-tint);border:1px solid rgba(163,230,53,.3);color:var(--green-d)}
+.hb-live{background:rgba(0,230,168,.1);border:1px solid rgba(0,230,168,.22);color:var(--neon)}
+.hb-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--neon);animation:blink 2s ease-in-out infinite}
+.hero h1{font-size:clamp(34px,4vw,54px);font-weight:800;line-height:1.1;letter-spacing:-.04em;color:var(--text);margin-bottom:16px}
+.hl-grad{background:linear-gradient(135deg,#3B82F6 0%,#7C3AED 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.sparkle-wrapper{position:relative;display:inline-block}
+.sparkle-svg{position:absolute;pointer-events:none;z-index:20;font-style:normal;-webkit-text-fill-color:initial;background:none;-webkit-background-clip:unset;background-clip:unset;animation:spkAnim .8s infinite;transform-origin:center;line-height:1}
+@keyframes spkAnim{0%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(75deg)}50%{opacity:1;transform:translate(-50%,-50%) scale(var(--scale)) rotate(120deg)}100%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(150deg)}}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.72;max-width:460px;margin-bottom:28px}
+.hero-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.trust-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.trust-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:var(--r999);background:var(--surface);border:1px solid var(--border);font-size:11.5px;font-weight:600;color:var(--muted);box-shadow:var(--sh-sm)}
+.trust-pill svg{width:13px;height:13px;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke:var(--green-d)}
+
+/* Hero right — stats visual */
+.hero-right{position:relative}
+.course-card-visual{animation:floatVis 6s ease-in-out infinite}
+@keyframes floatVis{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ccv-win{background:#161b22;border:1px solid rgba(255,255,255,.1);border-radius:var(--r24);overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04)}
+.ccv-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07)}
+.ccv-dot{width:11px;height:11px;border-radius:50%}
+.ccv-dot.r{background:#FF5F56}.ccv-dot.y{background:#FFBD2E}.ccv-dot.g{background:#27C93F}
+.ccv-title{margin-left:5px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.32)}
+.ccv-hero-inner{padding:20px}
+.course-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cstat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.cstat-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.cstat-icon svg{width:14px;height:14px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ci-neon{background:rgba(0,230,168,.1)}.ci-neon svg{stroke:var(--neon)}
+.ci-blue{background:rgba(79,157,255,.1)}.ci-blue svg{stroke:var(--neon2)}
+.ci-purple{background:rgba(167,139,250,.1)}.ci-purple svg{stroke:#a78bfa}
+.ci-green{background:rgba(163,230,53,.1)}.ci-green svg{stroke:var(--green-d)}
+.ci-yellow{background:rgba(251,191,36,.1)}.ci-yellow svg{stroke:#fbbf24}
+.cstat-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.32)}
+.cstat-val{font-size:16px;font-weight:800;color:var(--dk-text);letter-spacing:-.03em}
+.cstat-sub{font-size:10px;color:rgba(255,255,255,.3)}
+.ccv-enroll-btn{width:100%;padding:12px;border-radius:10px;background:var(--neon);color:#0b0f14;font-family:var(--font);font-size:13px;font-weight:800;border:none;cursor:pointer;letter-spacing:.04em;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.ccv-enroll-btn:hover{box-shadow:0 8px 24px rgba(0,230,168,.4);transform:translateY(-1px)}
+.ccv-enroll-btn::before{content:'';width:5px;height:5px;border-radius:50%;background:#0b0f14;animation:blink 1.5s ease-in-out infinite}
+.ccv-footer-note{text-align:center;font-size:10.5px;color:rgba(255,255,255,.28);margin-top:10px;font-weight:500}
+/* floating chips */
+.float-chip{position:absolute;display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:var(--r999);font-size:10.5px;font-weight:700;pointer-events:none;z-index:4;backdrop-filter:blur(10px)}
+.fc-ai{top:-14px;left:-10px;background:rgba(59,130,246,.13);border:1px solid rgba(59,130,246,.28);color:var(--blue-d);animation:kwF 8s ease-in-out infinite}
+.fc-ml{bottom:40px;right:-16px;background:rgba(124,58,237,.11);border:1px solid rgba(124,58,237,.26);color:var(--purple);animation:kwF 9s ease-in-out 2s infinite}
+.fc-cert{top:38%;left:-22px;background:rgba(163,230,53,.11);border:1px solid rgba(163,230,53,.26);color:var(--green-d);animation:kwF 7.5s ease-in-out 4s infinite}
+@keyframes kwF{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ════════════════════════════════════════
+   WHAT YOU'LL LEARN
+════════════════════════════════════════ */
+#learn{background:var(--bg)}
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.lc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r16);padding:22px;position:relative;overflow:hidden;transition:transform .22s,box-shadow .22s,border-color .22s;cursor:default}
+.lc:hover{transform:translateY(-5px)}
+.lc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r16) var(--r16) 0 0;opacity:0;transition:opacity .22s}
+.lc:hover::after{opacity:1}
+.lc-0::after,.lc-4::after{background:linear-gradient(90deg,var(--blue),var(--purple))}.lc-0:hover,.lc-4:hover{border-color:var(--blue-ring);box-shadow:0 16px 40px rgba(59,130,246,.1)}
+.lc-1::after,.lc-5::after{background:linear-gradient(90deg,var(--green),var(--blue))}.lc-1:hover,.lc-5:hover{border-color:var(--green-ring);box-shadow:0 16px 40px rgba(163,230,53,.1)}
+.lc-2::after,.lc-6::after{background:linear-gradient(90deg,var(--purple),var(--neon))}.lc-2:hover,.lc-6:hover{border-color:var(--purple-ring);box-shadow:0 16px 40px rgba(124,58,237,.08)}
+.lc-3::after{background:linear-gradient(90deg,var(--neon),var(--blue))}.lc-3:hover{border-color:rgba(0,230,168,.3);box-shadow:0 16px 40px rgba(0,230,168,.08)}
+.lc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:transform .3s ease}
+.lc:hover .lc-icon{transform:scale(1.15) rotate(-6deg)}
+.lc-icon svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.li-blue{background:var(--blue-tint)}.li-blue svg{stroke:var(--blue-d)}
+.li-green{background:var(--green-tint)}.li-green svg{stroke:var(--green-d)}
+.li-purple{background:var(--purple-tint)}.li-purple svg{stroke:var(--purple)}
+.li-neon{background:rgba(0,230,168,.08)}.li-neon svg{stroke:var(--neon)}
+.lc h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:-.02em}
+.lc p{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* ════════════════════════════════════════
+   CURRICULUM
+════════════════════════════════════════ */
+#curriculum{background:var(--bg)}
+.curriculum-wrap{max-width:820px;margin:0 auto}
+.mod-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r16);overflow:hidden;transition:border-color .22s,box-shadow .22s;margin-bottom:10px}
+.mod-item.open{border-color:rgba(59,130,246,.3);box-shadow:0 4px 20px rgba(59,130,246,.06)}
+.mod-header{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;user-select:none;transition:background .18s}
+.mod-header:hover{background:var(--alt)}
+.mod-num{width:32px;height:32px;border-radius:8px;background:var(--alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--muted);flex-shrink:0;transition:all .22s}
+.mod-item.open .mod-num{background:var(--blue-tint);border-color:rgba(59,130,246,.3);color:var(--blue-d)}
+.mod-title-wrap{flex:1}
+.mod-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.mod-meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+.mod-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:var(--r999);font-size:10px;font-weight:700;background:var(--blue-tint);border:1px solid rgba(59,130,246,.2);color:var(--blue-d)}
+.mod-chevron{width:20px;height:20px;flex-shrink:0;color:var(--muted);transition:transform .3s ease}
+.mod-item.open .mod-chevron{transform:rotate(180deg)}
+.mod-chevron svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mod-lessons{max-height:0;overflow:hidden;transition:max-height .38s ease}
+.mod-item.open .mod-lessons{max-height:600px}
+.mod-lessons-inner{border-top:1px solid var(--border);padding:8px 0}
+.lesson-row{display:flex;align-items:center;gap:12px;padding:11px 22px;transition:background .18s;cursor:pointer}
+.lesson-row:hover{background:var(--alt)}
+.lesson-lock{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ll-open{background:var(--green-tint)}.ll-open svg{stroke:var(--green-d)}
+.ll-locked{background:var(--alt)}.ll-locked svg{stroke:var(--muted)}
+.lesson-lock svg{width:12px;height:12px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.lesson-info{flex:1}
+.lesson-name{font-size:13.5px;font-weight:600;color:var(--text)}
+.lesson-row:hover .lesson-name{color:var(--blue-d)}
+.lesson-type-pill{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:4px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.lt-video{background:rgba(59,130,246,.08);color:var(--blue-d)}.lt-quiz{background:rgba(163,230,53,.1);color:var(--green-d)}.lt-project{background:rgba(124,58,237,.08);color:var(--purple)}
+.lesson-dur{font-size:11.5px;color:var(--muted);font-weight:500;flex-shrink:0}
+
+/* ════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════ */
+#projects{background:var(--surface)}
+.projects-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.proj-card{border-radius:var(--r20);overflow:hidden;background:var(--bg);border:1px solid var(--border);transition:transform .22s,box-shadow .22s;cursor:pointer}
+.proj-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.proj-thumb{height:140px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pt-1{background:linear-gradient(145deg,#071c0f,#0f5132 50%,#1b8a5a)}
+.pt-2{background:linear-gradient(145deg,#060f1a,#0f2a44 50%,#1e5f9a)}
+.pt-3{background:linear-gradient(145deg,#0d0717,#2a153d 50%,#4a1f64)}
+.pt-4{background:linear-gradient(145deg,#0b1a0b,#1a3a1a 50%,#2e6b2e)}
+.proj-thumb-icon{width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.15)}
+.proj-thumb-icon svg{width:24px;height:24px;fill:none;stroke:rgba(255,255,255,.8);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.proj-glow{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:100px;height:50px;border-radius:50%;filter:blur(20px)}
+.pg-1{background:rgba(0,230,168,.4)}.pg-2{background:rgba(79,157,255,.4)}.pg-3{background:rgba(167,93,255,.4)}.pg-4{background:rgba(163,230,53,.4)}
+.proj-tag{position:absolute;top:10px;right:10px;padding:3px 9px;border-radius:var(--r999);font-size:9.5px;font-weight:700;backdrop-filter:blur(8px);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.04em}
+.proj-body{padding:16px}
+.proj-body h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px;letter-spacing:-.02em}
+.proj-body p{font-size:12.5px;color:var(--muted);line-height:1.55}
+.proj-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 14px;border-top:1px solid var(--border)}
+.proj-week{font-size:11px;font-weight:700;color:var(--blue-d)}
+.proj-diff{display:flex;gap:3px}
+.dot-filled{width:6px;height:6px;border-radius:50%;background:var(--green-d)}
+.dot-empty{width:6px;height:6px;border-radius:50%;background:var(--border-2)}
+
+/* ════════════════════════════════════════
+   PREVIEW / VIDEO
+════════════════════════════════════════ */
+#preview{background:var(--bg)}
+.preview-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
+.preview-player{background:#161b22;border-radius:var(--r24);overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 32px 80px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04)}
+.pp-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07)}
+.ppd{width:11px;height:11px;border-radius:50%}
+.ppd.r{background:#FF5F56}.ppd.y{background:#FFBD2E}.ppd.g{background:#27C93F}
+.pp-title{margin-left:5px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.32)}
+.pp-screen{position:relative;height:220px;background:linear-gradient(145deg,#0a0e14,#111927);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+.pp-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(59,130,246,.12),transparent 65%)}
+.pp-play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:transform .2s,background .2s;z-index:2}
+.pp-play:hover{transform:scale(1.08);background:rgba(255,255,255,.2)}
+.pp-play svg{width:22px;height:22px;fill:rgba(255,255,255,.9);margin-left:3px}
+.pp-overlay-label{position:absolute;bottom:14px;left:16px;font-size:11px;color:rgba(255,255,255,.45);font-weight:600;z-index:2}
+.pp-dur{position:absolute;bottom:14px;right:16px;font-size:11px;color:rgba(255,255,255,.4);z-index:2}
+.pp-controls{padding:12px 16px;display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
+.pp-progress{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.pp-progress-fill{height:100%;width:0%;background:var(--neon);border-radius:2px;transition:width .1s linear}
+.pp-time{font-size:10.5px;color:rgba(255,255,255,.3);font-weight:500}
+
+/* preview lesson list */
+.preview-lessons{display:flex;flex-direction:column;gap:8px}
+.pl-head{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.pl-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r12);border:1px solid var(--border);background:var(--surface);transition:border-color .18s,background .18s,transform .18s;cursor:pointer}
+.pl-item:hover{border-color:var(--blue-ring);background:var(--blue-tint);transform:translateX(4px)}
+.pl-item.active{border-color:var(--blue-ring);background:var(--blue-tint)}
+.pl-icon{width:32px;height:32px;border-radius:8px;background:var(--alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s}
+.pl-item:hover .pl-icon,.pl-item.active .pl-icon{background:rgba(59,130,246,.12)}
+.pl-icon svg{width:14px;height:14px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pl-item:hover .pl-icon svg,.pl-item.active .pl-icon svg{stroke:var(--blue-d)}
+.pl-info{flex:1}
+.pl-name{font-size:13px;font-weight:600;color:var(--text)}
+.pl-dur{font-size:11px;color:var(--muted)}
+.pl-free{font-size:9.5px;font-weight:700;color:var(--green-d);background:var(--green-tint);border:1px solid rgba(163,230,53,.3);padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
+
+/* ════════════════════════════════════════
+   WHO IT'S FOR
+════════════════════════════════════════ */
+.who-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.who-left h2{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.12;color:var(--dk-text);margin-bottom:14px}
+.who-left p{font-size:15px;color:var(--dk-muted);line-height:1.72;max-width:440px}
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.who-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r16);padding:20px;transition:background .22s,border-color .22s,transform .22s}
+.who-card:hover{background:rgba(255,255,255,.07);border-color:rgba(0,230,168,.18);transform:translateY(-3px)}
+.wc-icon{width:36px;height:36px;border-radius:9px;background:rgba(0,230,168,.1);border:1px solid rgba(0,230,168,.18);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.wc-icon svg{width:18px;height:18px;fill:none;stroke:var(--neon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.who-card h4{font-size:14px;font-weight:700;color:var(--dk-text);margin-bottom:4px}
+.who-card p{font-size:12.5px;color:var(--dk-muted);line-height:1.55}
+
+/* ════════════════════════════════════════
+   INSTRUCTOR
+════════════════════════════════════════ */
+#instructor{background:var(--bg)}
+.instr-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+.instr-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r24);padding:32px;box-shadow:var(--sh-md);text-align:center}
+.instr-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;margin:0 auto 16px;position:relative}
+.instr-avatar-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--green),var(--blue)) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:destination-out;mask-composite:exclude}
+.instr-name{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:4px}
+.instr-role{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:14px}
+.instr-stats{display:flex;justify-content:center;gap:24px;margin-bottom:18px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ist{text-align:center}
+.ist-num{font-size:18px;font-weight:800;letter-spacing:-.04em;color:var(--text)}
+.ist-lbl{font-size:10.5px;color:var(--muted);font-weight:500}
+.instr-socials{display:flex;justify-content:center;gap:8px}
+.soc-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .18s;cursor:pointer}
+.soc-btn:hover{background:var(--alt);color:var(--text);border-color:var(--border-2)}
+.soc-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.instr-info h3{font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:12px}
+.instr-info p{font-size:14.5px;color:var(--muted);line-height:1.75;margin-bottom:22px}
+.instr-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.itag{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--r999);background:var(--alt);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text)}
+.itag svg{width:12px;height:12px;stroke:var(--blue-d);fill:none;stroke-width:2.5;stroke-linecap:round}
+.instr-courses{display:flex;flex-direction:column;gap:8px}
+.icourse{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r12);border:1px solid var(--border);background:var(--surface);transition:border-color .18s}
+.icourse:hover{border-color:var(--blue-ring)}
+.icourse-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.icourse-dot.d-blue{background:var(--blue)}.icourse-dot.d-green{background:var(--green-d)}.icourse-dot.d-purple{background:var(--purple)}
+.icourse-name{flex:1;font-size:13px;font-weight:600;color:var(--text)}
+.icourse-students{font-size:11.5px;color:var(--muted)}
+
+/* ════════════════════════════════════════
+   REVIEWS
+════════════════════════════════════════ */
+#reviews{background:var(--surface)}
+.reviews-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:20px}
+.rating-big{display:flex;align-items:center;gap:16px}
+.rb-num{font-size:52px;font-weight:800;letter-spacing:-.05em;color:var(--text);line-height:1}
+.rb-right{}
+.rb-stars{display:flex;gap:3px;margin-bottom:4px}
+.rb-star{color:#F59E0B;font-size:16px}
+.rb-count{font-size:13px;color:var(--muted)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rv-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r20);padding:24px;transition:transform .22s,box-shadow .22s,border-color .22s}
+.rv-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:var(--border-2)}
+.rv-stars{display:flex;gap:2px;margin-bottom:10px}
+.rv-star{color:#F59E0B;font-size:13px}
+.rv-qmark{font-size:34px;line-height:.9;font-weight:900;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px;display:block}
+.rv-text{font-size:13.5px;color:var(--text);line-height:1.72;margin-bottom:16px;font-weight:500}
+.rv-author{display:flex;align-items:center;gap:10px}
+.rv-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.av-1{background:linear-gradient(135deg,var(--blue),var(--purple))}
+.av-2{background:linear-gradient(135deg,var(--green),var(--blue-d))}
+.av-3{background:linear-gradient(135deg,var(--purple),var(--neon))}
+.rv-name{font-size:13px;font-weight:700;color:var(--text)}
+.rv-grade{font-size:11.5px;color:var(--muted)}
+
+/* ════════════════════════════════════════
+   CERTIFICATE
+════════════════════════════════════════ */
+.cert-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.cert-visual{position:relative}
+.cert-card-mock{background:linear-gradient(145deg,#0b1120,#0f1e35 50%,#1a3a5c);border-radius:var(--r20);padding:32px;border:1px solid rgba(59,130,246,.2);box-shadow:0 32px 80px rgba(0,0,0,.35),0 0 0 1px rgba(59,130,246,.08);position:relative;overflow:hidden}
+.cert-card-mock::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.2),transparent 60%)}
+.cert-card-mock::after{content:'';position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,168,.15),transparent 60%)}
+.cert-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.cert-logo{font-size:16px;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px}
+.cert-logo-mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#111}
+.cert-badge-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--neon);background:rgba(0,230,168,.1);border:1px solid rgba(0,230,168,.2);padding:3px 9px;border-radius:var(--r999)}
+.cert-title-mock{font-size:11px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.cert-name-mock{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:16px}
+.cert-course-mock{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:20px;font-style:italic}
+.cert-divider{height:1px;background:rgba(255,255,255,.08);margin-bottom:16px}
+.cert-bottom-row{display:flex;align-items:center;justify-content:space-between}
+.cert-date{font-size:11px;color:rgba(255,255,255,.35)}
+.cert-seal{width:44px;height:44px;border-radius:50%;background:var(--neon);display:flex;align-items:center;justify-content:center}
+.cert-seal svg{width:22px;height:22px;stroke:#0b0f14;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cert-float{position:absolute;bottom:-12px;right:-12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r12);padding:10px 14px;backdrop-filter:blur(8px);font-size:11px;font-weight:700;color:rgba(255,255,255,.7)}
+.cert-float::before{content:'✦';color:var(--neon);margin-right:5px}
+
+.cert-benefits{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.cb-item{display:flex;align-items:flex-start;gap:12px}
+.cb-check{width:22px;height:22px;border-radius:6px;background:var(--green-tint);border:1px solid rgba(163,230,53,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.cb-check svg{width:11px;height:11px;stroke:var(--green-d);stroke-width:2.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cb-text h5{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.cb-text p{font-size:12.5px;color:var(--muted);line-height:1.55}
+
+/* ════════════════════════════════════════
+   PRICING
+════════════════════════════════════════ */
+#pricing{background:var(--bg)}
+.pricing-center{max-width:480px;margin:0 auto;text-align:center}
+.pricing-card{position:relative;padding:3px;border-radius:calc(var(--r24) + 3px);background:linear-gradient(135deg,var(--green),var(--blue),var(--purple),var(--neon));background-size:300% 300%;animation:gBorder 5s ease infinite;margin-top:40px}
+@keyframes gBorder{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+.pricing-inner{background:var(--text);border-radius:var(--r24);padding:40px 36px;position:relative;overflow:hidden}
+.pricing-inner::before{content:'';position:absolute;top:-80px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(163,230,53,.1),transparent 65%)}
+.pricing-inner::after{content:'';position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.12),transparent 65%)}
+.pricing-z{position:relative;z-index:1}
+.pricing-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--neon);margin-bottom:8px}
+.pricing-price{font-size:52px;font-weight:800;letter-spacing:-.06em;color:#fff;line-height:1;margin-bottom:4px}
+.pricing-price span{font-size:22px;font-weight:600;vertical-align:super;letter-spacing:0}
+.pricing-sub{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px}
+.pricing-features{display:flex;flex-direction:column;gap:11px;margin-bottom:28px;text-align:left}
+.pf-row{display:flex;align-items:center;gap:10px}
+.pf-check{width:18px;height:18px;border-radius:5px;background:rgba(163,230,53,.12);border:1px solid rgba(163,230,53,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pf-check svg{width:10px;height:10px;stroke:var(--green);stroke-width:2.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pf-text{font-size:13.5px;color:rgba(255,255,255,.75);font-weight:500}
+.btn-enroll{width:100%;padding:15px;border-radius:var(--r12);background:var(--green);color:#111;font-family:var(--font);font-size:15px;font-weight:800;border:none;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;letter-spacing:.01em;animation:glowP 3s ease-in-out infinite}
+@keyframes glowP{0%,100%{box-shadow:0 4px 14px rgba(163,230,53,.22)}50%{box-shadow:0 8px 32px rgba(163,230,53,.5),0 0 56px rgba(163,230,53,.14)}}
+.btn-enroll:hover{background:var(--green-d);transform:translateY(-2px)}
+.pricing-note{font-size:12px;color:rgba(255,255,255,.3);margin-top:12px}
+
+/* ════════════════════════════════════════
+   FAQ
+════════════════════════════════════════ */
+#faq{background:var(--surface)}
+.faq-center{max-width:720px;margin:0 auto}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--r16);overflow:hidden;transition:border-color .22s}
+.faq-item.open{border-color:rgba(59,130,246,.3)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;font-size:14.5px;font-weight:700;color:var(--text);gap:14px;user-select:none;transition:background .18s}
+.faq-q:hover{background:var(--alt)}
+.faq-icon{width:22px;height:22px;border-radius:50%;background:var(--alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;color:var(--muted);transition:transform .3s,background .2s}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--blue-tint);border-color:rgba(59,130,246,.3);color:var(--blue-d)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .38s ease}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a-inner{padding:0 22px 18px;font-size:13.5px;color:var(--muted);line-height:1.72;border-top:1px solid var(--border);padding-top:14px}
+.faq-item.open .faq-a-inner{border-top-color:rgba(59,130,246,.12)}
+
+/* ════════════════════════════════════════
+   FINAL CTA
+════════════════════════════════════════ */
+#final-cta{padding:100px 0}
+.final-cta-wrap{position:relative;padding:3px;border-radius:calc(var(--r24) + 3px);background:linear-gradient(135deg,var(--green),var(--blue),var(--purple),var(--green));background-size:300% 300%;animation:gBorder 5s ease infinite}
+.final-cta-inner{background:var(--text);border-radius:var(--r24);padding:80px 100px;position:relative;overflow:hidden;text-align:center}
+.final-cta-inner::before{content:'';position:absolute;top:-100px;right:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(163,230,53,.12),transparent 65%)}
+.final-cta-inner::after{content:'';position:absolute;bottom:-80px;left:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.14),transparent 65%)}
+.fca-z{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.fca-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:var(--r999);background:rgba(163,230,53,.12);border:1px solid rgba(163,230,53,.22);color:var(--green);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+.fca-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.5s ease-in-out infinite}
+.final-cta-inner h2{font-size:clamp(28px,3.5vw,44px);font-weight:800;letter-spacing:-.04em;line-height:1.12;color:#fff;margin-bottom:14px}
+.final-cta-inner p{font-size:16px;color:rgba(255,255,255,.55);margin-bottom:32px}
+.fca-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-fca-primary{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;border-radius:var(--r12);background:var(--green);color:#111;font-family:var(--font);font-size:15px;font-weight:800;border:none;cursor:pointer;animation:glowP 3s ease-in-out infinite;transition:transform .18s,background .18s;position:relative;overflow:hidden}
+.btn-fca-primary:hover{background:var(--green-d);transform:translateY(-2px)}
+.btn-fca-secondary{display:inline-flex;align-items:center;gap:8px;padding:15px 28px;border-radius:var(--r12);background:rgba(255,255,255,.07);color:#fff;font-family:var(--font);font-size:15px;font-weight:700;border:1px solid rgba(255,255,255,.14);cursor:pointer;transition:all .18s}
+.btn-fca-secondary:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);transform:translateY(-2px)}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+.site-footer{background:var(--surface);border-top:1px solid var(--border);padding:0 0 28px}
+.footer-brand-row{display:flex;gap:40px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;padding:48px 0 36px;border-bottom:1px solid var(--border);margin-bottom:36px}
+.footer-brand{max-width:270px}
+.footer-brand-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.fc-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:5px}
+.fc-item svg{width:13px;height:13px;stroke:var(--muted);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.fc-item a{color:var(--text);transition:color .18s}.fc-item a:hover{color:var(--blue)}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:32px}
+.footer-col h3{font-size:12px;font-weight:700;color:var(--text);margin-bottom:13px;text-transform:uppercase;letter-spacing:.06em}
+.footer-col ul{display:flex;flex-direction:column;gap:9px}
+.footer-col a{font-size:13.5px;color:var(--muted);transition:color .18s}.footer-col a:hover{color:var(--text)}
+.footer-divider{height:1px;background:var(--border);margin-bottom:18px}
+.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.footer-copy{font-size:12.5px;color:var(--muted)}
+.footer-legal{display:flex;gap:12px;flex-wrap:wrap}
+.footer-legal a{font-size:12.5px;color:var(--muted);transition:color .18s}.footer-legal a:hover{color:var(--text)}
+.social-links{display:flex;gap:8px}
+.btn-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .18s}
+.btn-icon:hover{background:var(--alt);color:var(--text);border-color:var(--border-2)}
+.btn-icon svg{width:17px;height:17px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .learn-grid{grid-template-columns:repeat(2,1fr)}
+  .projects-grid{grid-template-columns:repeat(2,1fr)}
+  .preview-grid{grid-template-columns:1fr}
+  .instr-layout{grid-template-columns:1fr}
+  .instr-card{max-width:340px}
+}
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr}.hero-right{display:none}
+  .who-layout{grid-template-columns:1fr;gap:40px}
+  .cert-layout{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .nav-center{display:none}.hamburger{display:block}.mobile-nav{display:block}
+  .btn-login,.btn-nav-cta{display:none}
+  .hero{padding-top:calc(var(--nav-h) + 48px);padding-bottom:56px}
+  .section,.dark-section,#final-cta,#pricing{padding:64px 0}
+  .hero-actions{flex-direction:column;align-items:flex-start}
+  .learn-grid{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .who-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .final-cta-inner{padding:48px 24px}
+  .fca-actions{flex-direction:column;align-items:stretch}
+  .btn-fca-primary,.btn-fca-secondary{justify-content:center;width:100%}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:24px 14px}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .pricing-center{max-width:100%}
+  .instr-stats{gap:14px}
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  .course-stats-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .instr-layout{grid-template-columns:1fr}
+  .who-layout{gap:28px}
+  .cert-layout{gap:32px}
+}
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav id="mainNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
+    <div class="nav-center">
+      <a href="index.html">Home</a>
+      <a href="Course.html" class="active">Courses</a>
+      <a href="index.html#schools">For Schools</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-login" type="button">Login</button>
+      <button class="btn-nav-cta ripple-tgt" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Enroll Now →</button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-content">
+      <a href="index.html">Home</a>
+      <a href="Course.html">Courses</a>
+      <a href="index.html#schools">For Schools</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="#pricing" class="mob-cta">Enroll Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="hero-left">
+        <div class="course-breadcrumb">
+          <a href="index.html">Home</a><span class="crumb-sep">›</span>
+          <a href="Course.html">Courses</a><span class="crumb-sep">›</span>
+          <span>AI Foundations</span>
+        </div>
+        <div class="hero-badge-row">
+          <span class="h-badge hb-blue">Certificate Program</span>
+          <span class="h-badge hb-green">Beginner Friendly</span>
+          <span class="h-badge hb-live">Enrolling Now</span>
+        </div>
+        <h1><span class="sparkle-wrapper" id="heroSparkles"><em class="hl-grad">Artificial Intelligence</em></span><br>Foundations</h1>
+        <p class="hero-sub">Understand how AI works and build your first intelligent systems — no prior coding experience required.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary ripple-tgt magnetic" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+          <button class="btn btn-secondary magnetic" onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+            Preview Course
+          </button>
+        </div>
+        <div class="trust-row">
+          <span class="trust-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>12 Weeks</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Project-Based</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Certificate Included</span>
+          <span class="trust-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Max 20 Students</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div style="position:relative">
+          <div class="float-chip fc-ai"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>AI Track</div>
+          <div class="float-chip fc-ml"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>ML Models</div>
+          <div class="float-chip fc-cert"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>Certificate</div>
+          <div class="course-card-visual">
+            <div class="ccv-win">
+              <div class="ccv-bar"><div class="ccv-dot r"></div><div class="ccv-dot y"></div><div class="ccv-dot g"></div><div class="ccv-title">noetix — ai_foundations.jsx</div></div>
+              <div class="ccv-hero-inner">
+                <div class="course-stats-grid">
+                  <div class="cstat">
+                    <div class="cstat-icon ci-neon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+                    <div class="cstat-label">Duration</div>
+                    <div class="cstat-val">12 Weeks</div>
+                    <div class="cstat-sub">2–3 sessions/wk</div>
+                  </div>
+                  <div class="cstat">
+                    <div class="cstat-icon ci-blue"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                    <div class="cstat-label">Difficulty</div>
+                    <div class="cstat-val">Beginner</div>
+                    <div class="cstat-sub">No experience needed</div>
+                  </div>
+                  <div class="cstat">
+                    <div class="cstat-icon ci-purple"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+                    <div class="cstat-label">Lessons</div>
+                    <div class="cstat-val">42 Total</div>
+                    <div class="cstat-sub">Video + quizzes</div>
+                  </div>
+                  <div class="cstat">
+                    <div class="cstat-icon ci-green"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <div class="cstat-label">Projects</div>
+                    <div class="cstat-val">4 Builds</div>
+                    <div class="cstat-sub">Real-world output</div>
+                  </div>
+                  <div class="cstat" style="grid-column:1/-1">
+                    <div class="cstat-icon ci-yellow"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+                    <div class="cstat-label">Certification</div>
+                    <div class="cstat-val">Noetix AI Certificate</div>
+                    <div class="cstat-sub">Industry-aligned · Verifiable</div>
+                  </div>
+                </div>
+                <button class="ccv-enroll-btn ripple-tgt" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Enroll in This Course</button>
+                <div class="ccv-footer-note">Limited to 20 students per cohort</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep1"></div>
+
+<!-- ══════════ WHAT YOU'LL LEARN ══════════ -->
+<section class="section" id="learn">
+  <div class="container">
+    <div class="eyebrow reveal">Learning Outcomes</div>
+    <h2 class="section-title reveal d1">What You Will Learn</h2>
+    <p class="section-sub reveal d2">Seven core competencies designed to give you a genuine, practical understanding of Artificial Intelligence.</p>
+    <div class="learn-grid">
+      <div class="lc lc-0 reveal"><div class="lc-icon li-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><h4>Understand what Artificial Intelligence really is</h4><p>Cut through the hype with a clear, technical foundation in what AI systems actually do.</p></div>
+      <div class="lc lc-1 reveal d1"><div class="lc-icon li-green"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h4>Learn how machines learn from data</h4><p>Explore the core feedback loops that allow machines to improve their own performance.</p></div>
+      <div class="lc lc-2 reveal d2"><div class="lc-icon li-purple"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h4>Explore real-world AI systems</h4><p>Analyse AI applications from recommendation engines to autonomous vehicles.</p></div>
+      <div class="lc lc-3 reveal d3"><div class="lc-icon li-neon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><h4>Understand machine learning basics</h4><p>Regression, classification, clustering — the foundational models explained visually.</p></div>
+      <div class="lc lc-4 reveal"><div class="lc-icon li-blue"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h4>Build your first AI model</h4><p>Train, test, and evaluate a machine learning model using real datasets.</p></div>
+      <div class="lc lc-5 reveal d1"><div class="lc-icon li-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h4>Learn about neural networks</h4><p>Understand how layered networks of nodes simulate biological cognition.</p></div>
+      <div class="lc lc-6 reveal d2 lc-span2" style="grid-column:span 2"><div class="lc-icon li-purple"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Ethics and responsible AI</h4><p>Identify bias, fairness issues, and the societal implications of deploying AI systems responsibly.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep2"></div>
+
+<!-- ══════════ CURRICULUM ══════════ -->
+<section class="section" id="curriculum">
+  <div class="container">
+    <div class="eyebrow reveal">7 Modules</div>
+    <h2 class="section-title reveal d1">Course Curriculum</h2>
+    <p class="section-sub reveal d2">42 lessons across 7 modules — from zero to building real AI projects.</p>
+    <div class="curriculum-wrap reveal d2">
+
+      <div class="mod-item open">
+        <div class="mod-header">
+          <div class="mod-num">01</div>
+          <div class="mod-title-wrap"><div class="mod-title">Introduction to AI</div><div class="mod-meta">6 lessons · 95 mins</div></div>
+          <span class="mod-badge">Free Preview</span>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-open"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">What is AI?</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">14 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-open"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">AI vs Human Intelligence</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">18 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-open"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">AI Around Us</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">12 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-open"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Types of AI</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">16 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Module 1 Quiz</div><span class="lesson-type-pill lt-quiz">Quiz</span></div><span class="lesson-dur">20 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">AI Mini Map Project</div><span class="lesson-type-pill lt-project">Project</span></div><span class="lesson-dur">15 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">02</div>
+          <div class="mod-title-wrap"><div class="mod-title">Machine Learning Basics</div><div class="mod-meta">7 lessons · 110 mins</div></div>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Training Data</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">18 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Model Predictions</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">20 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Supervised vs Unsupervised</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">22 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Module 2 Quiz</div><span class="lesson-type-pill lt-quiz">Quiz</span></div><span class="lesson-dur">20 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">03</div>
+          <div class="mod-title-wrap"><div class="mod-title">Data &amp; AI Systems</div><div class="mod-meta">6 lessons · 95 mins</div></div>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Understanding Datasets</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">20 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Cleaning &amp; Preparing Data</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">18 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Data Pipeline Project</div><span class="lesson-type-pill lt-project">Project</span></div><span class="lesson-dur">30 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">04</div>
+          <div class="mod-title-wrap"><div class="mod-title">Neural Networks</div><div class="mod-meta">5 lessons · 88 mins</div></div>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Neural Network Basics</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">22 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Deep Learning Explained</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">24 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">05</div>
+          <div class="mod-title-wrap"><div class="mod-title">Real World AI Applications</div><div class="mod-meta">6 lessons · 100 mins</div></div>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">AI in Healthcare</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">18 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">AI in Self-Driving Cars</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">20 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">06</div>
+          <div class="mod-title-wrap"><div class="mod-title">AI Ethics</div><div class="mod-meta">4 lessons · 68 mins</div></div>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Bias in AI Systems</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">18 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Responsible AI Design</div><span class="lesson-type-pill lt-video">Video</span></div><span class="lesson-dur">20 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-item">
+        <div class="mod-header">
+          <div class="mod-num">07</div>
+          <div class="mod-title-wrap"><div class="mod-title">Final AI Project</div><div class="mod-meta">3 lessons · Capstone</div></div>
+          <span class="mod-badge" style="background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.3);color:var(--green-d)">Capstone</span>
+          <div class="mod-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="mod-lessons">
+          <div class="mod-lessons-inner">
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Project Brief &amp; Planning</div><span class="lesson-type-pill lt-project">Project</span></div><span class="lesson-dur">30 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Build &amp; Demo</div><span class="lesson-type-pill lt-project">Project</span></div><span class="lesson-dur">60 min</span></div>
+            <div class="lesson-row"><div class="lesson-lock ll-locked"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="lesson-info"><div class="lesson-name">Certificate Ceremony</div><span class="lesson-type-pill lt-quiz">Award</span></div><span class="lesson-dur">Live</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep3"></div>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<section class="section" id="projects" style="background:var(--surface)">
+  <div class="container">
+    <div class="eyebrow reveal">Hands-On Building</div>
+    <h2 class="section-title reveal d1">Course Projects</h2>
+    <p class="section-sub reveal d2">You won't just study AI — you'll build it. Four real projects that go straight into your portfolio.</p>
+    <div class="projects-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-thumb pt-1">
+          <div class="proj-thumb-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="proj-glow pg-1"></div>
+          <div class="proj-tag">Project 1</div>
+        </div>
+        <div class="proj-body">
+          <h4>Build a Simple AI Chatbot</h4>
+          <p>Design a rule-based conversational agent that responds intelligently to student queries.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-week">Week 3–4</span>
+          <div class="proj-diff"><div class="dot-filled"></div><div class="dot-filled"></div><div class="dot-empty"></div></div>
+        </div>
+      </div>
+
+      <div class="proj-card reveal d1">
+        <div class="proj-thumb pt-2">
+          <div class="proj-thumb-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div class="proj-glow pg-2"></div>
+          <div class="proj-tag">Project 2</div>
+        </div>
+        <div class="proj-body">
+          <h4>Image Recognition Model</h4>
+          <p>Train a model to identify and classify images using a curated beginner dataset.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-week">Week 5–7</span>
+          <div class="proj-diff"><div class="dot-filled"></div><div class="dot-filled"></div><div class="dot-filled"></div></div>
+        </div>
+      </div>
+
+      <div class="proj-card reveal d2">
+        <div class="proj-thumb pt-3">
+          <div class="proj-thumb-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="proj-glow pg-3"></div>
+          <div class="proj-tag">Project 3</div>
+        </div>
+        <div class="proj-body">
+          <h4>Movie Recommendation System</h4>
+          <p>Build a collaborative filtering system that suggests films based on viewing patterns.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-week">Week 8–10</span>
+          <div class="proj-diff"><div class="dot-filled"></div><div class="dot-filled"></div><div class="dot-filled"></div></div>
+        </div>
+      </div>
+
+      <div class="proj-card reveal d3">
+        <div class="proj-thumb pt-4">
+          <div class="proj-thumb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+          <div class="proj-glow pg-4"></div>
+          <div class="proj-tag">Capstone</div>
+        </div>
+        <div class="proj-body">
+          <h4>Final AI Mini Project</h4>
+          <p>Independently design and present a complete AI solution to a real-world problem of your choice.</p>
+        </div>
+        <div class="proj-footer">
+          <span class="proj-week">Week 11–12</span>
+          <div class="proj-diff"><div class="dot-filled"></div><div class="dot-filled"></div><div class="dot-filled"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep4"></div>
+
+<!-- ══════════ PREVIEW ══════════ -->
+<section class="section" id="preview">
+  <div class="container">
+    <div class="eyebrow reveal">Free Preview</div>
+    <h2 class="section-title reveal d1">Watch Before You Enroll</h2>
+    <p class="section-sub reveal d2">Three lessons are completely free. No account needed. See exactly how the course works before committing.</p>
+    <div class="preview-grid reveal d2">
+      <div class="preview-player">
+        <div class="pp-bar"><div class="ppd r"></div><div class="ppd y"></div><div class="ppd g"></div><span class="pp-title">noetix — course_preview.mp4</span></div>
+        <div class="pp-screen" id="ppScreen">
+          <div class="pp-play" id="ppPlay">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <span class="pp-overlay-label">AI Foundations — Free Preview</span>
+          <span class="pp-dur">2:34</span>
+        </div>
+        <div class="pp-controls">
+          <div class="pp-progress"><div class="pp-progress-fill" id="ppFill"></div></div>
+          <span class="pp-time" id="ppTime">0:00 / 2:34</span>
+        </div>
+      </div>
+      <div class="preview-lessons">
+        <div class="pl-head">Free Preview Lessons</div>
+        <div class="pl-item active">
+          <div class="pl-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>
+          <div class="pl-info"><div class="pl-name">What is AI?</div><div class="pl-dur">14 min</div></div>
+          <span class="pl-free">Free</span>
+        </div>
+        <div class="pl-item">
+          <div class="pl-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>
+          <div class="pl-info"><div class="pl-name">AI vs Human Intelligence</div><div class="pl-dur">18 min</div></div>
+          <span class="pl-free">Free</span>
+        </div>
+        <div class="pl-item">
+          <div class="pl-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>
+          <div class="pl-info"><div class="pl-name">AI Around Us</div><div class="pl-dur">12 min</div></div>
+          <span class="pl-free">Free</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep5"></div>
+
+<!-- ══════════ WHO IT'S FOR ══════════ -->
+<section class="dark-section" id="who">
+  <div class="container">
+    <div class="who-layout">
+      <div class="who-left">
+        <span class="dk-eyebrow reveal">Audience</span>
+        <h2 class="reveal d1">Who This Course Is For</h2>
+        <p class="reveal d2" style="font-size:15px;color:var(--dk-muted);line-height:1.72;max-width:420px;margin-bottom:32px">This course is built for students who are curious about AI but have zero experience — and want to gain real, applicable skills.</p>
+        <a href="#pricing" class="btn btn-primary ripple-tgt reveal d3" style="display:inline-flex">Enroll Now →</a>
+      </div>
+      <div class="who-grid reveal d2">
+        <div class="who-card">
+          <div class="wc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <h4>Students curious about AI</h4>
+          <p>You've heard about AI everywhere and want to finally understand how it really works.</p>
+        </div>
+        <div class="who-card">
+          <div class="wc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h4>Beginners with no coding experience</h4>
+          <p>No prerequisites. We start from absolute zero and build up systematically.</p>
+        </div>
+        <div class="who-card">
+          <div class="wc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h4>Future engineers and developers</h4>
+          <p>Lay the technical groundwork that will accelerate your future CS or engineering studies.</p>
+        </div>
+        <div class="who-card">
+          <div class="wc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <h4>Tech enthusiasts</h4>
+          <p>You want to go beyond surface-level explanations and actually understand the technology.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep6"></div>
+
+<!-- ══════════ INSTRUCTOR ══════════ -->
+<section class="section" id="instructor">
+  <div class="container">
+    <div class="eyebrow reveal">Your Instructor</div>
+    <h2 class="section-title reveal d1">Meet Your Instructor</h2>
+    <div class="instr-layout">
+
+      <div class="instr-card reveal">
+        <div class="instr-avatar" style="position:relative">
+          A
+          <div class="instr-avatar-ring"></div>
+        </div>
+        <div class="instr-name">Arjun Menon</div>
+        <div class="instr-role">AI Educator &amp; ML Engineer</div>
+        <div class="instr-stats">
+          <div class="ist"><div class="ist-num">4.9</div><div class="ist-lbl">Rating</div></div>
+          <div class="ist"><div class="ist-num">340+</div><div class="ist-lbl">Students</div></div>
+          <div class="ist"><div class="ist-num">3</div><div class="ist-lbl">Courses</div></div>
+        </div>
+        <div class="instr-socials">
+          <div class="soc-btn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div class="soc-btn"><svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></div>
+          <div class="soc-btn"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        </div>
+      </div>
+
+      <div class="instr-info reveal d2">
+        <h3>Arjun Menon</h3>
+        <p>Arjun brings 6 years of industry experience in machine learning and AI development at companies across the MENA region. Trained in computer science with a specialisation in deep learning, he is passionate about making AI genuinely accessible to young learners without watering down the technical content.</p>
+        <p style="margin-bottom:22px">He believes the best way to learn AI is to build something real — which is why every module he teaches culminates in a hands-on project you can show to the world.</p>
+        <div class="instr-tags">
+          <span class="itag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Machine Learning</span>
+          <span class="itag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Deep Learning</span>
+          <span class="itag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>NLP</span>
+          <span class="itag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Computer Vision</span>
+          <span class="itag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Python</span>
+        </div>
+        <div class="instr-courses">
+          <div class="icourse"><div class="icourse-dot d-blue"></div><span class="icourse-name">AI Foundations</span><span class="icourse-students">140 students</span></div>
+          <div class="icourse"><div class="icourse-dot d-purple"></div><span class="icourse-name">Machine Learning Practicals</span><span class="icourse-students">112 students</span></div>
+          <div class="icourse"><div class="icourse-dot d-green"></div><span class="icourse-name">Data Science for Beginners</span><span class="icourse-students">88 students</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep7"></div>
+
+<!-- ══════════ REVIEWS ══════════ -->
+<section class="section" id="reviews" style="background:var(--surface)">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <div>
+        <div class="eyebrow">Student Feedback</div>
+        <h2 class="section-title" style="margin-bottom:0">What Students Say</h2>
+      </div>
+      <div class="rating-big">
+        <div class="rb-num">4.9</div>
+        <div class="rb-right">
+          <div class="rb-stars"><span class="rb-star">★</span><span class="rb-star">★</span><span class="rb-star">★</span><span class="rb-star">★</span><span class="rb-star">★</span></div>
+          <div class="rb-count">Based on 83 reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="rv-card reveal">
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span></div>
+        <span class="rv-qmark">"</span>
+        <p class="rv-text">I had zero experience with AI before this course. By week 4 I'd already trained my first model. The way Arjun explains things makes it feel completely achievable.</p>
+        <div class="rv-author"><div class="rv-av av-1">Z</div><div><div class="rv-name">Zara Al-Farsi</div><div class="rv-grade">Grade 10 · Abu Dhabi</div></div></div>
+      </div>
+      <div class="rv-card reveal d1">
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span></div>
+        <span class="rv-qmark">"</span>
+        <p class="rv-text">The projects are the best part. I built a chatbot in week 3 and showed it to my whole family. This is the kind of work that actually shows up in a university application.</p>
+        <div class="rv-author"><div class="rv-av av-2">T</div><div><div class="rv-name">Tanvir Ahmed</div><div class="rv-grade">Grade 11 · Dubai</div></div></div>
+      </div>
+      <div class="rv-card reveal d2">
+        <div class="rv-stars"><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span></div>
+        <span class="rv-qmark">"</span>
+        <p class="rv-text">Small cohort makes a massive difference. Arjun actually knows my name, noticed when I was stuck, and personally walked me through the neural network module.</p>
+        <div class="rv-author"><div class="rv-av av-3">M</div><div><div class="rv-name">Maya Krishnan</div><div class="rv-grade">Grade 9 · Sharjah</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep8"></div>
+
+<!-- ══════════ CERTIFICATE ══════════ -->
+<section class="section" id="certificate">
+  <div class="container">
+    <div class="cert-layout">
+      <div class="cert-visual reveal">
+        <div class="cert-card-mock">
+          <div class="cert-top">
+            <div class="cert-logo"><div class="cert-logo-mark">N</div>Noetix</div>
+            <div class="cert-badge-label">Certificate of Completion</div>
+          </div>
+          <div class="cert-title-mock">This certifies that</div>
+          <div class="cert-name-mock">Your Name Here</div>
+          <div class="cert-course-mock">has successfully completed Artificial Intelligence Foundations</div>
+          <div class="cert-divider"></div>
+          <div class="cert-bottom-row">
+            <div class="cert-date">Issued: June 2026 · Noetix Education</div>
+            <div class="cert-seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          </div>
+        </div>
+        <div class="cert-float">Verifiable Certificate ✓</div>
+      </div>
+      <div class="reveal d2">
+        <div class="eyebrow eyebrow-neon">Your Credential</div>
+        <h2 class="section-title">Earn Your AI Certificate</h2>
+        <p class="section-sub" style="margin-bottom:28px">Every student who completes the course and final project receives a verifiable Noetix AI Foundations Certificate.</p>
+        <div class="cert-benefits">
+          <div class="cb-item"><div class="cb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cb-text"><h5>Industry-Aligned Credential</h5><p>Reflects real technical competency in AI concepts, machine learning, and responsible development.</p></div></div>
+          <div class="cb-item"><div class="cb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cb-text"><h5>LinkedIn &amp; Resume Ready</h5><p>Share directly to your LinkedIn profile. Strengthens university and scholarship applications.</p></div></div>
+          <div class="cb-item"><div class="cb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cb-text"><h5>Verifiable Online</h5><p>Every certificate has a unique verification link that schools and employers can confirm.</p></div></div>
+          <div class="cb-item"><div class="cb-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="cb-text"><h5>Recognised by Partner Schools</h5><p>All Noetix partner institutions formally acknowledge the certification in academic records.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep9"></div>
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="section" id="pricing" style="background:var(--bg)">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0">
+      <div class="eyebrow reveal" style="justify-content:center">Enrollment</div>
+      <h2 class="section-title reveal d1" style="text-align:center">Simple, Transparent Pricing</h2>
+      <p class="section-sub reveal d2" style="margin:0 auto 0;text-align:center">One price. Everything included. No hidden fees.</p>
+    </div>
+    <div class="pricing-center reveal d2">
+      <div class="pricing-card">
+        <div class="pricing-inner">
+          <div class="pricing-z">
+            <div class="pricing-label">AI Foundations — 2026 Cohort</div>
+            <div class="pricing-price"><span>AED</span> 1,200</div>
+            <div class="pricing-sub">One-time · Full access</div>
+            <div class="pricing-features">
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">42 lessons across 7 modules</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">4 real-world projects with feedback</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">Noetix AI Foundations Certificate</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">Small cohort (max 20 students)</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">Direct instructor access</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">Lifetime access to course materials</span></div>
+              <div class="pf-row"><div class="pf-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="pf-text">Student community access</span></div>
+            </div>
+            <button class="btn-enroll ripple-tgt" onclick="document.getElementById('final-cta').scrollIntoView({behavior:'smooth'})">Enroll Now — AED 1,200</button>
+            <div class="pricing-note">Cohort starts Q3 2026 · Spots are limited</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep10"></div>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="section" id="faq" style="background:var(--surface)">
+  <div class="container">
+    <div class="eyebrow reveal" style="justify-content:center">FAQ</div>
+    <h2 class="section-title reveal d1" style="text-align:center;margin-bottom:40px">Frequently Asked Questions</h2>
+    <div class="faq-center">
+      <div class="faq-list">
+        <div class="faq-item reveal"><div class="faq-q" tabindex="0">Do I need coding experience?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">No prior coding or technical experience is required. The course starts from absolute fundamentals and progressively builds your understanding through guided, hands-on lessons. You will write some simple code by the end, but we teach you everything from scratch.</div></div></div>
+        <div class="faq-item reveal d1"><div class="faq-q" tabindex="0">How long does the course take?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">The course runs for 12 weeks with 2–3 sessions per week, each lasting approximately 45–60 minutes. The final module includes a capstone project which students present to a panel. Total commitment is around 6–8 hours per week.</div></div></div>
+        <div class="faq-item reveal d2"><div class="faq-q" tabindex="0">Do I get a certificate?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Yes. Every student who completes the course and final project earns a Noetix AI Foundations Certificate. The certificate is verifiable online and recognised by our partner schools. It is designed to strengthen university and scholarship applications.</div></div></div>
+        <div class="faq-item reveal d3"><div class="faq-q" tabindex="0">Is the course beginner friendly?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Absolutely. This course was designed specifically for students with no technical background. The curriculum is structured to be challenging yet accessible — every complex concept is broken down with real-world analogies, visual explanations, and hands-on exercises.</div></div></div>
+        <div class="faq-item reveal d4"><div class="faq-q" tabindex="0">How are the sessions delivered?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Sessions are delivered in small cohorts of up to 20 students — either on-campus through our school partnerships or in a structured online format. Each session is live and interactive, not pre-recorded. Students get real-time feedback from the instructor.</div></div></div>
+        <div class="faq-item reveal d4"><div class="faq-q" tabindex="0">What grade levels is this for?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">The AI Foundations course is designed for students in Grades 8–12 (ages 13–18). The content is calibrated for this age group — intellectually rigorous but approachable, with projects scoped to be achievable in the given timeframe.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" id="sep11"></div>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section id="final-cta">
+  <div class="container">
+    <div class="final-cta-wrap reveal">
+      <div class="final-cta-inner">
+        <div class="fca-z">
+          <div class="fca-badge">2026 Cohort Now Open</div>
+          <h2>Start Your Journey Into<br>Artificial Intelligence</h2>
+          <p>Limited cohort spots. Real projects. A certificate that means something.</p>
+          <div class="fca-actions">
+            <button class="btn-fca-primary ripple-tgt">
+              Enroll in AI Foundations
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <button class="btn-fca-secondary" onclick="document.getElementById('preview').scrollIntoView({behavior:'smooth'})">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+              Watch Preview First
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="display:inline-flex;margin-bottom:11px"><div class="logo-mark">N</div>Noetix</a>
+        <p class="footer-brand-desc">Future-ready technology education for students in Grades 8–12. Building the next generation of AI, cybersecurity, and programming talent through project-driven, certified programs.</p>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:hello@noetix.edu">hello@noetix.edu</a></div>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Dubai, UAE &amp; Online</div>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col"><h3>Company</h3><ul><li><a href="#">About Noetix</a></li><li><a href="#">Our Mission</a></li><li><a href="#">Leadership</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Programs</h3><ul><li><a href="#">AI Foundations</a></li><li><a href="#">Cybersecurity Essentials</a></li><li><a href="#">Fundamentals of Programming</a></li><li><a href="#">Certifications</a></li><li><a href="#">Cohort Schedule</a></li></ul></div>
+      <div class="footer-col"><h3>Resources</h3><ul><li><a href="#">Parent Guide</a></li><li><a href="#">School Partnership</a></li><li><a href="#">Student FAQs</a></li><li><a href="#">Success Stories</a></li><li><a href="#">Learning Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Legal</h3><ul><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Accessibility</a></li></ul></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Noetix Education. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a></div>
+      <div class="social-links">
+        <a href="#" class="btn-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="2"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── SCROLL PROGRESS + NAV ─── */
+const spBar = document.getElementById('scroll-progress');
+const mainNav = document.getElementById('mainNav');
+const hbg = document.getElementById('hamburgerBtn');
+const mobn = document.getElementById('mobileNav');
+
+window.addEventListener('scroll', () => {
+  spBar.style.width = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100, 100) + '%';
+  mainNav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+hbg.addEventListener('click', e => { e.stopPropagation(); mobn.classList.toggle('open'); });
+mobn.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobn.classList.remove('open')));
+document.addEventListener('click', e => { if (!mobn.contains(e.target) && !hbg.contains(e.target)) mobn.classList.remove('open'); });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ─── REVEAL ─── */
+  const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .13 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* ─── SECTION SEPARATORS ─── */
+  const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('run'); }), { threshold: .5 });
+  document.querySelectorAll('.section-sep').forEach(el => so.observe(el));
+
+  /* ─── RIPPLE ─── */
+  document.querySelectorAll('.ripple-tgt').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const rip = document.createElement('span');
+      rip.className = 'ripple-wave';
+      rip.style.cssText = `left:${e.clientX - rect.left}px;top:${e.clientY - rect.top}px`;
+      this.appendChild(rip);
+      setTimeout(() => rip.remove(), 600);
+    });
+  });
+
+  /* ─── MAGNETIC BUTTONS ─── */
+  document.querySelectorAll('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', function(e) {
+      const r = this.getBoundingClientRect();
+      this.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .15}px, ${(e.clientY - r.top - r.height / 2) * .15}px)`;
+    });
+    el.addEventListener('mouseleave', function() { this.style.transform = ''; });
+  });
+
+  /* ─── CURRICULUM ACCORDION ─── */
+  document.querySelectorAll('.mod-header').forEach(header => {
+    header.addEventListener('click', function() {
+      const item = this.closest('.mod-item');
+      item.classList.toggle('open');
+    });
+  });
+
+  /* ─── FAQ ACCORDION ─── */
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', function() {
+      this.closest('.faq-item').classList.toggle('open');
+    });
+  });
+
+  /* ─── PREVIEW PLAYER SIMULATION ─── */
+  const ppPlay = document.getElementById('ppPlay');
+  const ppFill = document.getElementById('ppFill');
+  const ppTime = document.getElementById('ppTime');
+  let playing = false, pct = 0, timer = null;
+  const totalSec = 154;
+
+  function fmtTime(s) { return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; }
+
+  if (ppPlay) {
+    ppPlay.addEventListener('click', () => {
+      playing = !playing;
+      ppPlay.innerHTML = playing
+        ? `<svg viewBox="0 0 24 24" style="fill:rgba(255,255,255,.9);width:22px;height:22px"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`
+        : `<svg viewBox="0 0 24 24" style="fill:rgba(255,255,255,.9);width:22px;height:22px;margin-left:3px"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+      if (playing) {
+        timer = setInterval(() => {
+          pct = Math.min(pct + (100 / totalSec), 100);
+          const elapsed = Math.floor(pct / 100 * totalSec);
+          ppFill.style.width = pct + '%';
+          ppTime.textContent = `${fmtTime(elapsed)} / ${fmtTime(totalSec)}`;
+          if (pct >= 100) { clearInterval(timer); playing = false; }
+        }, 1000);
+      } else { clearInterval(timer); }
+    });
+  }
+
+  /* ─── PREVIEW LESSON TABS ─── */
+  document.querySelectorAll('.pl-item').forEach(item => {
+    item.addEventListener('click', function() {
+      document.querySelectorAll('.pl-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      pct = 0; playing = false; clearInterval(timer);
+      if (ppFill) ppFill.style.width = '0%';
+      if (ppTime) ppTime.textContent = `0:00 / ${fmtTime(totalSec)}`;
+      if (ppPlay) ppPlay.innerHTML = `<svg viewBox="0 0 24 24" style="fill:rgba(255,255,255,.9);width:22px;height:22px;margin-left:3px"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+    });
+  });
+
+  /* ─── SPARKLE ─── */
+  const sparkWrapper = document.querySelector('.sparkle-wrapper');
+  if (sparkWrapper) {
+    setInterval(() => {
+      const sp = document.createElement('span');
+      sp.className = 'sparkle-svg';
+      sp.style.setProperty('--scale', (0.5 + Math.random()).toFixed(2));
+      sp.style.left = (Math.random() * 100) + '%';
+      sp.style.top = (Math.random() * 100) + '%';
+      const stars = ['✦', '✧', '⋆', '✶'];
+      sp.innerHTML = '✦';
+      sparkWrapper.appendChild(sp);
+      setTimeout(() => sp.remove(), 800);
+    }, 600);
+  }
+
+  /* ─── NUMBER COUNTERS ─── */
+  const co = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target, target = +el.dataset.target, suffix = el.dataset.suffix || '';
+        if (!target) return;
+        let cur = 0, inc = Math.ceil(target / 40);
+        const t = setInterval(() => {
+          cur = Math.min(cur + inc, target);
+          el.textContent = cur + suffix;
+          if (cur >= target) clearInterval(t);
+        }, 25);
+        co.unobserve(el);
+      }
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
+
+});
+</script>
+</body>
+</html>
