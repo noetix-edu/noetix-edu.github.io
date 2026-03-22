@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<title>Quiz 1: What Is AI? | Noetix AI</title>
+<title>Quiz 2: How AI Learns | Noetix AI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -147,6 +147,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
   .opt{padding:11px 13px;font-size:13px}
 }
 
+/* ── SHIMMER (#18) ── */
+@keyframes shimmer-span {
+  0%   { left: -100%; opacity: 1; }
+  100% { left: 150%;  opacity: 0; }
+}
+.shimmer-el {
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%; pointer-events: none; z-index: 10;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.75) 50%, transparent 100%);
+  animation: shimmer-span 380ms ease-out forwards;
+  border-radius: inherit;
+}
+
 /* ── INTERACTIVE COMPONENTS ── */
 @keyframes xp-float{to{transform:translateY(-44px);opacity:0}}
 .xp-pop{position:fixed;font-size:13px;font-weight:800;color:#46A302;
@@ -197,7 +210,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
 .q-block.visible{animation:q-fade-in .25s ease}
 
 
-/* ── QUIZ BUTTON FIXES ── */
+/* ── QUIZ UI FIXES ── */
 .quiz-footer{display:flex;margin-top:24px;padding-top:0;border-top:none}
 .btn-next{display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;padding:15px 24px;border-radius:14px;
@@ -211,10 +224,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
 .btn-next.ready:active{transform:scale(.98)}
 .q-label{display:none}
 
-
-/* shimmer */
-@keyframes shimmer-span{0%{left:-100%;opacity:1}100%{left:150%;opacity:0}}
-.shimmer-el{position:absolute;top:0;left:-100%;width:60%;height:100%;pointer-events:none;z-index:10;border-radius:inherit;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.75) 50%,transparent 100%);animation:shimmer-span 380ms ease-out forwards}
 
 /* ── DEFERRED REVEAL FLOW ── */
 .opt.state-pending {
@@ -405,7 +414,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
 <nav>
   <div class="container nav-inner">
     <a href="course.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
-    <span class="nav-title">Quiz 1 · What Is AI?</span>
+    <span class="nav-title">Quiz 2 · How AI Learns</span>
+    <span id="xp-counter" style="font-size:11px;font-weight:800;color:#46A302;background:rgba(88,204,2,.1);padding:4px 10px;border-radius:999px;border:1px solid rgba(88,204,2,.2)">0 XP</span>
     <a href="course.html" class="btn-back">← All Modules</a>
   </div>
 </nav>
@@ -414,8 +424,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
   <div class="container">
 
     <div class="quiz-header">
-      <div class="mod-badge mb-blue"><span class="mb-dot"></span>Quiz · Module 1 of 6</div>
-      <h1>🤖 What Is AI?</h1>
+      <div class="mod-badge mb-green"><span class="mb-dot"></span>Quiz · Module 2 of 6</div>
+      <h1>🧠 How AI Learns</h1>
       <div id="streakSlot" style="margin:6px 0"></div>
     <p>5 questions · Pass mark 3/5 · Instant feedback on every answer</p>
     </div>
@@ -429,56 +439,56 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
     <div class="quiz-card">
       <div class="q-block visible" id="qblock0">
   <div class="q-label">Question 1 of 5</div>
-  <div class="q-text">What does 'AI' stand for?</div>
+  <div class="q-text">What is Machine Learning?</div>
   <div class="options" id="opts0">
-<button class="opt" onclick="selectAnswer(0,0)" type="button"><span class="opt-letter">A</span>Automated Intelligence</button>
-<button class="opt" onclick="selectAnswer(0,1)" type="button"><span class="opt-letter">B</span>Artificial Intelligence</button>
-<button class="opt" onclick="selectAnswer(0,2)" type="button"><span class="opt-letter">C</span>Advanced Internet</button>
-<button class="opt" onclick="selectAnswer(0,3)" type="button"><span class="opt-letter">D</span>Algorithmic Input</button>
+<button class="opt" onclick="selectAnswer(0,0)" type="button"><span class="opt-letter">A</span>Programming a computer with thousands of rules</button>
+<button class="opt" onclick="selectAnswer(0,1)" type="button"><span class="opt-letter">B</span>Teaching a computer to learn from examples</button>
+<button class="opt" onclick="selectAnswer(0,2)" type="button"><span class="opt-letter">C</span>Making robots walk and talk</button>
+<button class="opt" onclick="selectAnswer(0,3)" type="button"><span class="opt-letter">D</span>Writing code in a special AI language</button>
   </div>
   <div class="feedback" id="fb0"></div>
 </div>
 <div class="q-block" id="qblock1">
   <div class="q-label">Question 2 of 5</div>
-  <div class="q-text">What is the BIGGEST difference between a normal program and an AI program?</div>
+  <div class="q-text">Which THREE qualities make training data GOOD?</div>
   <div class="options" id="opts1">
-<button class="opt" onclick="selectAnswer(1,0)" type="button"><span class="opt-letter">A</span>AI programs are written in a different language</button>
-<button class="opt" onclick="selectAnswer(1,1)" type="button"><span class="opt-letter">B</span>AI programs are faster</button>
-<button class="opt" onclick="selectAnswer(1,2)" type="button"><span class="opt-letter">C</span>AI programs learn from data</button>
-<button class="opt" onclick="selectAnswer(1,3)" type="button"><span class="opt-letter">D</span>AI programs need the internet</button>
+<button class="opt" onclick="selectAnswer(1,0)" type="button"><span class="opt-letter">A</span>Quantity, Quality, Diversity</button>
+<button class="opt" onclick="selectAnswer(1,1)" type="button"><span class="opt-letter">B</span>Speed, Accuracy, Color</button>
+<button class="opt" onclick="selectAnswer(1,2)" type="button"><span class="opt-letter">C</span>Size, Font, Format</button>
+<button class="opt" onclick="selectAnswer(1,3)" type="button"><span class="opt-letter">D</span>Age, Source, Language</button>
   </div>
   <div class="feedback" id="fb1"></div>
 </div>
 <div class="q-block" id="qblock2">
   <div class="q-label">Question 3 of 5</div>
-  <div class="q-text">Which type of AI exists TODAY in the real world?</div>
+  <div class="q-text">An AI is trained on 10,000 photos labelled 'cat' or 'dog.' What type of learning is this?</div>
   <div class="options" id="opts2">
-<button class="opt" onclick="selectAnswer(2,0)" type="button"><span class="opt-letter">A</span>Super AI</button>
-<button class="opt" onclick="selectAnswer(2,1)" type="button"><span class="opt-letter">B</span>General AI</button>
-<button class="opt" onclick="selectAnswer(2,2)" type="button"><span class="opt-letter">C</span>Narrow AI</button>
-<button class="opt" onclick="selectAnswer(2,3)" type="button"><span class="opt-letter">D</span>Universal AI</button>
+<button class="opt" onclick="selectAnswer(2,0)" type="button"><span class="opt-letter">A</span>Unsupervised Learning</button>
+<button class="opt" onclick="selectAnswer(2,1)" type="button"><span class="opt-letter">B</span>Supervised Learning</button>
+<button class="opt" onclick="selectAnswer(2,2)" type="button"><span class="opt-letter">C</span>Reinforcement Learning</button>
+<button class="opt" onclick="selectAnswer(2,3)" type="button"><span class="opt-letter">D</span>Deep Learning</button>
   </div>
   <div class="feedback" id="fb2"></div>
 </div>
 <div class="q-block" id="qblock3">
   <div class="q-label">Question 4 of 5</div>
-  <div class="q-text">If a computer can fool a human into thinking it is human during a conversation, it passes which famous test?</div>
+  <div class="q-text">A music app groups songs into similar playlists without anyone telling it what the groups should be. This is an example of:</div>
   <div class="options" id="opts3">
-<button class="opt" onclick="selectAnswer(3,0)" type="button"><span class="opt-letter">A</span>The Robot Test</button>
-<button class="opt" onclick="selectAnswer(3,1)" type="button"><span class="opt-letter">B</span>The Turing Test</button>
-<button class="opt" onclick="selectAnswer(3,2)" type="button"><span class="opt-letter">C</span>The Human Test</button>
-<button class="opt" onclick="selectAnswer(3,3)" type="button"><span class="opt-letter">D</span>The Intelligence Test</button>
+<button class="opt" onclick="selectAnswer(3,0)" type="button"><span class="opt-letter">A</span>Supervised Learning</button>
+<button class="opt" onclick="selectAnswer(3,1)" type="button"><span class="opt-letter">B</span>Programming with rules</button>
+<button class="opt" onclick="selectAnswer(3,2)" type="button"><span class="opt-letter">C</span>Unsupervised Learning</button>
+<button class="opt" onclick="selectAnswer(3,3)" type="button"><span class="opt-letter">D</span>Overfitting</button>
   </div>
   <div class="feedback" id="fb3"></div>
 </div>
 <div class="q-block" id="qblock4">
   <div class="q-label">Question 5 of 5</div>
-  <div class="q-text">Your school app shows a different homepage to each student based on their interests and improves over time. Which technology is this MOST likely using?</div>
+  <div class="q-text">An AI gets 100% accuracy on its training data but only 40% on new data. What is the most likely problem?</div>
   <div class="options" id="opts4">
-<button class="opt" onclick="selectAnswer(4,0)" type="button"><span class="opt-letter">A</span>A basic calculator</button>
-<button class="opt" onclick="selectAnswer(4,1)" type="button"><span class="opt-letter">B</span>A traditional rule-based program</button>
-<button class="opt" onclick="selectAnswer(4,2)" type="button"><span class="opt-letter">C</span>Artificial Intelligence</button>
-<button class="opt" onclick="selectAnswer(4,3)" type="button"><span class="opt-letter">D</span>A simple timer</button>
+<button class="opt" onclick="selectAnswer(4,0)" type="button"><span class="opt-letter">A</span>The AI is too simple</button>
+<button class="opt" onclick="selectAnswer(4,1)" type="button"><span class="opt-letter">B</span>The training data was too large</button>
+<button class="opt" onclick="selectAnswer(4,2)" type="button"><span class="opt-letter">C</span>Overfitting</button>
+<button class="opt" onclick="selectAnswer(4,3)" type="button"><span class="opt-letter">D</span>The computer is too slow</button>
   </div>
   <div class="feedback" id="fb4"></div>
 </div>
@@ -500,13 +510,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);backgrou
     </div>
 
     <!-- Hidden label store -->
-    <span id="nextLabelStore" style="display:none">Start Module 2 →</span>
+    <span id="nextLabelStore" style="display:none">Start Module 3 →</span>
   </div>
 </main>
 
 <div id="toast"><span class="t-icon">✅</span><span class="t-msg"></span></div>
 
 <script>
+
 
 /* ── QUIZ HELPERS ── */
 function _getXP(){return parseInt(localStorage.getItem('noetix_xp')||'0');}
@@ -537,7 +548,7 @@ function renderStreakBadge(id){
   var s=checkStreak();
   var el=document.getElementById(id);
   if(!el||s<2)return;
-  el.innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);color:#F97316;font-size:12px;font-weight:800">🔥 '+s+'-day streak</span>';
+  el.innerHTML='<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);color:#F97316;font-size:12px;font-weight:800">\uD83D\uDD25 '+s+'-day streak</span>';
 }
 function showConfidence(cb){
   document.querySelectorAll('.conf-row').forEach(function(r){r.remove();});
@@ -561,12 +572,12 @@ function showConfidence(cb){
 var wrongFlags=[];
 
 const COURSE_KEY = 'noetix_ai_course';
-const MOD_NUM = 1;
+const MOD_NUM = 2;
 const PASS_MARK = 3;
-const NEXT_FILE = 'module-2.html';
+const NEXT_FILE = 'module-3.html';
 
-const CORRECTS = [1,2,2,1,2];
-const FEEDBACKS = ["AI stands for Artificial Intelligence \u2014 'artificial' means made by humans, 'intelligence' means the ability to think and learn.","The key difference is that AI can LEARN and improve over time. Normal programs just follow fixed rules forever \u2014 no matter how many times they run.","Only Narrow AI exists today \u2014 like Siri, Spotify, Face ID. General and Super AI are future concepts or science fiction. The robots aren't taking over just yet! \ud83d\ude04","The Turing Test (proposed in 1950) remains a classic benchmark for measuring machine intelligence. Today, ChatGPT passes this test easily!","Personalising content for each user based on behaviour and improving over time is classic machine learning AI in action!"];
+const CORRECTS = [1,0,1,2,2];
+const FEEDBACKS = ["Machine learning is about letting the computer discover patterns on its own from data \u2014 not following pre-written rules. Like training a dog with treats!","Good training data needs to be large enough (Quantity), correctly labelled (Quality), and cover many different cases (Diversity). Missing any of these leads to bad AI!","Supervised learning uses LABELLED data \u2014 each example has the correct answer already attached, like a teacher grading each question. The labels 'cat' and 'dog' make this supervised.","When the AI finds its own groups and patterns without being given labels, that is unsupervised learning. The app discovers genres completely on its own!","Overfitting = the AI memorised the training data instead of learning general patterns. High training accuracy + low real-world accuracy = classic overfitting. Like acing practice tests but bombing the real exam!"];
 
 let currentQ = 0;
 let score = 0;
@@ -901,6 +912,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // Set first dot active
   setDot(0, 'active');
+  renderStreakBadge('streakSlot');
+  var xpc=document.getElementById('xp-counter');if(xpc)xpc.textContent=_getXP()+' XP';
   updateProgress(0);
   // Scroll progress on scroll
   window.addEventListener('scroll', function() {
