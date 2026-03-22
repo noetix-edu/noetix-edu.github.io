@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Module 3: AI Sees & Hears | Noetix AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --primary: #58CC02;
+  --primary-d: #46A302;
+  --primary-glow: rgba(88,204,2,.25);
+  --blue: #1CB0F6;
+  --blue-d: #0EA5E9;
+  --purple: #CE82FF;
+  --purple-d: #9A48D0;
+  --yellow: #FFC800;
+  --red: #FF4B4B;
+  --orange: #FF9600;
+  --navy: #1F1F1F;
+  --ink: #3D3D3D;
+  --muted: #6B7280;
+  --bg: #F0F4FF;
+  --surface: #FFFFFF;
+  --border: #E5E7EB;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --r16: 16px; --r20: 20px; --r24: 24px; --r32: 32px; --r999: 999px;
+  --sh-card: 0 4px 24px rgba(31,31,31,.10), 0 1px 4px rgba(31,31,31,.06);
+  --sh-lg: 0 12px 48px rgba(31,31,31,.14);
+  --nav-h: 60px;
+  --max-w: 520px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--navy);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ── BACKGROUND BLOBS ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 20%, rgba(88,204,2,.08), transparent),
+    radial-gradient(ellipse 50% 50% at 85% 70%, rgba(206,130,255,.08), transparent),
+    radial-gradient(ellipse 40% 30% at 60% 10%, rgba(28,176,246,.07), transparent);
+}
+
+/* ── TOP PROGRESS ── */
+#top-bar {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--blue), var(--purple));
+  border-radius: 0 3px 3px 0;
+  transition: width .35s cubic-bezier(.23,1,.32,1);
+  width: 0;
+  box-shadow: 0 0 10px rgba(88,204,2,.4);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--nav-h);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto; padding: 0 20px;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.logo {
+  font-size: 17px; font-weight: 900; letter-spacing: -.04em;
+  display: flex; align-items: center; gap: 7px;
+}
+.logo-mark {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--blue));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; color: #fff;
+}
+.nav-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 700; color: var(--muted);
+  padding: 6px 12px; border-radius: var(--r999);
+  border: 2px solid var(--border); background: var(--surface);
+  transition: all .18s; cursor: pointer;
+}
+.nav-back:hover { color: var(--navy); border-color: #D1D5DB; }
+.nav-counter {
+  font-size: 12px; font-weight: 800; color: var(--muted);
+  background: var(--bg); padding: 4px 10px; border-radius: var(--r999);
+  border: 2px solid var(--border);
+}
+
+/* ── LAYOUT SHELL ── */
+.page-shell {
+  padding-top: calc(var(--nav-h) + 16px);
+  padding-bottom: 60px;
+  min-height: 100vh;
+  position: relative; z-index: 1;
+}
+.card-viewport {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 12px 16px 80px;
+}
+
+/* ── PROGRESS STRIP ── */
+.progress-strip {
+  max-width: var(--max-w);
+  margin: 0 auto 6px;
+  padding: 0 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.progress-track {
+  flex: 1; height: 8px;
+  background: var(--border);
+  border-radius: var(--r999);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--blue));
+  border-radius: var(--r999);
+  transition: width .5s cubic-bezier(.23,1,.32,1);
+  box-shadow: 0 0 8px rgba(88,204,2,.4);
+}
+.progress-label {
+  font-size: 11px; font-weight: 800; color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ── CARD BASE ── */
+.card {
+  display: none;
+  background: var(--surface);
+  border-radius: var(--r24);
+  box-shadow: var(--sh-card);
+  overflow: hidden;
+  animation: cardIn .32s cubic-bezier(.34,1.36,.64,1);
+  border: 2px solid var(--border);
+}
+.card.visible { display: block; }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── CARD HEADER BAND ── */
+.card-band {
+  height: 6px;
+  border-radius: var(--r24) var(--r24) 0 0;
+}
+
+/* ── SECTION DIVIDER CARD ── */
+.card-section {
+  background: linear-gradient(135deg, #1F1F1F, #2D2D2D);
+  border-color: #1F1F1F;
+  color: #fff;
+  padding: 28px 24px;
+  text-align: center;
+}
+.card-section .section-label {
+  display: inline-block;
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+  color: rgba(255,255,255,.5);
+  background: rgba(255,255,255,.08);
+  padding: 4px 12px; border-radius: var(--r999);
+  margin-bottom: 12px;
+}
+.card-section h2 {
+  font-size: 22px; font-weight: 900; letter-spacing: -.03em;
+  color: #fff; line-height: 1.2;
+}
+.card-section .section-icon {
+  font-size: 40px; margin-bottom: 10px; display: block;
+}
+
+/* ── HOOK CARD ── */
+.card-hook { position: relative; }
+.hook-bg {
+  padding: 32px 24px 28px;
+  text-align: center;
+}
+.hook-emoji { font-size: 52px; margin-bottom: 14px; display: block; }
+.hook-title {
+  font-size: 20px; font-weight: 900; letter-spacing: -.03em;
+  color: var(--navy); margin-bottom: 10px; line-height: 1.25;
+}
+.hook-text {
+  font-size: 15px; color: var(--ink); line-height: 1.65;
+}
+
+/* ── CONCEPT CARD ── */
+.card-concept .concept-inner { padding: 24px; }
+.concept-emoji { font-size: 36px; margin-bottom: 10px; display: block; }
+.concept-title {
+  font-size: 19px; font-weight: 900; letter-spacing: -.03em;
+  color: var(--navy); margin-bottom: 12px; line-height: 1.2;
+}
+.concept-text {
+  font-size: 14px; color: var(--ink); line-height: 1.7; margin-bottom: 14px;
+}
+.concept-text strong { color: var(--navy); }
+.concept-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.bullet-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--bg); border-radius: 12px;
+  padding: 10px 14px; font-size: 13.5px; color: var(--ink); line-height: 1.5;
+  border: 2px solid var(--border);
+}
+.bullet-dot {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #fff; margin-top: 1px;
+}
+.concept-note {
+  background: linear-gradient(135deg,rgba(88,204,2,.08),rgba(28,176,246,.06));
+  border: 2px solid rgba(88,204,2,.2);
+  border-radius: 14px; padding: 12px 14px;
+  font-size: 13px; color: var(--ink); line-height: 1.6;
+}
+.concept-note::before { content: '💡 '; }
+
+/* ── STEP LIST ── */
+.step-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.step-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 14px; border-radius: 14px;
+  background: var(--bg); border: 2px solid var(--border);
+}
+.step-num {
+  font-size: 20px; flex-shrink: 0; line-height: 1.3;
+}
+.step-body { flex: 1; }
+.step-label {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--navy); margin-bottom: 2px;
+}
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* ── COMPARE CARDS ── */
+.compare-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.compare-card {
+  border-radius: 14px; padding: 14px; border: 2px solid var(--border);
+}
+.compare-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.compare-icon { font-size: 20px; }
+.compare-label { font-size: 14px; font-weight: 800; color: var(--navy); }
+.compare-text { font-size: 13.5px; color: var(--ink); line-height: 1.6; }
+
+/* ── TIER CARDS ── */
+.tier-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.tier-card {
+  border-radius: 16px; padding: 14px 16px; border: 2px solid;
+}
+.tier-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.tier-left { display: flex; align-items: center; gap: 8px; }
+.tier-icon { font-size: 18px; }
+.tier-name { font-size: 14px; font-weight: 800; color: var(--navy); }
+.tier-sub {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: 2px 8px; border-radius: var(--r999); background: rgba(255,255,255,.7);
+}
+.tier-text { font-size: 13px; color: var(--ink); line-height: 1.6; }
+
+/* ── EXAMPLE CARD ── */
+.card-example .example-inner { padding: 24px; }
+.example-emoji { font-size: 36px; margin-bottom: 10px; display: block; }
+.example-title {
+  font-size: 17px; font-weight: 900; letter-spacing: -.03em;
+  color: var(--navy); margin-bottom: 12px;
+}
+.example-text {
+  font-size: 14px; color: var(--ink); line-height: 1.7; margin-bottom: 10px;
+}
+.example-punchline {
+  background: linear-gradient(135deg, rgba(88,204,2,.08), rgba(28,176,246,.06));
+  border: 2px solid rgba(88,204,2,.2);
+  border-radius: 14px; padding: 12px 14px;
+  font-size: 13.5px; color: var(--navy); font-weight: 600; line-height: 1.6;
+}
+.example-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.ex-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 13px; border-radius: 12px;
+  background: var(--bg); border: 2px solid var(--border);
+}
+.ex-tag {
+  font-size: 11px; font-weight: 800; white-space: nowrap;
+  color: var(--navy); flex-shrink: 0; padding-top: 1px;
+}
+.ex-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.example-note {
+  font-size: 12.5px; color: var(--muted); font-style: italic;
+  border-top: 2px solid var(--border); padding-top: 10px; margin-top: 10px;
+}
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+.tl-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; position: relative;
+}
+.tl-row:not(:last-child)::after {
+  content: ''; position: absolute; left: 26px; top: 32px;
+  width: 2px; bottom: -6px;
+  background: linear-gradient(180deg, var(--primary), var(--blue));
+  opacity: .3;
+}
+.tl-year {
+  width: 52px; flex-shrink: 0;
+  font-size: 11px; font-weight: 800; color: var(--primary-d);
+  background: rgba(88,204,2,.1); border: 2px solid rgba(88,204,2,.2);
+  border-radius: 8px; padding: 3px 6px; text-align: center;
+  margin-top: 2px;
+}
+.tl-text { font-size: 13.5px; color: var(--ink); line-height: 1.6; padding-top: 2px; }
+
+/* ── REVEAL CARD ── */
+.card-reveal .reveal-inner { padding: 24px; }
+.reveal-emoji { font-size: 36px; margin-bottom: 10px; display: block; }
+.reveal-title {
+  font-size: 17px; font-weight: 900; color: var(--navy); margin-bottom: 14px;
+}
+.reveal-btn {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 16px 18px; border-radius: 16px;
+  border: 2px dashed var(--border);
+  background: var(--bg); cursor: pointer;
+  font-family: var(--font); font-size: 14px; font-weight: 700;
+  color: var(--muted); text-align: left;
+  transition: all .2s; position: relative; overflow: hidden;
+}
+.reveal-btn:hover {
+  border-color: var(--primary); color: var(--primary-d);
+  background: rgba(88,204,2,.04);
+}
+.reveal-btn.revealed {
+  border-style: solid; border-color: var(--primary);
+  background: rgba(88,204,2,.04); cursor: default;
+}
+.reveal-icon {
+  width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(88,204,2,.15); border: 2px solid rgba(88,204,2,.3);
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+  transition: transform .3s;
+}
+.reveal-btn.revealed .reveal-icon { transform: rotate(360deg); }
+.reveal-prompt-text { flex: 1; }
+.reveal-arrow { font-size: 16px; transition: transform .3s; }
+.reveal-btn.revealed .reveal-arrow { transform: rotate(180deg); }
+.reveal-answer {
+  display: none; margin-top: 12px; padding: 14px;
+  background: rgba(88,204,2,.06); border: 2px solid rgba(88,204,2,.2);
+  border-radius: 14px; font-size: 14px; color: var(--ink); line-height: 1.7;
+}
+.reveal-btn.revealed + .reveal-answer { display: block; }
+
+/* ── RECAP CARD ── */
+.card-recap {
+  background: linear-gradient(135deg, #1F1F1F 0%, #2D2D2D 100%);
+  border-color: #1F1F1F;
+}
+.recap-inner { padding: 28px 24px; }
+.recap-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+}
+.recap-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(88,204,2,.15); border: 2px solid rgba(88,204,2,.3);
+  color: var(--primary); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 4px 12px; border-radius: var(--r999);
+}
+.recap-text {
+  font-size: 15px; color: rgba(255,255,255,.85); line-height: 1.7; font-style: italic;
+}
+.recap-icon { font-size: 28px; text-align: center; margin-bottom: 10px; display: block; }
+
+/* ── QUIZ CARD ── */
+.card-quiz { border-color: rgba(206,130,255,.3); }
+.quiz-inner { padding: 24px; }
+.quiz-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(206,130,255,.12); border: 2px solid rgba(206,130,255,.3);
+  color: var(--purple-d); font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 4px 12px; border-radius: var(--r999); margin-bottom: 14px;
+}
+.quiz-q {
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  line-height: 1.45; margin-bottom: 18px; letter-spacing: -.02em;
+}
+.quiz-opts { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 11px;
+  padding: 13px 15px; border-radius: 14px;
+  border: 2px solid var(--border); background: var(--surface);
+  cursor: pointer; transition: all .15s;
+  font-family: var(--font); font-size: 14px; font-weight: 600; color: var(--navy);
+  text-align: left; width: 100%;
+}
+.quiz-opt:hover:not(:disabled) {
+  border-color: var(--purple); background: rgba(206,130,255,.06);
+  transform: translateY(-1px);
+}
+.quiz-opt:disabled { cursor: default; }
+.quiz-opt.opt-correct {
+  border-color: var(--primary)!important; background: rgba(88,204,2,.08)!important;
+  color: var(--primary-d)!important;
+}
+.quiz-opt.opt-wrong {
+  border-color: var(--red)!important; background: rgba(255,75,75,.08)!important;
+  color: var(--red)!important;
+}
+.quiz-opt.opt-reveal {
+  border-color: rgba(88,204,2,.4)!important; background: rgba(88,204,2,.04)!important;
+  opacity: .7;
+}
+.opt-letter {
+  width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+  background: var(--bg); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; transition: all .15s;
+}
+.quiz-opt:hover:not(:disabled) .opt-letter {
+  background: var(--purple); border-color: var(--purple); color: #fff;
+}
+.quiz-opt.opt-correct .opt-letter { background: var(--primary); border-color: var(--primary); color: #fff; }
+.quiz-opt.opt-wrong .opt-letter { background: var(--red); border-color: var(--red); color: #fff; }
+.quiz-feedback {
+  display: none; padding: 12px 14px; border-radius: 12px;
+  font-size: 13.5px; line-height: 1.65; margin-top: 4px;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.fb-ok { background: rgba(88,204,2,.08); border: 2px solid rgba(88,204,2,.25); color: #365314; }
+.quiz-feedback.fb-no { background: rgba(255,75,75,.08); border: 2px solid rgba(255,75,75,.25); color: #991B1B; }
+.quiz-feedback strong { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+
+/* ── COMPLETE CARD ── */
+.card-complete {
+  background: linear-gradient(135deg, #1A1A2E, #16213E, #0F3460);
+  border-color: transparent;
+}
+.complete-inner { padding: 36px 24px; text-align: center; }
+.complete-stars { font-size: 32px; margin-bottom: 12px; letter-spacing: 4px; }
+.complete-trophy { font-size: 64px; margin-bottom: 16px; display: block; animation: bounce 1s ease infinite alternate; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+.complete-title {
+  font-size: 26px; font-weight: 900; letter-spacing: -.04em;
+  color: #fff; margin-bottom: 10px;
+}
+.complete-hl {
+  background: linear-gradient(135deg, var(--primary), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.complete-text { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 24px; }
+.complete-stat {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.15);
+  border-radius: var(--r999); padding: 6px 16px;
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,.8);
+  margin-bottom: 24px;
+}
+.btn-complete {
+  display: block; width: 100%; padding: 16px;
+  border-radius: 16px; background: var(--primary);
+  color: #1F1F1F; font-family: var(--font); font-size: 16px; font-weight: 900;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(88,204,2,.4);
+  transition: all .2s; letter-spacing: -.01em; margin-bottom: 10px;
+}
+.btn-complete:hover { background: var(--primary-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(88,204,2,.5); }
+.btn-review {
+  display: block; width: 100%; padding: 13px;
+  border-radius: 16px; background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.7); font-family: var(--font); font-size: 14px; font-weight: 700;
+  border: 2px solid rgba(255,255,255,.15); cursor: pointer; transition: all .2s;
+}
+.btn-review:hover { background: rgba(255,255,255,.15); color: #fff; }
+
+/* ── NAV BUTTONS ── */
+.card-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,.95); backdrop-filter: blur(16px);
+  border-top: 2px solid var(--border);
+  padding: 12px 16px 16px;
+  display: flex; gap: 10px; justify-content: center;
+}
+.nav-btn-wrap { max-width: var(--max-w); width: 100%; display: flex; gap: 10px; }
+.btn-prev {
+  flex: 1; padding: 14px; border-radius: 14px;
+  border: 2px solid var(--border); background: var(--surface);
+  color: var(--muted); font-family: var(--font); font-size: 15px; font-weight: 800;
+  cursor: pointer; transition: all .2s;
+}
+.btn-prev:hover:not(:disabled) { border-color: #D1D5DB; color: var(--navy); }
+.btn-prev:disabled { opacity: .3; cursor: not-allowed; }
+.btn-next {
+  flex: 2; padding: 14px; border-radius: 14px;
+  border: none; background: var(--navy);
+  color: #fff; font-family: var(--font); font-size: 15px; font-weight: 900;
+  cursor: pointer; transition: all .2s; letter-spacing: -.01em;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.btn-next:hover:not(:disabled) { background: #2D2D2D; transform: translateY(-1px); }
+.btn-next:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+.btn-next.locked { background: var(--border); color: var(--muted); }
+.btn-next .arrow { transition: transform .2s; }
+.btn-next:hover:not(:disabled) .arrow { transform: translateX(3px); }
+
+/* ── MOBILE ── */
+@media(max-width:480px) {
+  .card-viewport { padding: 10px 12px 80px; }
+  .hook-title { font-size: 18px; }
+  .quiz-q { font-size: 15px; }
+  .complete-title { font-size: 22px; }
+}
+
+/* ── WIPE TRANSITION (#19) ── */
+@keyframes wipe-in  { from{width:0} to{width:100vw} }
+@keyframes wipe-out { from{transform:translateX(0)} to{transform:translateX(100vw)} }
+.wipe-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  width: 0;
+  z-index: 9000;
+  pointer-events: none;
+  will-change: width, transform;
+}
+
+/* ── TRUE/FALSE COMBO (#4) ── */
+.tf-shell{display:flex;flex-direction:column;min-height:340px;position:relative;overflow:hidden}
+.tf-combo-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;position:relative;z-index:2}
+.tf-progress-dots{display:flex;gap:6px;align-items:center}
+.tf-dot{width:8px;height:8px;border-radius:50%;background:#E5E7EB;border:1.5px solid #D1D5DB;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.tf-dot.hit{background:#58CC02;border-color:#46A302;transform:scale(1.2)}
+.tf-dot.miss{background:#FF4B4B;border-color:#dc2626}
+.tf-combo-wrap{display:flex;align-items:center;gap:7px}
+.tf-combo-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#6B7280}
+.tf-combo-num{font-size:22px;font-weight:900;letter-spacing:-.04em;color:#FF9600;min-width:28px;text-align:center;display:inline-block}
+@keyframes combo-bump{0%{transform:scale(1)}45%{transform:scale(1.55)}100%{transform:scale(1)}}
+@keyframes combo-deflate{0%{transform:scale(1)}30%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.tf-combo-num.bump{animation:combo-bump .35s cubic-bezier(.34,1.56,.64,1)}
+.tf-combo-num.deflate{animation:combo-deflate .3s cubic-bezier(.55,0,.1,1)}
+.tf-multiplier{font-size:12px;font-weight:800;padding:3px 8px;border-radius:6px;background:rgba(255,150,0,.12);border:1.5px solid rgba(255,150,0,.25);color:#FF9600;opacity:0;transform:scale(0);transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+.tf-multiplier.show{opacity:1;transform:scale(1)}
+.tf-card-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:0 22px 10px;position:relative}
+.tf-statement-card{width:100%;background:#fff;border:2px solid #E5E7EB;border-radius:20px;padding:26px 22px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;overflow:hidden}
+@keyframes tf-slide-up{to{transform:translateY(-120%) rotate(-4deg);opacity:0}}
+@keyframes tf-slide-in{from{transform:translateY(60px) scale(.92);opacity:0}to{transform:none;opacity:1}}
+@keyframes tf-flash-correct{0%,100%{background:#fff;border-color:#E5E7EB}50%{background:rgba(88,204,2,.12);border-color:#58CC02}}
+@keyframes tf-flash-wrong{0%,100%{background:#fff;border-color:#E5E7EB}50%{background:rgba(255,75,75,.1);border-color:#FF4B4B}}
+.tf-statement-card.slide-up{animation:tf-slide-up .28s cubic-bezier(.55,0,.1,1) forwards}
+.tf-statement-card.slide-in{animation:tf-slide-in .28s cubic-bezier(.34,1.36,.64,1)}
+.tf-statement-card.flash-correct{animation:tf-flash-correct .32s ease}
+.tf-statement-card.flash-wrong{animation:tf-flash-wrong .32s ease}
+.tf-q-num{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#6B7280;margin-bottom:10px}
+.tf-statement{font-size:17px;font-weight:700;color:#1F1F1F;line-height:1.45;letter-spacing:-.02em}
+.tf-zones{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px 20px}
+.tf-zone{padding:15px 10px;border-radius:16px;border:2.5px solid;font-family:inherit;font-size:17px;font-weight:900;cursor:pointer;transition:transform .12s,box-shadow .12s;user-select:none;-webkit-tap-highlight-color:transparent}
+.tf-zone:active{transform:scale(.94)}
+.tf-zone-true{background:rgba(88,204,2,.08);border-color:rgba(88,204,2,.35);color:#46A302}
+.tf-zone-false{background:rgba(255,75,75,.07);border-color:rgba(255,75,75,.3);color:#dc2626}
+.tf-result{position:absolute;inset:0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:10;background:#fff;animation:tf-slide-in .3s cubic-bezier(.34,1.36,.64,1)}
+.tf-result-emoji{font-size:52px;line-height:1}
+.tf-result-score{font-size:26px;font-weight:900;letter-spacing:-.04em;color:#1F1F1F}
+.tf-result-sub{font-size:13px;color:#6B7280;font-weight:600}
+.tf-result-best{font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;background:rgba(255,150,0,.12);border:1.5px solid rgba(255,150,0,.25);color:#FF9600}
+
+/* ═══════════════════════════════════════════════════
+   MODULE UI/UX PATCH — buttons, interactions, animations
+═══════════════════════════════════════════════════ */
+
+/* ── NAV BUTTONS ─────────────────────────────────── */
+.btn-prev:hover:not(:disabled) {
+  border-color: var(--navy);
+  color: var(--navy);
+  background: rgba(31,31,31,.04);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(31,31,31,.08);
+}
+.btn-prev:active:not(:disabled) { transform: scale(.97); }
+.btn-next:not(.locked):hover {
+  background: #2D2D2D;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(31,31,31,.25);
+}
+.btn-next:not(.locked):active { transform: scale(.97); box-shadow: none; }
+.btn-next { transition: background .18s, transform .15s, box-shadow .18s; }
+
+/* ── QUIZ OPT (inline card quiz) ─────────────────── */
+.quiz-opt:not(:disabled):hover {
+  border-color: var(--purple);
+  background: rgba(206,130,255,.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(206,130,255,.15);
+}
+.quiz-opt:not(:disabled):active { transform: scale(.97); }
+.quiz-opt { transition: border-color .15s, background .15s, transform .15s, box-shadow .15s; }
+
+/* ── FACT-OR-CAP BUTTONS ─────────────────────────── */
+.foc-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.foc-btn {
+  padding: 18px 12px;
+  border-radius: 16px;
+  border: 2.5px solid var(--border);
+  background: var(--bg);
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all .18s cubic-bezier(.34,1.36,.64,1);
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+.foc-fact { background: #EFF6FF; border-color: rgba(59,130,246,.3); color: #2563EB; }
+.foc-cap  { background: #FEF2F2; border-color: rgba(239,68,68,.3);  color: #DC2626; }
+.foc-btn:not(:disabled):hover    { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+.foc-btn:not(:disabled):active   { transform: scale(.95); box-shadow: none; }
+.foc-btn:disabled                { opacity: .55; cursor: default; transform: none; }
+.foc-btn.foc-correct { border-color: var(--primary)  !important; background: #F7FEE7 !important; color: var(--primary-d) !important; }
+.foc-btn.foc-wrong   { border-color: #FB923C          !important; background: #FFF7ED !important; color: #9A3412         !important; }
+
+/* Fact-or-Cap feedback box */
+.foc-feedback {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-weight: 600;
+  display: none;
+}
+.foc-feedback.show   { display: block; animation: card-reveal .22s ease; }
+.foc-feedback.fb-ok  { background: #F7FEE7; border: 1.5px solid rgba(88,204,2,.3);  color: #365314; }
+.foc-feedback.fb-bad { background: #FFF7ED; border: 1.5px solid rgba(251,146,60,.35); color: #9A3412; }
+
+/* ── EXIT TICKET BUTTONS ─────────────────────────── */
+.exit-ticket { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.et-btn {
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all .18s cubic-bezier(.34,1.36,.64,1);
+  -webkit-tap-highlight-color: transparent;
+}
+.et-btn:hover:not(.selected) {
+  border-color: var(--purple);
+  color: var(--purple-d);
+  background: rgba(206,130,255,.06);
+  transform: translateY(-1px);
+}
+.et-btn:active { transform: scale(.95); }
+.et-btn.selected {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(124,58,237,.3);
+  animation: btn-select-pop .28s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── LADDER STEPS ────────────────────────────────── */
+.ladder-step {
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  color: var(--muted);
+  transition: all .22s cubic-bezier(.34,1.36,.64,1);
+  cursor: default;
+}
+.ladder-step.locked    { opacity: .35; pointer-events: none; }
+.ladder-step.unlocked  {
+  border-color: rgba(88,204,2,.4);
+  background: #F7FEE7;
+  color: var(--navy);
+  cursor: pointer;
+}
+.ladder-step.unlocked:hover  { border-color: var(--primary); transform: translateX(3px); }
+.ladder-step.unlocked:active { transform: scale(.97) translateX(2px); }
+
+/* ── REVEAL BUTTON ───────────────────────────────── */
+.reveal-btn:not(.revealed):hover {
+  border-color: var(--primary);
+  background: rgba(88,204,2,.05);
+  color: var(--primary-d);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(88,204,2,.15);
+}
+.reveal-btn:active { transform: scale(.98); }
+.reveal-btn { transition: all .18s; }
+
+/* ── TF ZONE HOVER/ACTIVE ────────────────────────── */
+.tf-zone-true:not(:disabled):hover  { background: rgba(88,204,2,.14);  box-shadow: 0 6px 18px rgba(88,204,2,.2); }
+.tf-zone-false:not(:disabled):hover { background: rgba(255,75,75,.12); box-shadow: 0 6px 18px rgba(255,75,75,.2); }
+
+/* ── CARD TRANSITION ─────────────────────────────── */
+@keyframes card-reveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card.visible {
+  animation: cardIn .32s cubic-bezier(.34,1.36,.64,1), card-reveal .28s ease;
+}
+
+/* ── SUCCESS POP (correct answer / complete) ─────── */
+@keyframes success-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(88,204,2,.2); }
+  70%  { transform: scale(.98); }
+  100% { transform: scale(1);   box-shadow: 0 0 0 16px rgba(88,204,2,0); }
+}
+.quiz-opt.opt-correct {
+  animation: success-pop .42s cubic-bezier(.34,1.36,.64,1) forwards;
+}
+
+/* ── SOFT FAILURE SHAKE ──────────────────────────── */
+@keyframes soft-shake {
+  0%,100% { transform: translateX(0)    scale(1);    }
+  20%     { transform: translateX(-3px) scale(.98);  }
+  45%     { transform: translateX( 3px) scale(.97);  }
+  70%     { transform: translateX(-2px) scale(.98);  }
+  88%     { transform: translateX( 1px) scale(.99);  }
+}
+@keyframes soft-glow-amber {
+  0%   { box-shadow: 0 0 0  0 rgba(251,146,60,.0); }
+  30%  { box-shadow: 0 0 0  5px rgba(251,146,60,.35); }
+  100% { box-shadow: 0 0 0  0 rgba(251,146,60,.0); }
+}
+.quiz-opt.opt-wrong {
+  animation: soft-shake .22s cubic-bezier(.36,.07,.19,.97) forwards,
+             soft-glow-amber .4s ease forwards;
+  border-color: #FB923C !important;
+  background: #FFF7ED  !important;
+  color: #9A3412       !important;
+}
+.quiz-opt.opt-wrong .opt-letter {
+  background: #FB923C !important;
+  border-color: #FB923C !important;
+  color: #fff !important;
+}
+
+/* ── BUTTON SELECT POP ───────────────────────────── */
+@keyframes btn-select-pop {
+  0%   { transform: scale(1); }
+  55%  { transform: scale(1.08); }
+  80%  { transform: scale(.96); }
+  100% { transform: scale(1); }
+}
+
+/* ── PREDICT OPTION POP ──────────────────────────── */
+.bullet-item {
+  transition: border-color .15s, background .15s, transform .15s;
+  cursor: pointer;
+}
+.bullet-item:hover  { border-color: var(--primary); transform: translateX(3px); background: #F7FEE7; }
+.bullet-item:active { transform: scale(.97); }
+
+/* ── COMPLETE BUTTONS ────────────────────────────── */
+.btn-complete:hover {
+  background: var(--primary-d);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(88,204,2,.5);
+}
+.btn-complete:active { transform: scale(.97); }
+.btn-review:hover  { background: rgba(255,255,255,.18); color: #fff; }
+.btn-review:active { transform: scale(.97); }
+
+</style>
+</head>
+<body>
+
+<div id="topBar"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="course.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
+    <span class="nav-counter" id="progLabel">1 / 23</span>
+    <span id="xp-counter" style="font-size:11px;font-weight:800;color:#46A302;background:rgba(88,204,2,.1);padding:4px 10px;border-radius:999px;border:1px solid rgba(88,204,2,.2)">0 XP</span>
+    <a href="course.html" class="nav-back">← Modules</a>
+  </div>
+</nav>
+
+<div class="progress-strip">
+  <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+  <span class="progress-label" id="progLabelStrip"></span>
+</div>
+
+<main class="page-shell">
+  <div class="card-viewport">
+    <div id="cardContainer"></div>
+  </div>
+</main>
+
+<div id="cardSentinel" style="height:1px"></div>
+<div class="card-nav" id="cardNav">
+  <div class="nav-btn-wrap">
+    <button class="btn-prev" id="btnPrev" onclick="goPrev()" disabled>← Back</button>
+    <button class="btn-next" id="btnNext" onclick="goNext()">Next <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<script>
+const MOD_NUM = 3;
+const MOD_EMOJI = "\ud83d\udc41\ufe0f";
+const MOD_COLOR = "#CE82FF";
+const QUIZ_FILE = "quiz-3.html";
+const CARDS = [
+  {"type":"section","label":"Lesson 1 of 4","title":"How AI Sees Your Face"},
+  {"type":"predict","question":"How many infrared dots does Face ID project onto your face?","options":["1,000 dots","10,000 dots","30,000 dots","1,000,000 dots"],"correctText":"30,000 infrared dots! They create a 3D depth map that makes it nearly impossible to fool with a flat photo."},
+  {"type":"hook","emoji":"\ud83d\udd10","title":"Your face is your password","text":"Every morning your phone unlocks just by looking at you. In 0.3 seconds, it scans your face, matches it to your profile, and lets you in. But HOW does AI actually SEE your face? \ud83d\udd10"},
+  {"type":"concept","emoji":"\ud83d\udd22","title":"AI Sees Numbers, Not Faces","bullets":["Detect \u2014 find where the face is in the image", "Align \u2014 normalise to a standard position", "Extract \u2014 measure eye distance, nose width, jaw angle", "Match \u2014 compare to stored profiles. Best match = you!"],"text":"Computers don't see faces like you do. They see images as a <strong>GRID of numbers</strong> \u2014 each tiny pixel has a number representing its colour (0=black, 255=white)."},
+  {"type":"example","emoji":"\ud83c\udf4e","title":"Face ID's Crazy Accuracy","text":"Apple Face ID projects 30,000 infrared dots onto your face, creating a 3D depth map. This makes it nearly impossible to fool with a flat photo.","punchline":"Accuracy: 1 in 1,000,000. A PIN code? Only 1 in 10,000. Your FACE is more secure than your password! \ud83d\udd12"},
+  {"type":"truefalse","items":[{"statement":"AI sees images as a grid of numbers called pixels","isTrue":true},{"statement":"CNN stands for Convolutional Neural Network","isTrue":true},{"statement":"Face ID can easily be fooled by a flat photograph","isTrue":false},{"statement":"Tesla self-driving cars use only cameras to navigate","isTrue":false},{"statement":"Speech AI uses a language model to understand context","isTrue":true}]},
+  {"type":"reveal","emoji":"\ud83d\udcf8","prompt":"Tap: Can you fool Face ID with a photo of someone's face?","answer":"Generally NO! Modern Face ID uses 3D depth mapping \u2014 a flat photo lacks depth. Some older 2D face recognition systems CAN be fooled, which is exactly why Apple moved to 3D infrared mapping!"},
+  {"type":"recap","text":"AI sees faces as grids of numbers, detects key features, measures distances between them, and matches to stored profiles. Your face is literally a digital key! \ud83d\udddd\ufe0f"},
+  {"type":"section","label":"Lesson 2 of 4","title":"Image Classification"},
+  {"type":"hook","emoji":"\ud83c\udfa8","title":"You see a dog in 0.1 seconds. AI took 60 years to learn this.","text":"You glance at a photo and instantly know: dog, sunset, birthday cake. This seems effortless. For AI, this was one of the hardest problems in computer science. Here's how they finally cracked it."},
+  {"type":"factorcap","items":[{"statement":"AI sees images as grids of numbers, not as pictures","isTrue":true,"explanation":"Every pixel is just a number (0-255 for colour). AI processes these numbers — no eyes involved!"},{"statement":"A self-driving car relies only on cameras to navigate","isTrue":false,"explanation":"It uses cameras + LIDAR (laser 3D mapping) + RADAR (speed detection). No single sensor gives the full picture."},{"statement":"Snapchat filters track 68 facial landmarks 30 times per second","isTrue":true,"explanation":"Correct! Real-time facial landmark tracking at 30fps is what makes AR filters map perfectly to your moving face."}]},
+  {"type":"concept","emoji":"\ud83d\udd0d","title":"How CNNs See Layer by Layer","note":"Each layer is like a different pair of glasses that sees something new and more complex!","steps":[["Layer 1 \u2014 Edges", "Detects where light meets dark in the photo. Sees lines and contrasts."], ["Layer 2 \u2014 Shapes", "Combines edges into circles, curves, and textures."], ["Layer 3 \u2014 Parts", "'Eyes here,' 'ear pattern,' 'nose shape' \u2014 building components."], ["Final Layer \u2014 Object", "'This is a dog!' with 97.8% confidence \u2705"]]},
+  {"type":"example","emoji":"\ud83d\udcf1","title":"Google Lens in Your Pocket","text":"Point your phone camera at ANYTHING \u2014 a plant species, a famous landmark, text in another language, a dog breed, a piece of art \u2014 and Google's AI tells you exactly what it is.","punchline":"Behind the scenes: trained on BILLIONS of images. It's seen more pictures than any human could in 1000 lifetimes. That's why it's so good. \ud83d\udcf1\u2728"},
+  {"type":"quiz","question":"An image AI analyses a blurry photo of a husky dog in snow and outputs: Dog: 72%, Wolf: 21%, Cat: 5%. Why does 'Wolf' get 21%?","options":["The AI is broken and needs retraining", "Huskies look wolf-like \u2014 they share similar features like ears and fur", "The AI ran out of training data", "The photo is too blurry to classify at all"],"correct":1,"feedback":"Spot on! Huskies and wolves share pointed ears, grey-white fur, and similar face structures. The AI detected wolf-like features so assigned 21% confidence. This is actually CORRECT behaviour \u2014 honest uncertainty! \ud83d\udc3a"},
+  {"type":"recap","text":"Image AI goes layers deep: edges \u2192 shapes \u2192 parts \u2192 objects. It learns from millions of examples and gives confidence scores for guesses. Seeing is computing! \ud83d\udd0d"},
+  {"type":"section","label":"Lesson 3 of 4","title":"How AI Listens"},
+  {"type":"hook","emoji":"\ud83c\udfa4","title":"'Hey Siri' \u2014 but how?","text":"'Hey Siri, play my gym playlist.' Two seconds later, music plays. But your phone didn't 'hear' words. Sound is just vibrations in the air. How does a phone turn vibrations into understood language? \ud83c\udfa4"},
+  {"type":"concept","emoji":"\ud83d\udd0a","title":"3 Steps: Sound to Words","note":"Context is everything! 'Book a flight' \u2014 the word 'book' means 'reserve,' not a paperback!","steps":[["\ud83c\udfa4 Microphone", "Captures sound wave \u2014 vibrations in the air"], ["\ud83d\udd22 Acoustic Model", "Recognises phonemes \u2014 sound pieces. 'Ca-' + '-t' = 'Cat'"], ["\ud83d\udcd6 Language Model", "Uses language knowledge to fill gaps. After 'I want to go to the ___' \u2192 'store', not 'giraffe'!"]]},
+  {"type":"example","emoji":"\ud83d\udcdd","title":"YouTube Auto-Captions","text":"YouTube captions transcribe videos in real time in over 60 languages! Google's speech AI was trained on millions of hours of audio \u2014 every accent, pace, background noise, speaking style.","punchline":"It's now MORE accurate than human transcriptionists at understanding speech \u2014 even with background noise! \ud83d\udcdd\ud83e\udd2f"},
+  {"type":"exitticket","question":"How are you feeling about Computer Vision?","options":["😕 Blurry on it","🤔 Coming into focus","😊 Sharp","🚀 Crystal clear"]},
+  {"type":"reveal","emoji":"\ud83d\udcd6","prompt":"Tap: 'I need to read the book' and 'I need to reed the book' sound identical. How does AI know which to write?","answer":"Context! After 'I need to ___ the book,' the word 'book' strongly suggests 'read' \u2014 you read a book. 'Reed' would make no sense here. The language model analyses surrounding words to resolve ambiguity!"},
+  {"type":"recap","text":"Speech AI converts vibrations to numbers, recognises sound pieces, uses language knowledge to understand context, and produces text. Your voice is now a remote control! \ud83c\udf99\ufe0f"},
+  {"type":"section","label":"Lesson 4 of 4","title":"AI-Powered Cameras"},
+  {"type":"hook","emoji":"\ud83d\udcf7","title":"Snapchat tracks your face 30\u00d7 per second","text":"That dog-ear filter maps perfectly to your face \u2014 even when you turn your head. The CCTV at your mall entrance scans 1000 faces per hour. A Tesla drives itself down a highway. AI + cameras = superpowers. \ud83d\udcf7\ud83d\ude97"},
+  {"type":"concept","emoji":"\ud83c\udf10","title":"Three Amazing Applications","tiers":[{"icon": "\ud83d\udcf1", "label": "AR Filters", "sublabel": "Snapchat, Instagram", "color": "#CE82FF", "bg": "#FAF0FF", "text": "AI detects 68 face landmarks 30\u00d7/second. Maps the filter perfectly to your moving face \u2014 even when you pull expressions!"}, {"icon": "\ud83d\udcf9", "label": "CCTV Security", "sublabel": "Smart surveillance", "color": "#1CB0F6", "bg": "#F0F9FF", "text": "AI cameras recognise specific people in crowds, detect suspicious behaviour, or alert if someone falls automatically."}, {"icon": "\ud83d\ude97", "label": "Self-Driving Cars", "sublabel": "Tesla, Waymo", "color": "#58CC02", "bg": "#F0FFF0", "text": "Processes multiple camera feeds simultaneously. Identifies lanes, traffic lights, cyclists, pedestrians \u2014 decisions in milliseconds."}]},
+  {"type":"quiz","question":"A self-driving car sees a ball rolling into the road. What should it do?","options":["Ignore it \u2014 a ball is not a pedestrian", "Speed up to pass before anything follows", "Slow down and scan for a possible child following the ball", "Honk the horn to warn bystanders"],"correct":2,"feedback":"Exactly right! A ball often predicts a child following it \u2014 good self-driving AI predicts HUMAN BEHAVIOUR, not just reacts to what it currently sees. This anticipation is one of the hardest parts of autonomous driving! \ud83d\ude97"},
+  {"type":"complete","text":"Module 3 complete! You now understand how AI sees faces and images layer by layer, how speech recognition works, and how AI-powered cameras are used everywhere! \ud83d\udc41\ufe0f"}
+];
+
+
+
+/* ── PHASE3 HELPERS ── */
+function _getXP(){return parseInt(localStorage.getItem('noetix_xp')||'0');}
+function addXP(amt,x,y){
+  localStorage.setItem('noetix_xp',_getXP()+amt);
+  var el=document.createElement('div');
+  el.className='xp-pop';el.textContent='+'+amt+' XP';
+  el.style.cssText='position:fixed;left:'+(x||window.innerWidth/2)+'px;top:'+(y||200)+'px';
+  document.body.appendChild(el);setTimeout(function(){el.remove();},950);
+  var c=document.getElementById('xp-counter');if(c)c.textContent=_getXP()+' XP';
+}
+function updateXPDisplay(){var c=document.getElementById('xp-counter');if(c)c.textContent=_getXP()+' XP';}
+function haptic(p){if(navigator.vibrate)navigator.vibrate(p);}
+var HAPTIC={correct:[30],wrong:[20,50,20],complete:[10,30,20,30,40]};
+function addSwipeNav(el,fwd,bwd){
+  var tx=0;
+  el.addEventListener('touchstart',function(e){
+    var touchTarget=e.target&&e.target.closest('button,a,input,select,textarea,[role="button"],.ladder-step');
+    tx=touchTarget?null:e.touches[0].clientX;
+  },{passive:true});
+  el.addEventListener('touchend',function(e){
+    if(tx===null){tx=0;return;}
+    var dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50){dx<0?fwd():bwd();}
+  },{passive:true});
+}
+function initButtonCharge(sid,bid){
+  var s=document.getElementById(sid),b=document.getElementById(bid);
+  if(!s||!b)return;
+  b.classList.add('uncharged');
+  new IntersectionObserver(function(es){if(es[0].isIntersecting){b.classList.remove('uncharged');}},{threshold:1}).observe(s);
+}
+function renderLadder(steps,cont,onDone){
+  cont.innerHTML='';
+  steps.forEach(function(text,i){
+    var d=document.createElement('button');
+    d.className='ladder-step'+(i===0?' unlocked':' locked');
+    d.type='button';
+    d.textContent=(i===0?'':'\uD83D\uDD12 ')+text;
+    cont.appendChild(d);
+  });
+  function unlock(i){
+    var items=cont.querySelectorAll('.ladder-step');
+    if(i>=items.length){if(onDone)onDone();return;}
+    items[i].classList.remove('locked');items[i].classList.add('unlocked');
+    items[i].textContent=steps[i];
+    if(i===steps.length-1){if(onDone)onDone();}
+    else{items[i].onclick=function(){unlock(i+1);};}
+  }
+  var first=cont.querySelector('.ladder-step');
+  if(first)first.onclick=function(){unlock(1);};
+}
+function renderFactOrCap(items,cont,onDone){
+  var idx=0,sc=0,total=items.length;
+  function show(){
+    if(idx>=total){if(onDone)onDone(sc,total);return;}
+    var it=items[idx];
+    cont.innerHTML=''
+      +'<div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#94A3B8;text-align:center;margin-bottom:8px">'+(idx+1)+' of '+total+'</div>'
+      +'<div style="font-size:15px;font-weight:700;margin-bottom:16px;text-align:center;line-height:1.45;color:#1E293B">'+it.statement+'</div>'
+      +'<div class="foc-row">'
+        +'<button class="foc-btn foc-fact" id="focF" type="button">FACT</button>'
+        +'<button class="foc-btn foc-cap"  id="focC" type="button">CAP</button>'
+      +'</div>'
+      +'<div id="focFb" class="foc-feedback"></div>';
+    function ans(f){
+      var fBtn=document.getElementById('focF'),cBtn=document.getElementById('focC');
+      if(!fBtn||fBtn.disabled)return;
+      var ok=(f===it.isTrue);if(ok)sc++;
+      fBtn.disabled=true; cBtn.disabled=true;
+      /* highlight picked button */
+      if(f) fBtn.classList.add(ok?'foc-correct':'foc-wrong');
+      else  cBtn.classList.add(ok?'foc-correct':'foc-wrong');
+      /* always reveal correct */
+      if(it.isTrue)  fBtn.classList.add('foc-correct');
+      else           cBtn.classList.add('foc-correct');
+      var fb=document.getElementById('focFb');
+      fb.className='foc-feedback show '+(ok?'fb-ok':'fb-bad');
+      fb.textContent=(ok?'\u2705 ':'\u26A0\uFE0F ')+it.explanation;
+      setTimeout(function(){idx++;show();},1900);
+    }
+    document.getElementById('focF').onclick=function(){ans(true);};
+    document.getElementById('focC').onclick=function(){ans(false);};
+  }
+  show();
+}
+
+
+/* ── TRUE/FALSE COMBO CHAIN ENGINE ── */
+function _renderTFChain(items, shell) {
+  var idx = 0, combo = 0, bestCombo = 0, hits = 0, locked = false;
+  var total = items.length;
+  var dotStates = new Array(total).fill('skip');
+
+  function buildUI() {
+    shell.innerHTML =
+      '<div class="tf-combo-bar">'
+      + '<div class="tf-progress-dots" id="tfDots"></div>'
+      + '<div class="tf-combo-wrap">'
+      +   '<span class="tf-combo-label">Combo</span>'
+      +   '<span class="tf-combo-num" id="tfComboNum">0</span>'
+      +   '<span class="tf-multiplier" id="tfMult"></span>'
+      + '</div></div>'
+      + '<div class="tf-card-wrap"><div class="tf-statement-card slide-in" id="tfCard">'
+      +   '<div class="tf-q-num" id="tfQNum"></div>'
+      +   '<div class="tf-statement" id="tfStmt"></div>'
+      + '</div></div>'
+      + '<div class="tf-zones">'
+      +   '<button class="tf-zone tf-zone-true" id="zTrue" onclick="_tfTap(true)">\u2705 TRUE</button>'
+      +   '<button class="tf-zone tf-zone-false" id="zFalse" onclick="_tfTap(false)">\u274C FALSE</button>'
+      + '</div>';
+    renderDots();
+    showStatement();
+  }
+
+  function renderDots() {
+    var el = document.getElementById('tfDots');
+    if (!el) return;
+    el.innerHTML = dotStates.map(function(s) {
+      return '<div class="tf-dot ' + s + '"></div>';
+    }).join('');
+  }
+
+  function showStatement() {
+    var qn = document.getElementById('tfQNum');
+    var st = document.getElementById('tfStmt');
+    if (qn) qn.textContent = (idx + 1) + ' / ' + total;
+    if (st) st.textContent = items[idx].statement;
+  }
+
+  function updateCombo(correct) {
+    var numEl = document.getElementById('tfComboNum');
+    var multEl = document.getElementById('tfMult');
+    if (!numEl) return;
+
+    if (correct) {
+      combo++;
+      if (combo > bestCombo) bestCombo = combo;
+      numEl.textContent = combo;
+      numEl.classList.remove('bump');
+      numEl.classList.remove('deflate');
+      void numEl.offsetWidth;
+      numEl.classList.add('bump');
+      setTimeout(function(){ numEl.classList.remove('bump'); }, 380);
+
+      // Multiplier badge from 3+
+      if (combo >= 3 && multEl) {
+        multEl.textContent = '\u00D7' + combo + ' combo!';
+        multEl.classList.add('show');
+        // Colour escalation
+        var col = combo >= 7 ? '#FF4B4B' : combo >= 5 ? '#CE82FF' : '#FF9600';
+        multEl.style.background = col.replace(')', ',.12)').replace('rgb', 'rgba').replace('#', 'rgba(') ;
+        multEl.style.borderColor = col;
+        multEl.style.color = col;
+        // Use direct colours instead
+        var bg = combo >= 7 ? 'rgba(255,75,75,.12)' : combo >= 5 ? 'rgba(206,130,255,.12)' : 'rgba(255,150,0,.12)';
+        var bc = combo >= 7 ? 'rgba(255,75,75,.3)' : combo >= 5 ? 'rgba(206,130,255,.3)' : 'rgba(255,150,0,.3)';
+        var tc = combo >= 7 ? '#FF4B4B' : combo >= 5 ? '#9A48D0' : '#FF9600';
+        multEl.style.background = bg;
+        multEl.style.borderColor = bc;
+        multEl.style.color = tc;
+      }
+    } else {
+      if (combo >= 3 && multEl) multEl.classList.remove('show');
+      combo = 0;
+      numEl.textContent = '0';
+      numEl.classList.remove('bump');
+      void numEl.offsetWidth;
+      numEl.classList.add('deflate');
+      setTimeout(function(){ numEl.classList.remove('deflate'); }, 320);
+    }
+  }
+
+  window._tfTap = function(userSaidTrue) {
+    if (locked) return;
+    locked = true;
+
+    var item = items[idx];
+    var correct = (userSaidTrue === item.isTrue);
+    if (correct) hits++;
+    dotStates[idx] = correct ? 'hit' : 'miss';
+
+    var card = document.getElementById('tfCard');
+    if (card) {
+      card.classList.add(correct ? 'flash-correct' : 'flash-wrong');
+    }
+
+    if (correct) {
+      if (typeof haptic !== 'undefined') haptic([30]);
+      if (typeof addXP !== 'undefined') addXP(combo >= 3 ? 10 + combo : 5, window.innerWidth / 2, 180);
+    } else {
+      if (typeof haptic !== 'undefined') haptic([20, 50, 20]);
+    }
+
+    updateCombo(correct);
+    renderDots();
+
+    setTimeout(function() {
+      idx++;
+      if (idx >= total) {
+        showResult();
+        return;
+      }
+      if (card) {
+        card.style.animation = 'none';
+        void card.offsetWidth;
+        card.style.animation = '';
+        card.classList.remove('flash-correct','flash-wrong','slide-in','slide-up');
+        card.classList.add('slide-up');
+        setTimeout(function() {
+          showStatement();
+          card.style.animation = 'none';
+          void card.offsetWidth;
+          card.style.animation = '';
+          card.classList.remove('slide-up');
+          card.classList.add('slide-in');
+          setTimeout(function() { card.classList.remove('slide-in'); locked = false; }, 290);
+        }, 270);
+      } else {
+        showStatement();
+        locked = false;
+      }
+    }, 320);
+  };
+
+  function showResult() {
+    var pct = Math.round((hits / total) * 100);
+    var emoji = pct === 100 ? '\uD83C\uDFC6' : pct >= 80 ? '\uD83D\uDE0E' : pct >= 60 ? '\uD83D\uDCAA' : '\uD83E\uDD14';
+    var msg = pct === 100 ? 'Perfect!' : pct >= 80 ? 'Great job!' : pct >= 60 ? 'Solid!' : 'Keep practising!';
+    var bestTxt = bestCombo >= 3 ? '<div class="tf-result-best">\uD83D\uDD25 Best combo: \u00D7' + bestCombo + '</div>' : '';
+
+    var xpEarned = hits * 5 + (bestCombo >= 3 ? bestCombo * 3 : 0);
+    if (typeof addXP !== 'undefined') addXP(xpEarned, window.innerWidth / 2, window.innerHeight / 2);
+
+    var cardWrap = shell.querySelector('.tf-card-wrap');
+    if (cardWrap) {
+      cardWrap.innerHTML =
+        '<div class="tf-result">'
+        + '<div class="tf-result-emoji">' + emoji + '</div>'
+        + '<div class="tf-result-score">' + hits + ' / ' + total + ' correct</div>'
+        + '<div class="tf-result-sub">' + msg + '</div>'
+        + bestTxt
+        + '</div>';
+    }
+    var zones = shell.querySelector('.tf-zones');
+    if (zones) zones.style.display = 'none';
+
+    var nb = document.getElementById('btnNext');
+    if (nb) {
+      nb.disabled = false;
+      nb.className = 'btn-next';
+      nb.innerHTML = 'Next <span class="arrow">\u2192</span>';
+    }
+  }
+
+  buildUI();
+}
+/* ── END TRUE/FALSE ENGINE ── */
+
+/* ── PROGRESSION (self-contained) ── */
+const COURSE_KEY = 'noetix_ai_course';
+function getProgress() {
+  try { const r = localStorage.getItem(COURSE_KEY); if (r) return JSON.parse(r); } catch(e) {}
+  const p = { modules: {} };
+  for (let i = 1; i <= 6; i++) p.modules[i] = { unlocked: i===1, content_done: false, quiz_score: null, quiz_passed: false };
+  return p;
+}
+function saveProgress(p) { try { localStorage.setItem(COURSE_KEY, JSON.stringify(p)); } catch(e) {} }
+function markDone(n) {
+  const p = getProgress();
+  if (!p.modules[n]) p.modules[n] = { unlocked: true, content_done: false, quiz_score: null, quiz_passed: false };
+  p.modules[n].content_done = true;
+  saveProgress(p);
+}
+
+/* ── STATE ── */
+let currentIdx = 0;
+let quizAnswered = false;
+const LETTERS = ['A','B','C','D'];
+
+/* ── RENDER ── */
+function renderCard(idx) {
+  const c = CARDS[idx];
+  const container = document.getElementById('cardContainer');
+
+  // Progress
+  const pct = Math.round(((idx) / (CARDS.length - 1)) * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLabel').textContent = (idx + 1) + ' / ' + CARDS.length;
+  document.getElementById('topBar').style.width = pct + '%';
+
+  quizAnswered = false;
+
+  let html = '';
+  const t = c.type;
+
+  if (t === 'section') {
+    html = `<div class="card card-section visible">
+      <span class="section-icon">${MOD_EMOJI}</span>
+      <span class="section-label">${c.label}</span>
+      <h2>${c.title}</h2>
+    </div>`;
+  } else if (t === 'hook') {
+    html = `<div class="card card-hook visible">
+      <div class="card-band" style="background:${MOD_COLOR}"></div>
+      <div class="hook-bg">
+        <span class="hook-emoji">${c.emoji}</span>
+        <div class="hook-title">${c.title}</div>
+        <p class="hook-text">${c.text}</p>
+      </div>
+    </div>`;
+  } else if (t === 'concept') {
+    let inner = `<span class="concept-emoji">${c.emoji}</span><div class="concept-title">${c.title}</div>`;
+    if (c.text) inner += `<p class="concept-text">${c.text}</p>`;
+    if (c.bullets) {
+      const dots = [MOD_COLOR,'#1CB0F6','#CE82FF','#FF9600'];
+      inner += `<div class="concept-bullets">` + c.bullets.map((b,i) =>
+        `<div class="bullet-item"><div class="bullet-dot" style="background:${dots[i%dots.length]}">${i+1}</div><span>${b}</span></div>`
+      ).join('') + `</div>`;
+    }
+    if (c.steps) {
+      inner += `<div class="step-list">` + c.steps.map((s,i) =>
+        `<div class="step-row"><span class="step-num">${s[0]}</span><div class="step-body"><div class="step-label">${s[0].replace(/[^a-zA-Z\s]/g,'').trim() || 'Step '+(i+1)}</div><div class="step-desc">${s[1]}</div></div></div>`
+      ).join('') + `</div>`;
+    }
+    if (c.compare) {
+      inner += `<div class="compare-grid">` + c.compare.map(cc =>
+        `<div class="compare-card" style="background:${cc.color}12;border-color:${cc.color}30">
+          <div class="compare-header"><span class="compare-icon">${cc.icon}</span><span class="compare-label" style="color:${cc.color}">${cc.label}</span></div>
+          <div class="compare-text">${cc.text}</div></div>`
+      ).join('') + `</div>`;
+    }
+    if (c.tiers) {
+      inner += `<div class="tier-list">` + c.tiers.map(ti =>
+        `<div class="tier-card" style="background:${ti.bg};border-color:${ti.color}40">
+          <div class="tier-header"><div class="tier-left"><span class="tier-icon">${ti.icon}</span><span class="tier-name">${ti.label}</span></div><span class="tier-sub" style="color:${ti.color}">${ti.sublabel}</span></div>
+          <div class="tier-text">${ti.text}</div></div>`
+      ).join('') + `</div>`;
+    }
+    if (c.timeline) {
+      inner += `<div class="timeline">` + c.timeline.map(tl =>
+        `<div class="tl-row"><span class="tl-year">${tl[0]}</span><div class="tl-text">${tl[1]}</div></div>`
+      ).join('') + `</div>`;
+    }
+    if (c.note) inner += `<div class="concept-note">${c.note}</div>`;
+    html = `<div class="card card-concept visible"><div class="card-band" style="background:${MOD_COLOR}"></div><div class="concept-inner">${inner}</div></div>`;
+  } else if (t === 'example') {
+    let inner = `<span class="example-emoji">${c.emoji}</span><div class="example-title">${c.title}</div>`;
+    if (c.text) inner += `<p class="example-text">${c.text}</p>`;
+    if (c.items) inner += `<div class="example-items">` + c.items.map(it =>
+      `<div class="ex-item"><span class="ex-tag">${it[0]}</span><span class="ex-desc">${it[1]}</span></div>`
+    ).join('') + `</div>`;
+    if (c.steps) inner += `<div class="step-list">` + c.steps.map(s =>
+      `<div class="step-row"><div class="step-body"><div class="step-label">${s[0]}</div><div class="step-desc">${s[1]}</div></div></div>`
+    ).join('') + `</div>`;
+    if (c.punchline) inner += `<div class="example-punchline">${c.punchline}</div>`;
+    if (c.note) inner += `<p class="example-note">${c.note}</p>`;
+    html = `<div class="card card-example visible"><div class="card-band" style="background:${MOD_COLOR}"></div><div class="example-inner">${inner}</div></div>`;
+  } else if (t === 'reveal') {
+    const titleHtml = c.title ? `<div class="reveal-title">${c.title}</div>` : '';
+    html = `<div class="card card-reveal visible"><div class="card-band" style="background:${MOD_COLOR}"></div><div class="reveal-inner">
+      <span class="reveal-emoji">${c.emoji}</span>
+      ${titleHtml}
+      <button class="reveal-btn" id="revBtn" onclick="doReveal()">
+        <div class="reveal-icon">👁️</div>
+        <span class="reveal-prompt-text">${c.prompt}</span>
+        <span class="reveal-arrow">▾</span>
+      </button>
+      <div class="reveal-answer" id="revAnswer">${c.answer}</div>
+    </div></div>`;
+  } else if (t === 'recap') {
+    html = `<div class="card card-recap visible"><div class="recap-inner">
+      <span class="recap-icon">⚡</span>
+      <div class="recap-header"><span class="recap-badge">⚡ Quick Recap</span></div>
+      <p class="recap-text">${c.text}</p>
+    </div></div>`;
+  } else if (t === 'quiz') {
+    const optsHtml = c.options.map((o,i) =>
+      `<button class="quiz-opt" id="qopt${i}" onclick="answerQuiz(${i})" type="button">
+        <span class="opt-letter">${LETTERS[i]}</span>${o}
+      </button>`
+    ).join('');
+    html = `<div class="card card-quiz visible"><div class="card-band" style="background:#CE82FF"></div><div class="quiz-inner">
+      <span class="quiz-badge">🎯 Quick Quiz</span>
+      <div class="quiz-q">${c.question}</div>
+      <div class="quiz-opts">${optsHtml}</div>
+      <div class="quiz-feedback" id="quizFb"></div>
+    </div></div>`;
+
+  } else if (t === 'truefalse') {
+    html = '<div class="card card-concept visible" style="padding:0;overflow:hidden">'
+      + '<div class="card-band" style="background:'+MOD_COLOR+'"></div>'
+      + '<div id="tfShell" class="tf-shell"></div>'
+      + '</div>';
+    // Disable Next until complete; render after DOM insert
+    setTimeout(function(){ _renderTFChain(c.items, document.getElementById('tfShell')); }, 40);
+    document.getElementById('btnNext').disabled = true;
+    document.getElementById('btnNext').className = 'btn-next locked';
+
+  } else if (t === 'predict') {
+    var pOpts = c.options.map(function(o,i){
+      return '<div class="bullet-item" style="cursor:pointer" onclick="predictTap('+i+',this)">'
+        +'<div class="bullet-dot" style="background:'+MOD_COLOR+'">'+(i+1)+'</div><span>'+o+'</span></div>';
+    }).join('');
+    html = '<div class="card card-concept visible"><div class="card-band" style="background:'+MOD_COLOR+'"></div>'
+      +'<div class="concept-inner"><div class="concept-title">\uD83D\uDD2E Quick Prediction</div>'
+      +'<p class="concept-text">'+c.question+'</p>'
+      +'<div class="concept-bullets" id="predOpts">'+pOpts+'</div>'
+      +'<div id="predFb" style="display:none;margin-top:10px;padding:12px;border-radius:12px;font-size:13.5px"></div>'
+      +'</div></div>';
+    window.predictTap = function(i, el) {
+      document.querySelectorAll('#predOpts .bullet-item').forEach(function(b){b.style.pointerEvents='none';});
+      var fb=document.getElementById('predFb');
+      fb.style.cssText='display:block;padding:12px;border-radius:12px;font-size:13.5px;background:#F7FEE7;color:#46A302';
+      fb.innerHTML='<strong>\uD83D\uDCA1 Actually\u2026</strong> '+c.correctText;
+      var nb=document.getElementById('btnNext');
+      nb.disabled=false;nb.className='btn-next';
+      nb.innerHTML='Next <span class="arrow">\u2192</span>';
+      addXP(5,window.innerWidth/2,200);
+    };
+    document.getElementById('btnNext').disabled=true;
+    document.getElementById('btnNext').className='btn-next locked';
+  } else if (t === 'factorcap') {
+    html = '<div class="card card-concept visible"><div class="card-band" style="background:#CE82FF"></div>'
+      +'<div class="concept-inner"><span class="quiz-badge">\u26A1 Fact or Cap?</span>'
+      +'<div id="focContainer"></div></div></div>';
+    setTimeout(function(){
+      renderFactOrCap(c.items, document.getElementById('focContainer'), function(sc,tot){
+        addXP(sc*8,window.innerWidth/2,200);
+        var nb=document.getElementById('btnNext');
+        nb.disabled=false;nb.className='btn-next';
+        nb.innerHTML='Next <span class="arrow">\u2192</span>';
+      });
+      document.getElementById('btnNext').disabled=true;
+      document.getElementById('btnNext').className='btn-next locked';
+    },50);
+  } else if (t === 'ladder') {
+    html = '<div class="card card-concept visible"><div class="card-band" style="background:'+MOD_COLOR+'"></div>'
+      +'<div class="concept-inner"><span class="concept-emoji">'+(c.emoji||'\uD83E\uDDEA')+'</span>'
+      +'<div class="concept-title">'+c.title+'</div>'
+      +'<p class="concept-text">Tap each step to unlock \u2193</p>'
+      +'<div id="ladderContainer"></div></div></div>';
+    setTimeout(function(){
+      renderLadder(c.steps, document.getElementById('ladderContainer'), function(){
+        addXP(10,window.innerWidth/2,200);
+        var nb=document.getElementById('btnNext');
+        nb.disabled=false;nb.className='btn-next';
+        nb.innerHTML='Next <span class="arrow">\u2192</span>';
+      });
+      document.getElementById('btnNext').disabled=true;
+      document.getElementById('btnNext').className='btn-next locked';
+    },50);
+  } else if (t === 'exitticket') {
+    var etOpts = c.options.map(function(o,i){
+      return '<button class="et-btn" onclick="etTap(this,'+i+')">'+o+'</button>';
+    }).join('');
+    html = '<div class="card card-concept visible"><div class="card-band" style="background:#CE82FF"></div>'
+      +'<div class="concept-inner"><div class="concept-title">Before you move on\u2026</div>'
+      +'<p class="concept-text">'+c.question+'</p>'
+      +'<div class="exit-ticket" id="etRow">'+etOpts+'</div></div></div>';
+    window.etTap = function(el, idx) {
+      document.querySelectorAll('.et-btn').forEach(function(b){b.classList.remove('selected');});
+      el.classList.add('selected');
+      localStorage.setItem('noetix_exit_m'+MOD_NUM+'_'+currentIdx, idx);
+      var nb=document.getElementById('btnNext');
+      nb.disabled=false;nb.className='btn-next';
+      nb.innerHTML='Next <span class="arrow">\u2192</span>';
+    };
+    document.getElementById('btnNext').disabled=true;
+    document.getElementById('btnNext').className='btn-next locked';
+
+  } else if (t === 'complete') {
+    const totalCards = CARDS.length;
+    html = `<div class="card card-complete visible"><div class="complete-inner">
+      <div class="complete-stars">⭐⭐⭐</div>
+      <span class="complete-trophy">🏆</span>
+      <div class="complete-title">Module <span class="complete-hl">Complete!</span></div>
+      <p class="complete-text">${c.text}</p>
+      <div class="complete-stat">📊 ${totalCards} cards · 100% complete</div>
+      <button class="btn-complete" onclick="goToQuiz()">Take the Quiz →</button>
+      <button class="btn-review" onclick="goToStart()">↺ Review from Start</button>
+    </div></div>`;
+    markDone(MOD_NUM);
+    haptic(HAPTIC.complete);
+    addXP(200,window.innerWidth/2,window.innerHeight/2);
+  }
+  // Flip for section cards
+
+  // ── Wipe transition for section cards
+  if (t === 'section' && currentIdx > 0) {
+    var wb = document.createElement('div');
+    wb.className = 'wipe-bar';
+    wb.style.cssText = 'background:' + MOD_COLOR + ';position:fixed;top:0;left:0;height:100vh;width:0;z-index:9000;pointer-events:none';
+    document.body.appendChild(wb);
+    var W = window.innerWidth + 'px';
+    wb.style.transition = 'width 175ms cubic-bezier(.4,0,.2,1)';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        wb.style.width = W;
+        setTimeout(function(){
+          container.innerHTML = html;
+          wb.style.transition = 'none';
+          wb.style.transform = 'translateX(0)';
+          requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+              wb.style.transition = 'transform 175ms cubic-bezier(.2,0,.6,1)';
+              wb.style.transform = 'translateX(' + W + ')';
+              setTimeout(function(){ wb.remove(); }, 185);
+            });
+          });
+        }, 185);
+      });
+    });
+  } else {
+    container.innerHTML = html;
+  }
+
+  initButtonCharge('cardSentinel','btnNext');
+
+  // Nav buttons
+  const prevBtn = document.getElementById('btnPrev');
+  const nextBtn = document.getElementById('btnNext');
+  prevBtn.disabled = (idx === 0);
+
+  if (t === 'complete') {
+    document.getElementById('cardNav').style.display = 'none';
+  } else {
+    document.getElementById('cardNav').style.display = 'flex';
+    if (t === 'quiz') {
+      nextBtn.textContent = 'Answer first';
+      nextBtn.disabled = true;
+      nextBtn.className = 'btn-next locked';
+    } else {
+      nextBtn.innerHTML = (idx === CARDS.length - 2)
+        ? 'Finish <span class="arrow">🎉</span>'
+        : 'Next <span class="arrow">→</span>';
+      nextBtn.disabled = false;
+      nextBtn.className = 'btn-next';
+    }
+  }
+}
+
+function doReveal() {
+  const btn = document.getElementById('revBtn');
+  const ans = document.getElementById('revAnswer');
+  if (!btn) return;
+  btn.classList.toggle('revealed');
+  ans.style.display = btn.classList.contains('revealed') ? 'block' : 'none';
+}
+
+function answerQuiz(chosen) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const c = CARDS[currentIdx];
+  const correct = c.correct;
+  const isOk = chosen === correct;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === correct) o.classList.add('opt-correct');
+    else if (i === chosen && !isOk) o.classList.add('opt-wrong');
+    else o.classList.add('opt-reveal');
+  });
+  const fb = document.getElementById('quizFb');
+  fb.className = 'quiz-feedback show ' + (isOk ? 'fb-ok' : 'fb-no');
+  fb.innerHTML = '<strong>' + (isOk ? '✅ Correct!' : '❌ Not quite.') + '</strong>' + c.feedback;
+  if(isOk){haptic(HAPTIC.correct);addXP(10,window.innerWidth/2,200);}else{haptic(HAPTIC.wrong);}
+  const nextBtn = document.getElementById('btnNext');
+  nextBtn.innerHTML = 'Next <span class="arrow">→</span>';
+  nextBtn.disabled = false;
+  nextBtn.className = 'btn-next';
+}
+
+function goNext() {
+  if (currentIdx < CARDS.length - 1) {
+    currentIdx++;
+    addXP(5,window.innerWidth/2,100);
+    renderCard(currentIdx);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function goPrev() {
+  if (currentIdx > 0) {
+    currentIdx--;
+    renderCard(currentIdx);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function goToQuiz() { window.location.href = QUIZ_FILE; }
+function goToStart() { currentIdx = 0; renderCard(0); window.scrollTo({ top:0, behavior:'smooth' }); }
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderCard(0);
+  addSwipeNav(document.querySelector('.card-viewport'),goNext,goPrev);
+  updateXPDisplay();
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    document.getElementById('topBar').style.width = Math.min(pct, 100) + '%';
+  }, { passive: true });
+});
+
+</script>
+</body>
+</html>
