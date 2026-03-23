@@ -1,269 +1,1476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<title>AI Fundamentals — Course Overview | Noetix</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="course-shared.css">
-<style>
-:root{ --container:800px }
-.hero-mesh{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 70% 0%,rgba(163,230,53,.07),transparent 60%),radial-gradient(ellipse 50% 60% at 10% 80%,rgba(59,130,246,.06),transparent 55%);z-index:0}
-.course-header{position:relative;z-index:1}
-.checkpoint-divider{display:flex;align-items:center;gap:10px;padding:10px 0 6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.checkpoint-divider::before,.checkpoint-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.checkpoint-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--r999);background:var(--purple-tint);border:1px solid rgba(124,58,237,.2);color:var(--purple);font-size:10px;font-weight:800;white-space:nowrap}
-.reset-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--r999);background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;margin:24px auto 0;width:fit-content}
-.reset-btn:hover{border-color:var(--border-2);color:var(--text)}
-.cert-teaser{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r20);padding:20px 24px;display:flex;align-items:center;gap:16px}
-.ct-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,rgba(163,230,53,.15),rgba(59,130,246,.15));border:1px solid rgba(163,230,53,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.ct-body h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
-.ct-body p{font-size:12.5px;color:var(--muted)}
-.ct-lock{font-size:16px;margin-left:auto;color:var(--muted)}
+  <meta charset="UTF-8" />
+  <title>Certificate Programs — Noetix Education</title>
 
-/* ── PERSONALITY BADGES (#15) ── */
-.badge-shelf{margin:20px 0 0;background:#fff;border:1.5px solid #E2E8F0;border-radius:18px;padding:18px 20px 16px}
-.badge-shelf.complete{border-color:#84CC16;background:linear-gradient(135deg,rgba(163,230,53,.04),rgba(59,130,246,.04))}
-.badge-shelf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.badge-shelf-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#64748B}
-.badge-shelf-count{font-size:11px;font-weight:700;color:#64748B;background:#F1F5F9;padding:2px 9px;border-radius:999px;border:1px solid #E2E8F0}
-.badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-@media(max-width:520px){.badge-grid{grid-template-columns:repeat(3,1fr);gap:6px}}
-.badge-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 6px 10px;border-radius:14px;border:1.5px solid #E2E8F0;background:#F8FAFC;cursor:pointer;position:relative;transition:transform .2s cubic-bezier(.34,1.36,.64,1),box-shadow .2s;user-select:none;-webkit-tap-highlight-color:transparent}
-.badge-item.unlocked{background:#fff;cursor:default}
-.badge-item.unlocked:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.badge-item.locked{filter:grayscale(1);opacity:.35}
-.badge-item.locked:hover{opacity:.5}
-@keyframes badge-pop{from{transform:scale(0) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
-.badge-item.pop{animation:badge-pop .45s cubic-bezier(.34,1.56,.64,1) both}
-.badge-emoji{font-size:26px;line-height:1}
-.badge-name{font-size:9px;font-weight:800;text-align:center;color:#1E293B;line-height:1.25;letter-spacing:-.01em}
-.badge-item.locked .badge-name{color:#94A3B8}
-.badge-new-pip{position:absolute;top:5px;right:5px;width:6px;height:6px;border-radius:50%;background:#EF4444}
-.badge-tip-box{position:fixed;z-index:9999;background:#0F172A;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.3);pointer-events:none;max-width:200px;text-align:center;line-height:1.4;transition:opacity .15s}
+  <meta name="title" content="Noetix Certificate Programs | AI, Cybersecurity & Programming">
+  <meta name="description" content="Explore Noetix's industry-aligned certificate programs in Artificial Intelligence, Cybersecurity, and Programming — designed for students aged 12–18.">
+  <meta name="author" content="WebStacks">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
 
-</style>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Noetix Certificate Programs">
+  <meta property="og:description" content="Three industry-aligned programs. All beginner-friendly. All project-driven.">
+  <meta property="og:image" content="https://noetix-edu.github.io/Noetix-1.png">
+  <meta property="og:url" content="https://noetix-edu.github.io/Course.html">
+
+  <meta name="theme-color" content="#0b0f14">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ══════════════════════════════════════════
+       COURSES PAGE — SPECIFIC STYLES
+    ══════════════════════════════════════════ */
+
+    /* ── PAGE HERO ── */
+    .courses-hero {
+      padding-top: calc(var(--nav-h) + 72px);
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .courses-hero .hero-mesh {
+      background:
+        radial-gradient(ellipse 70% 60% at 85% 10%, rgba(163,230,53,.08), transparent 60%),
+        radial-gradient(ellipse 55% 65% at 10% 80%, rgba(124,58,237,.07), transparent 55%),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,.04), transparent 65%);
+      animation: meshPulse 12s ease-in-out infinite alternate;
+    }
+    .courses-hero .orb-1 { top: -120px; right: -60px; width: 400px; height: 400px; background: radial-gradient(circle at 40% 40%, rgba(163,230,53,.09), transparent 60%); }
+    .courses-hero .orb-2 { bottom: -80px; left: -80px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(124,58,237,.07), transparent 60%); }
+
+    .courses-hero-inner {
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+    .courses-hero-inner h1 {
+      font-size: clamp(36px, 4.8vw, 58px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    .courses-hero-inner p {
+      font-size: clamp(15px, 1.5vw, 17px);
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .hero-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .hero-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--r999);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      box-shadow: var(--sh-sm);
+    }
+    .hero-meta-pill svg {
+      width: 12px; height: 12px;
+      stroke: var(--green-d);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── COURSE GRID ── */
+    #homepage { padding-bottom: 100px; }
+    .courses-section { margin-top:1.5rem; padding: 0 0 100px; }
+
+    .prog-filter-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .filter-btn {
+      padding: 7px 18px;
+      border-radius: var(--r999);
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--border-2); color: var(--text); }
+    .filter-btn.active {
+      background: var(--text);
+      color: #fff;
+      border-color: var(--text);
+    }
+
+    /* Course cards */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .course-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r20);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .22s, box-shadow .22s, border-color .22s;
+      cursor: pointer;
+      position: relative;
+    }
+    .course-card:hover { transform: translateY(-6px); }
+    .course-card:focus { outline: 2px solid var(--green); outline-offset: 2px; }
+
+    /* Colored top header per track */
+    .cc-visual {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .cc-vis-ai     { background: linear-gradient(145deg, #071c0f, #0f5132 50%, #1b8a5a); }
+    .cc-vis-cyber  { background: linear-gradient(145deg, #060f1a, #0f2a44 50%, #1e5f9a); }
+    .cc-vis-code   { background: linear-gradient(145deg, #0d0717, #2a153d 50%, #4a1f64); }
+
+    .cc-vis-icon {
+      width: 52px; height: 52px;
+      stroke-width: 1.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: .85;
+      position: relative;
+      z-index: 1;
+    }
+    .cc-vis-ai    .cc-vis-icon { stroke: var(--neon); }
+    .cc-vis-cyber .cc-vis-icon { stroke: var(--neon2); }
+    .cc-vis-code  .cc-vis-icon { stroke: #c084fc; }
+    .cc-vis-glow {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px; height: 60px;
+      border-radius: 50%;
+      filter: blur(22px);
+    }
+    .cc-vis-ai   .cc-vis-glow { background: rgba(0,230,168,.4); }
+    .cc-vis-cyber .cc-vis-glow { background: rgba(79,157,255,.4); }
+    .cc-vis-code  .cc-vis-glow { background: rgba(192,132,252,.4); }
+
+    .cc-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--r999);
+      font-size: 9.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      color: rgba(255,255,255,.92);
+      z-index: 2;
+    }
+    .cc-badge svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+
+    .cc-body {
+      padding: 24px 26px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .cc-track-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+    .cc-ai-lbl    { color: var(--neon); }
+    .cc-cyber-lbl { color: var(--neon2); }
+    .cc-code-lbl  { color: #c084fc; }
+
+    .cc-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: var(--text);
+      margin-bottom: 9px;
+      line-height: 1.25;
+    }
+    .cc-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .cc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .cc-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: var(--r999);
+      background: var(--alt);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .cc-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .cc-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .cc-meta-item svg {
+      width: 13px; height: 13px;
+      stroke: var(--blue-d);
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: var(--r12);
+      background: var(--alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      width: 100%;
+      justify-content: center;
+    }
+    .cc-cta svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+    .course-card:hover .cc-cta { background: var(--text); color: #fff; border-color: var(--text); }
+    .course-card:hover .cc-cta svg { transform: translateX(3px); }
+
+    /* Card hover border colour per track */
+    .course-card.card-ai:hover    { border-color: rgba(0,230,168,.3);   box-shadow: 0 20px 48px rgba(0,230,168,.08); }
+    .course-card.card-cyber:hover { border-color: rgba(79,157,255,.3);  box-shadow: 0 20px 48px rgba(59,130,246,.09); }
+    .course-card.card-code:hover  { border-color: rgba(192,132,252,.3); box-shadow: 0 20px 48px rgba(124,58,237,.07); }
+
+    /* ── DETAIL VIEW ── */
+    #detail-page { padding-bottom: 100px; }
+
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 8px 0;
+      margin-bottom: 32px;
+      transition: color .18s;
+      border: none;
+      background: none;
+      font-family: var(--font);
+    }
+    .detail-back svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+    .detail-back:hover { color: var(--text); }
+    .detail-back:hover svg { transform: translateX(-3px); }
+
+    /* Detail hero band */
+    .detail-hero-band {
+      border-radius: var(--r24);
+      overflow: hidden;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .dhb-visual {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .dhb-vis-ai    { background: linear-gradient(145deg, #071c0f, #0f5132 55%, #1b8a5a); }
+    .dhb-vis-cyber { background: linear-gradient(145deg, #060f1a, #0f2a44 55%, #1e5f9a); }
+    .dhb-vis-code  { background: linear-gradient(145deg, #0d0717, #2a153d 55%, #4a1f64); }
+
+    .dhb-icon { width: 64px; height: 64px; stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .9; position: relative; z-index: 1; }
+    .dhb-vis-ai    .dhb-icon { stroke: var(--neon); }
+    .dhb-vis-cyber .dhb-icon { stroke: var(--neon2); }
+    .dhb-vis-code  .dhb-icon { stroke: #c084fc; }
+    .dhb-glow {
+      position: absolute;
+      bottom: -20px; left: 50%;
+      transform: translateX(-50%);
+      width: 160px; height: 80px;
+      border-radius: 50%;
+      filter: blur(28px);
+    }
+    .dhb-vis-ai   .dhb-glow { background: rgba(0,230,168,.45); }
+    .dhb-vis-cyber .dhb-glow { background: rgba(79,157,255,.45); }
+    .dhb-vis-code  .dhb-glow { background: rgba(192,132,252,.45); }
+
+    .dhb-badges {
+      position: absolute;
+      top: 14px; left: 14px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .dhb-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      padding: 5px 12px;
+      border-radius: var(--r999);
+      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.9);
+    }
+    .dhb-info {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      padding: 32px 36px 36px;
+    }
+    .dhb-track-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .dhb-lbl-ai    { color: #00c990; }
+    .dhb-lbl-cyber { color: var(--neon2); }
+    .dhb-lbl-code  { color: #c084fc; }
+
+    .dhb-title {
+      font-size: clamp(24px, 3.2vw, 38px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .dhb-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      max-width: 580px;
+    }
+    .dhb-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .dhb-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .dhb-meta-item svg { width: 15px; height: 15px; stroke: var(--blue-d); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .dhb-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-enrol-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: var(--r12);
+      background: var(--green);
+      color: #111;
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: 0 4px 16px var(--green-glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-enrol-lg:hover { background: var(--green-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(163,230,53,.4); }
+    .btn-waitlist-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: var(--r12);
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-waitlist-lg:hover { border-color: var(--border-2); box-shadow: var(--sh-md); transform: translateY(-2px); }
+
+    /* Detail content layout */
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      align-items: start;
+    }
+    .detail-main {}
+    .detail-sidebar {}
+
+    /* Section heading inside detail */
+    .detail-section-head {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--blue-d);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-section-head::before { content: ''; width: 16px; height: 2px; background: currentColor; border-radius: 2px; }
+
+    .detail-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r20);
+      padding: 28px 30px;
+      margin-bottom: 20px;
+    }
+    .detail-block h3 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .detail-block p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    /* Learn points */
+    .learn-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .learn-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.55;
+    }
+    .learn-check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--green-tint);
+      border: 1px solid var(--green-ring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .learn-check svg { width: 10px; height: 10px; stroke: var(--green-d); stroke-width: 2.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Curriculum */
+    .curriculum-list { margin-top: 4px; }
+    .curriculum-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .curriculum-item:last-child { border-bottom: none; }
+    .week-pill {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--blue-d);
+      background: var(--blue-tint);
+      border: 1px solid var(--blue-ring);
+      padding: 4px 12px;
+      border-radius: var(--r999);
+      white-space: nowrap;
+      min-width: 72px;
+      text-align: center;
+      letter-spacing: .04em;
+    }
+    .curriculum-item span:last-child {
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Certificate block */
+    .cert-block {
+      background: var(--text);
+      border-radius: var(--r20);
+      padding: 28px 30px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-block::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,230,53,.12), transparent 65%);
+    }
+    .cert-block::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,.12), transparent 65%);
+    }
+    .cert-block-inner { position: relative; z-index: 1; }
+    .cert-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .cert-icon-box {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      background: rgba(163,230,53,.15);
+      border: 1px solid rgba(163,230,53,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cert-icon-box svg { width: 22px; height: 22px; stroke: var(--green); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .cert-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--green);
+    }
+    .cert-block h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #E6EDF3;
+      margin-bottom: 10px;
+      letter-spacing: -.02em;
+    }
+    .cert-block p {
+      font-size: 13.5px;
+      color: #9DA7B3;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .outcome-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+    }
+    .outcome-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--neon);
+      flex-shrink: 0;
+    }
+    .outcome-item span {
+      font-size: 13px;
+      color: #C9D1D9;
+      font-weight: 600;
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r20);
+      padding: 24px;
+      margin-bottom: 16px;
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+    .sidebar-card h4 {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .sidebar-stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .ss-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--alt);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .ss-label { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .ss-val   { font-size: 13px; font-weight: 800; color: var(--text); }
+    .sidebar-enrol {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sidebar-enrol button, .sidebar-enrol a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px;
+      border-radius: var(--r12);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+      border: none;
+    }
+    .sb-enrol-btn { background: var(--green); color: #111; box-shadow: 0 4px 14px var(--green-glow); }
+    .sb-enrol-btn:hover { background: var(--green-d); transform: translateY(-1px); box-shadow: 0 8px 22px rgba(163,230,53,.4); }
+    .sb-wl-btn { background: var(--surface); color: var(--text); border: 1px solid var(--border) !important; }
+    .sb-wl-btn:hover { border-color: var(--border-2) !important; box-shadow: var(--sh-sm); }
+
+    /* Related programs */
+    .related-section {
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .related-section h3 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .related-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r16);
+      padding: 20px 22px;
+      cursor: pointer;
+      transition: transform .22s, box-shadow .22s, border-color .22s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .related-card:hover { transform: translateY(-3px); box-shadow: var(--sh-md); border-color: var(--border-2); }
+    .related-card h4 { font-size: 14.5px; font-weight: 700; color: var(--text); letter-spacing: -.02em; }
+    .related-card p  { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+    .related-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--blue-d);
+      margin-top: 4px;
+      transition: gap .18s;
+    }
+    .related-card:hover .related-link { gap: 8px; }
+    .related-link svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .courses-grid   { grid-template-columns: repeat(2, 1fr); }
+      .detail-layout  { grid-template-columns: 1fr; }
+      .detail-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .sidebar-card   { position: static; margin-bottom: 0; }
+    }
+    @media (max-width: 640px) {
+      .courses-grid   { grid-template-columns: 1fr; }
+      .learn-list     { grid-template-columns: 1fr; }
+      .related-grid   { grid-template-columns: 1fr; }
+      .detail-sidebar { grid-template-columns: 1fr; }
+      .dhb-actions    { flex-direction: column; }
+      .btn-enrol-lg, .btn-waitlist-lg { justify-content: center; width: 100%; }
+      .dhb-info       { padding: 24px 20px 28px; }
+    }
+  </style>
 </head>
-<body>
-<div id="top-progress"></div>
-<div class="success-flash" id="sFlash"></div>
 
-<nav>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- ─── DOT NAV ─── -->
+<div id="dot-nav">
+  <div class="dn-item" data-sec="courses-top"  title="Programs"></div>
+  <div class="dn-item" data-sec="courses-grid" title="All Courses"></div>
+  <div class="dn-item" data-sec="cta"          title="Apply"></div>
+</div>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="mainNav">
   <div class="container nav-inner">
-    <a href="course.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
-    <span class="nav-course-title">AI Fundamentals</span>
-    <span id="xp-counter" style="font-size:11px;font-weight:800;color:#46A302;background:rgba(88,204,2,.1);padding:4px 10px;border-radius:999px;border:1px solid rgba(88,204,2,.2)">0 XP</span>
+    <a href="index.html" class="logo"><div class="logo-mark">N</div>Noetix</a>
+    <div class="nav-center">
+      <a href="about.html">About</a>
+      <a href="Course.html" class="spy-active">Courses</a>
+      <a href="index.html#schools">For Schools</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
     <div class="nav-right">
-      <div class="nav-progress-wrap">
-        <div class="nav-progress-track"><div class="nav-progress-fill" id="nav-prog-fill" style="width:0%"></div></div>
-        <span class="nav-progress-label" id="nav-prog-label">0/6</span>
-      </div>
+      <a href="#" class="btn-login">Login</a>
+      <button class="btn-nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist →</button>
+      <button class="hamburger" id="hamburgerBtn">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-content">
+      <a href="about.html">About</a>
+      <a href="Course.html">Courses</a>
+      <a href="index.html#schools">For Schools</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="#cta" class="mob-cta">Join Waitlist</a>
     </div>
   </div>
 </nav>
 
-<main class="page-shell">
-  <div class="hero-mesh"></div>
-  <div class="container">
-    <div class="course-header fade-up">
-      <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 13px;border-radius:999px;background:var(--blue-tint);border:1px solid rgba(59,130,246,.2);color:var(--blue-d);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px">
-        <span style="width:5px;height:5px;border-radius:50%;background:var(--blue);animation:blink 2s ease-in-out infinite;display:inline-block"></span>
-        Noetix Learning Platform
-      </div>
-      <h1>AI <span class="hl-grad">Fundamentals</span></h1>
-      <p>A complete micro-learning course for ages 13–17. Master AI from scratch — no experience needed.</p>
-      <div class="course-stats">
-        <span class="cs-item"><span class="cs-dot"></span>6 Modules</span>
-        <span class="cs-item"><span class="cs-dot"></span>24 Lessons</span>
-        <span class="cs-item"><span class="cs-dot"></span>75 Quiz Questions</span>
-        <span class="cs-item"><span class="cs-dot"></span>~4–6 hours</span>
-      </div>
-      <div class="overall-progress">
-        <div class="op-label"><span>Overall Progress</span><span id="op-pct">0%</span></div>
-        <div class="op-track"><div class="op-fill" id="op-fill" style="width:0%"></div></div>
-      </div>
-    </div>
+<!-- ════════════════════════════════════
+     HOMEPAGE (LISTING VIEW)
+════════════════════════════════════ -->
+<div id="homepage">
 
-    <div class="modules-grid" id="modulesGrid">
-      <!-- Rendered by JS -->
-    </div>
-
-    <div class="cert-teaser fade-up d5" id="certTeaser" style="display:none">
-      <div class="ct-icon">🏆</div>
-      <div class="ct-body">
-        <h3>Noetix AI Fundamentals Certificate</h3>
-        <p>Complete all 6 modules and pass every quiz to earn your industry-recognised certificate.</p>
-      </div>
-      <span class="ct-lock" id="certLock">🔒</span>
-    </div>
-
-    <button class="reset-btn" onclick="if(confirm('Reset all progress?')) resetCourse()">↺ Reset Progress</button>
-  </div>
-</main>
-
-<div id="toast"><span class="toast-ico">✅</span><span class="toast-msg"></span></div>
-
-<script src="progress.js"></script>
-<script>
-
-/* ── PERSONALITY BADGES (#15) ── */
-const BADGES = [
-  {modNum:1, emoji:'🤔', name:'AI Curious',    desc:'You understand what AI is and where it came from.', color:'#3B82F6'},
-  {modNum:2, emoji:'🧪', name:'Data Wrangler', desc:'You get how machines learn from data.',             color:'#84CC16'},
-  {modNum:3, emoji:'👁',  name:'Vision Hacker', desc:'You know how AI sees the world.',                  color:'#7C3AED'},
-  {modNum:4, emoji:'🗣',  name:'Word Wizard',   desc:'You understand natural language AI.',              color:'#F97316'},
-  {modNum:5, emoji:'⚡',  name:'Logic Master',  desc:'You can explain algorithms and neural nets.',       color:'#EF4444'},
-  {modNum:6, emoji:'🌍', name:'AI Architect',  desc:'You have mastered AI in the real world.',           color:'#84CC16'},
-];
-var _btEl=null;
-function _showBadgeTip(text,rect){
-  if(!_btEl){_btEl=document.createElement('div');_btEl.className='badge-tip-box';_btEl.style.opacity='0';document.body.appendChild(_btEl);}
-  _btEl.textContent=text;_btEl.style.opacity='1';
-  var tw=_btEl.offsetWidth||160;
-  _btEl.style.left=Math.max(8,Math.min(rect.left+rect.width/2-tw/2,window.innerWidth-tw-8))+'px';
-  _btEl.style.top=(rect.top+window.scrollY-(_btEl.offsetHeight||40)-8)+'px';
-}
-function _hideBadgeTip(){if(_btEl)_btEl.style.opacity='0';}
-document.addEventListener('click',_hideBadgeTip);
-function renderBadgeShelf(prog){
-  var old=document.getElementById('badgeShelf');if(old)old.remove();
-  var shelf=document.createElement('div');shelf.id='badgeShelf';
-  var ul=BADGES.filter(function(b){return prog.modules[b.modNum]&&prog.modules[b.modNum].quiz_passed;});
-  shelf.className='badge-shelf'+(ul.length===6?' complete':'');
-  var prev=[];try{prev=JSON.parse(localStorage.getItem('noetix_seen_badges')||'[]');}catch(e){}
-  shelf.innerHTML='<div class="badge-shelf-header"><span class="badge-shelf-title">Badges</span><span class="badge-shelf-count">'+ul.length+' / 6</span></div><div class="badge-grid" id="_bg"></div>';
-  var grid=shelf.querySelector('#_bg');
-  BADGES.forEach(function(b,i){
-    var passed=!!(prog.modules[b.modNum]&&prog.modules[b.modNum].quiz_passed);
-    var item=document.createElement('div');
-    item.className='badge-item '+(passed?'unlocked':'locked')+(ul.length===6?' pop':'');
-    if(ul.length===6)item.style.animationDelay=(i*.07)+'s';
-    if(passed)item.style.borderColor=b.color+'50';
-    item.innerHTML='<span class="badge-emoji">'+b.emoji+'</span><span class="badge-name">'+b.name+'</span>'+(passed&&prev.indexOf(b.modNum)===-1?'<div class="badge-new-pip"></div>':'');
-    item.addEventListener('click',function(e){e.stopPropagation();_showBadgeTip(passed?b.desc:'Complete Module '+b.modNum+' to unlock',item.getBoundingClientRect());});
-    if(passed){item.addEventListener('mouseenter',function(){_showBadgeTip(b.desc,item.getBoundingClientRect());});item.addEventListener('mouseleave',_hideBadgeTip);}
-    grid.appendChild(item);
-  });
-  try{localStorage.setItem('noetix_seen_badges',JSON.stringify(ul.map(function(b){return b.modNum;})));}catch(e){}
-  var op=document.querySelector('.overall-progress');
-  if(op&&op.parentNode){op.parentNode.insertBefore(shelf,op.nextSibling);}
-}
-
-const MODULE_DATA = [
-  { num:1, emoji:'🤖', title:'What Is AI?', desc:'Understand what AI is, its history, and how it differs from regular programs.', bg:'linear-gradient(135deg,#dbeafe,#eff6ff)', accent:'linear-gradient(90deg,var(--blue),var(--purple))' },
-  { num:2, emoji:'🧠', title:'How AI Learns', desc:'Explore machine learning, training data, supervised vs. unsupervised learning.', bg:'linear-gradient(135deg,#f7fee7,#ecfccb)', accent:'linear-gradient(90deg,var(--green),var(--blue))' },
-  { num:3, emoji:'👁️', title:'AI Sees & Hears', desc:'Discover computer vision, facial recognition, speech AI, and cameras.', bg:'linear-gradient(135deg,#f5f3ff,#ede9fe)', accent:'linear-gradient(90deg,var(--purple),#a855f7)' },
-  { num:4, emoji:'💬', title:'AI Talks Back — NLP', desc:'Learn how AI reads, writes, translates, and understands human language.', bg:'linear-gradient(135deg,#fff7ed,#ffedd5)', accent:'linear-gradient(90deg,var(--orange),var(--red))' },
-  { num:5, emoji:'⚡', title:'AI Makes Decisions', desc:'Unpack algorithms, decision trees, neural networks, and recommendation systems.', bg:'linear-gradient(135deg,#f0fdf9,#ccfbf1)', accent:'linear-gradient(90deg,var(--neon),var(--blue))' },
-  { num:6, emoji:'🌍', title:'AI in the Real World', desc:'Explore real-world AI, ethics, bias, privacy, deepfakes, and your role.', bg:'linear-gradient(135deg,#fef2f2,#fee2e2)', accent:'linear-gradient(90deg,#ef4444,var(--orange))' }
-];
-
-function renderModules() {
-  const p = getProgress();
-  const grid = document.getElementById('modulesGrid');
-  grid.innerHTML = '';
-
-  MODULE_DATA.forEach((m, idx) => {
-    const mod = p.modules[m.num];
-    const lessonCount = (MODULE_META[m.num] && MODULE_META[m.num].lessons) || 4;
-    const unlocked = mod.unlocked;
-    const contentDone = mod.content_done;
-    const quizPassed = mod.quiz_passed;
-    const quizScore = mod.quiz_score;
-
-    let state = 'locked';
-    if (quizPassed) state = 'completed';
-    else if (contentDone) state = 'quiz-ready';
-    else if (unlocked) state = 'unlocked';
-
-    const stateClass = { locked:'locked', unlocked:'unlocked in-progress', 'quiz-ready':'unlocked in-progress', completed:'unlocked completed' }[state];
-
-    let statusBadge = '';
-    if (state === 'locked') statusBadge = `<span class="mc-status ms-locked">🔒 Locked</span>`;
-    else if (state === 'completed') statusBadge = `<span class="mc-status ms-done">✓ Passed · ${quizScore}/5</span>`;
-    else if (state === 'quiz-ready') statusBadge = `<span class="mc-status ms-quiz">📝 Quiz Ready</span>`;
-    else statusBadge = `<span class="mc-status ms-unlock">▶ Start</span>`;
-
-    // Add checkpoint dividers
-    if (m.num === 3 || m.num === 5) {
-      const div = document.createElement('div');
-      div.className = 'checkpoint-divider fade-up';
-      div.innerHTML = `<span class="checkpoint-badge">🏁 Checkpoint ${m.num === 3 ? '1' : '2'} — After Module ${m.num - 1}</span>`;
-      grid.appendChild(div);
-    }
-
-    const card = document.createElement('div');
-    card.className = `mod-card ${stateClass} fade-up`;
-    card.style.transitionDelay = `${idx * 0.07}s`;
-    card.innerHTML = `
-      <div class="mc-accent" style="background:${m.accent}"></div>
-      <div class="mc-inner">
-        <div class="mc-icon" style="background:${m.bg}">
-          ${m.emoji}
-          ${!unlocked ? `<div class="mc-icon-locked">🔒</div>` : ''}
+  <!-- ─── HERO ─── -->
+  <section class="courses-hero" id="courses-top">
+    <div class="hero-mesh"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="container">
+      <div class="courses-hero-inner">
+        <div class="hero-badge reveal"><span class="badge-dot"></span>Certificate Programs · 2026 Cohort</div>
+        <h1 class="reveal d1">Three tracks.<br><em class="hl-grad">One mission.</em></h1>
+        <p class="reveal d2">Industry-aligned certificate programs in AI, Cybersecurity, and Programming — built for students in Grades 8–12. No prior experience required.</p>
+        <div class="hero-meta-pills reveal d3">
+          <div class="hero-meta-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>All Beginner-Friendly</div>
+          <div class="hero-meta-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Project-Driven Learning</div>
+          <div class="hero-meta-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verified Certificate</div>
+          <div class="hero-meta-pill"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Cohort Max 20 Students</div>
         </div>
-        <div class="mc-body">
-          <div class="mc-meta">
-            <span class="mc-num">Module ${m.num}</span>
-            ${statusBadge}
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ─── COURSE GRID ─── -->
+  <section class="courses-section" id="courses-grid">
+    <div class="container">
+      <div class="prog-filter-row reveal">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-btn active" data-filter="all">All Programs</button>
+        <button class="filter-btn" data-filter="AI">Artificial Intelligence</button>
+        <button class="filter-btn" data-filter="Cybersecurity">Cybersecurity</button>
+        <button class="filter-btn" data-filter="Programming">Programming</button>
+      </div>
+      <div id="course-grid" class="courses-grid"></div>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+<!-- ════════════════════════════════════
+     DETAIL VIEW (hidden by default)
+════════════════════════════════════ -->
+<div id="detail-page" class="hidden-page">
+  <div class="container" style="padding-top: calc(var(--nav-h) + 32px); padding-bottom: 80px;">
+
+    <button id="back-to-courses" class="detail-back">
+      <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      All Programs
+    </button>
+
+    <!-- Dynamic hero band -->
+    <div class="detail-hero-band">
+      <div id="detail-visual" class="dhb-visual dhb-vis-ai">
+        <svg id="detail-icon" class="dhb-icon" viewBox="0 0 24 24"></svg>
+        <div id="detail-glow" class="dhb-glow"></div>
+        <div class="dhb-badges" id="detail-badges"></div>
+      </div>
+      <div class="dhb-info">
+        <span id="detail-track-label" class="dhb-track-label dhb-lbl-ai"></span>
+        <h1 id="detail-title" class="dhb-title"></h1>
+        <p  id="detail-sub"   class="dhb-sub"></p>
+        <div class="dhb-meta" id="detail-meta"></div>
+        <div class="dhb-actions">
+          <button class="btn-enrol-lg ripple-tgt magnetic" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
+            Enrol Now
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="btn-waitlist-lg" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-col layout: main + sidebar -->
+    <div class="detail-layout">
+
+      <!-- Main column -->
+      <div class="detail-main">
+
+        <!-- Overview -->
+        <div class="detail-block">
+          <div class="detail-section-head">Overview</div>
+          <p id="detail-overview"></p>
+        </div>
+
+        <!-- What you'll learn -->
+        <div class="detail-block">
+          <div class="detail-section-head">What You'll Learn</div>
+          <ul id="detail-learn" class="learn-list"></ul>
+        </div>
+
+        <!-- Curriculum -->
+        <div class="detail-block">
+          <div class="detail-section-head">Curriculum</div>
+          <div id="detail-curriculum" class="curriculum-list"></div>
+        </div>
+
+        <!-- Certificate -->
+        <div class="cert-block">
+          <div class="cert-block-inner">
+            <div class="cert-icon-row">
+              <div class="cert-icon-box">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+              </div>
+              <span class="cert-label">Your Certificate</span>
+            </div>
+            <h3>Customized Noetix Certificate</h3>
+            <p id="detail-cert"></p>
+            <div id="detail-outcomes" class="outcomes-grid"></div>
           </div>
-          <div class="mc-title">${m.title}</div>
-          <div class="mc-desc">${m.desc}</div>
         </div>
-        <div class="mc-right">
-          ${unlocked ? `<span class="mc-chevron">›</span>` : `<span style="font-size:14px;color:var(--muted)">🔒</span>`}
-          <span class="mc-lessons">${quizPassed ? '✓ Done' : `${lessonCount} lessons`}</span>
+
+        <!-- Related programs -->
+        <div class="related-section">
+          <h3>Other programs you might like</h3>
+          <div id="related-grid" class="related-grid"></div>
+        </div>
+
+      </div><!-- /.detail-main -->
+
+      <!-- Sidebar -->
+      <div class="detail-sidebar">
+        <div class="sidebar-card">
+          <h4>Program Details</h4>
+          <div class="sidebar-stat-row" id="sidebar-stats"></div>
+          <div class="sidebar-enrol">
+            <button class="sb-enrol-btn ripple-tgt" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Enrol Now →</button>
+            <button class="sb-wl-btn" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+          </div>
         </div>
       </div>
-      ${state === 'quiz-ready' ? `
-      <div class="mc-quiz-cta">
-        <button class="quiz-unlock-btn" onclick="event.stopPropagation();window.location.href='quiz-${m.num}.html'">
-          <svg viewBox="0 0 24 24"><path d="M9 9a3 3 0 1 1 6 0c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1"/></svg>
-          Take Quiz for Module ${m.num} — Unlock Next Module
-        </button>
-      </div>` : ''}
-      ${!unlocked ? `<div class="locked-overlay"><div class="locked-msg">🔒 Complete Module ${m.num - 1} first</div></div>` : ''}
-    `;
 
-    if (state === 'unlocked' || state === 'completed') {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', () => window.location.href = `module-${m.num}.html`);
+    </div><!-- /.detail-layout -->
+  </div>
+</div><!-- /#detail-page -->
+
+<div class="section-sep"></div>
+
+  <!-- ─── CTA ─── -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <div class="cta-block">
+          <div class="cta-in">
+            <div class="cta-urgency">2026 Cohort Applications Now Open</div>
+            <div class="cd-bar">
+              <span class="cd-lbl">Enrolment closes in</span>
+              <div class="cd-unit"><span class="cd-val" id="cd-d">--</span><span class="cd-unit-lbl">Days</span></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-unit"><span class="cd-val" id="cd-h">--</span><span class="cd-unit-lbl">Hours</span></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-unit"><span class="cd-val" id="cd-m">--</span><span class="cd-unit-lbl">Mins</span></div>
+            </div>
+            <h2>Ready to join a cohort?</h2>
+            <p>Limited spots per cohort. Join the waitlist to secure your place.</p>
+            <div class="wl-form">
+              <div class="wl-input-wrap">
+                <input type="email" id="wl-email" class="wl-input" placeholder="Enter your email address" autocomplete="email">
+                <span class="wl-ind" id="wl-ind"></span>
+              </div>
+              <button class="btn-wl ripple-tgt" id="wl-btn">Join Waitlist</button>
+            </div>
+            <p class="cta-note">No spam. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#homepage -->
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-brand-row">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom:11px"><div class="logo-mark">N</div>Noetix</div>
+        <p class="footer-brand-desc">Future-ready technology education for students in Grades 8–12. Building the next generation of AI, cybersecurity, and programming talent through project-driven, certified programs.</p>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:hello@noetix.edu">hello@noetix.edu</a></div>
+        <div class="fc-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Dubai, UAE &amp; Online</div>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col"><h3>Company</h3><ul><li><a href="about.html">About Noetix</a></li><li><a href="#">Our Mission</a></li><li><a href="#">Leadership</a></li><li><a href="#">Careers</a></li><li><a href="#">Press &amp; Media</a></li><li><a href="#">Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Programs</h3><ul><li><a href="#">AI Foundations</a></li><li><a href="#">Cybersecurity Essentials</a></li><li><a href="#">Fundamentals of Programming</a></li><li><a href="#">Certifications</a></li><li><a href="#">Cohort Schedule</a></li></ul></div>
+      <div class="footer-col"><h3>Resources</h3><ul><li><a href="#">Parent Guide</a></li><li><a href="#">School Partnership</a></li><li><a href="#">Student FAQs</a></li><li><a href="#">Success Stories</a></li><li><a href="#">Learning Blog</a></li></ul></div>
+      <div class="footer-col"><h3>Legal</h3><ul><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Accessibility</a></li></ul></div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Noetix Education. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Cookies</a></div>
+      <div class="social-links">
+        <a href="#" class="btn-icon" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg></a>
+        <a href="#" class="btn-icon" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="2"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── TOAST ─── -->
+<div id="toast"><span class="toast-ico">🎉</span><span id="toast-msg">You're on the waitlist — we'll be in touch!</span></div>
+
+
+<script>
+(function () {
+
+  /* ══════════════════════════════════════
+     COURSE DATA  (all content preserved)
+  ══════════════════════════════════════ */
+  const courses = [
+    {
+      id: 1,
+      slug: 'ai',
+      title: "Artificial Intelligence Foundations",
+      trackLabel: "Certificate Program · AI",
+      shortDesc: "Core concepts of AI — from search algorithms to neural networks.",
+      tags: ["AI", "Python", "ML"],
+      duration: "7 weeks",
+      level: "Beginner",
+      cohort: "20 Students",
+      overview: "Understand the fundamentals of AI: intelligent agents, problem solving, knowledge representation, and intro to neural networks. Build a mini search engine and a basic image classifier.",
+      learnPoints: [
+        "Define AI and its subfields (ML, NLP, robotics)",
+        "Implement search algorithms (BFS, DFS, A*)",
+        "Build rule-based expert systems",
+        "Train a simple neural network with TensorFlow",
+        "Evaluate models with accuracy metrics"
+      ],
+      curriculum: [
+        { week: "Week 1", name: "What is AI? Intelligent agents" },
+        { week: "Week 2", name: "Problem solving with search" },
+        { week: "Week 3", name: "Knowledge & reasoning" },
+        { week: "Week 4", name: "Introduction to machine learning" },
+        { week: "Week 5", name: "Neural networks from scratch" },
+        { week: "Week 6", name: "AI ethics & bias" },
+        { week: "Week 7", name: "Capstone: AI prototype" }
+      ],
+      certificate: "Customized NOETIX Certificate in Artificial Intelligence Foundations — includes your name, course title, and verified skills.",
+      outcomes: ["Portfolio-ready AI prototype", "Customized certificate", "1-month mentor support"],
+      iconSvg: `<circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>`,
+      visualClass: 'dhb-vis-ai',
+      trackLabelClass: 'dhb-lbl-ai',
+      cardVisualClass: 'cc-vis-ai',
+      cardLabelClass: 'cc-ai-lbl',
+      cardClass: 'card-ai'
+    },
+    {
+      id: 2,
+      slug: 'cyber',
+      title: "Cybersecurity Essentials",
+      trackLabel: "Certificate Program · Security",
+      shortDesc: "Protect networks, data, and identities from modern threats.",
+      tags: ["Cybersecurity", "Network Security"],
+      duration: "6 weeks",
+      level: "Beginner",
+      cohort: "20 Students",
+      overview: "Core security principles: threat analysis, cryptography, access control, and incident response. Hands-on labs with virtual environments.",
+      learnPoints: [
+        "Identify common attack vectors (phishing, malware, DDoS)",
+        "Configure firewalls and intrusion detection systems",
+        "Apply symmetric / asymmetric encryption",
+        "Implement identity and access management (IAM)",
+        "Respond to security incidents step-by-step"
+      ],
+      curriculum: [
+        { week: "Week 1", name: "Security mindset & threat modeling" },
+        { week: "Week 2", name: "Network defense fundamentals" },
+        { week: "Week 3", name: "Applied cryptography" },
+        { week: "Week 4", name: "Identity & access management" },
+        { week: "Week 5", name: "Incident response & recovery" },
+        { week: "Week 6", name: "Capstone: security audit" }
+      ],
+      certificate: "Customized NOETIX Certificate in Cybersecurity Essentials — personalized with your name and earned competencies.",
+      outcomes: ["Hands-on SIEM lab", "Customized certificate", "Incident response simulation"],
+      iconSvg: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+      visualClass: 'dhb-vis-cyber',
+      trackLabelClass: 'dhb-lbl-cyber',
+      cardVisualClass: 'cc-vis-cyber',
+      cardLabelClass: 'cc-cyber-lbl',
+      cardClass: 'card-cyber'
+    },
+    {
+      id: 3,
+      slug: 'code',
+      title: "Fundamentals of Programming",
+      trackLabel: "Certificate Program · Code",
+      shortDesc: "Think like an engineer — code, debug, and automate.",
+      tags: ["Programming", "Python", "Logic"],
+      duration: "6 weeks",
+      level: "Beginner",
+      cohort: "20 Students",
+      overview: "No experience needed. Learn variables, loops, functions, and data structures. Solve real-world problems through Python.",
+      learnPoints: [
+        "Write clean, readable Python code",
+        "Use conditional logic and loops effectively",
+        "Manipulate strings, lists, and dictionaries",
+        "Design reusable functions and modules",
+        "Debug programs with breakpoints and tests"
+      ],
+      curriculum: [
+        { week: "Week 1", name: "Your first program – variables & I/O" },
+        { week: "Week 2", name: "Control flow: conditionals & loops" },
+        { week: "Week 3", name: "Data structures: lists, tuples, dicts" },
+        { week: "Week 4", name: "Functions & modular programming" },
+        { week: "Week 5", name: "File handling & exceptions" },
+        { week: "Week 6", name: "Final project: automation script" }
+      ],
+      certificate: "Customized NOETIX Certificate in Fundamentals of Programming — showcases your coding foundation and project work.",
+      outcomes: ["5 Python projects", "Customized certificate", "Coding assessment ready"],
+      iconSvg: `<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>`,
+      visualClass: 'dhb-vis-code',
+      trackLabelClass: 'dhb-lbl-code',
+      cardVisualClass: 'cc-vis-code',
+      cardLabelClass: 'cc-code-lbl',
+      cardClass: 'card-code'
     }
+  ];
 
-    grid.appendChild(card);
-  });
+  /* ══════════════════════════════════════
+     DOM REFS
+  ══════════════════════════════════════ */
+  const homepage   = document.getElementById('homepage');
+  const detailPage = document.getElementById('detail-page');
+  const courseGrid = document.getElementById('course-grid');
+  const backBtn    = document.getElementById('back-to-courses');
+  const relatedGrid= document.getElementById('related-grid');
 
-  // Checkpoint 3 divider
-  const div3 = document.createElement('div');
-  div3.className = 'checkpoint-divider fade-up';
-  div3.innerHTML = `<span class="checkpoint-badge">🏁 Checkpoint 3 — After Module 6</span>`;
-  grid.appendChild(div3);
+  /* ══════════════════════════════════════
+     RENDER CARDS
+  ══════════════════════════════════════ */
+  function renderCards(filter = 'all') {
+    const filtered = filter === 'all' ? courses : courses.filter(c => c.tags.includes(filter));
+    courseGrid.innerHTML = filtered.map(c => `
+      <div class="course-card ${c.cardClass} reveal" data-id="${c.id}" tabindex="0" role="button" aria-label="View ${c.title}">
+        <div class="cc-visual ${c.cardVisualClass}">
+          <svg class="cc-vis-icon" viewBox="0 0 24 24">${c.iconSvg}</svg>
+          <div class="cc-vis-glow"></div>
+          <div class="cc-badge">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            Certificate
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-track-label ${c.cardLabelClass}">${c.trackLabel}</div>
+          <div class="cc-title">${c.title}</div>
+          <div class="cc-desc">${c.shortDesc}</div>
+          <div class="cc-tags">${c.tags.map(t => `<span class="cc-tag">${t}</span>`).join('')}</div>
+          <div class="cc-meta">
+            <div class="cc-meta-item">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              ${c.duration}
+            </div>
+            <div class="cc-meta-item">
+              <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              ${c.level}
+            </div>
+            <div class="cc-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              ${c.cohort}
+            </div>
+          </div>
+          <button class="cc-cta">
+            View Program
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    `).join('');
 
-  // Final assessment teaser
-  const p2 = getProgress();
-  const allPassed = Object.values(p2.modules).every(m => m.quiz_passed);
-  const certTeaser = document.getElementById('certTeaser');
-  certTeaser.style.display = 'flex';
-  if (allPassed) {
-    document.getElementById('certLock').textContent = '🏆';
-    certTeaser.style.borderColor = 'var(--green-ring)';
-    certTeaser.querySelector('.ct-body h3').textContent = '🎉 Certificate Unlocked!';
-    certTeaser.querySelector('.ct-body p').textContent = 'Congratulations! You completed the full AI Fundamentals course.';
+    // Re-attach reveal observer and click events
+    document.querySelectorAll('.course-card').forEach(card => {
+      revObs.observe(card);
+      card.addEventListener('click', () => {
+        const c = courses.find(x => x.id === parseInt(card.dataset.id));
+        if (c) showDetail(c);
+      });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+      });
+    });
   }
 
-  // Update progress
-  const { done, pct } = getOverallProgress();
-  document.getElementById('op-fill').style.width = pct + '%';
-  document.getElementById('op-pct').textContent = pct + '%';
-  renderBadgeShelf(getProgress());
+  /* ══════════════════════════════════════
+     SHOW DETAIL
+  ══════════════════════════════════════ */
+  function showDetail(course) {
+    // Visual band
+    const detailVisual = document.getElementById('detail-visual');
+    detailVisual.className = `dhb-visual ${course.visualClass}`;
+    document.getElementById('detail-icon').innerHTML = course.iconSvg;
+    document.getElementById('detail-track-label').textContent = course.trackLabel;
+    document.getElementById('detail-track-label').className  = `dhb-track-label ${course.trackLabelClass}`;
+    document.getElementById('detail-title').textContent = course.title;
+    document.getElementById('detail-sub').textContent   = course.shortDesc;
 
-  // Reveal
-  setTimeout(() => {
-    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('in'));
-  }, 50);
-}
+    // Badges
+    document.getElementById('detail-badges').innerHTML = `
+      <span class="dhb-badge">${course.level}</span>
+      <span class="dhb-badge">${course.duration}</span>
+      <span class="dhb-badge">${course.cohort}</span>
+    `;
 
-document.addEventListener('DOMContentLoaded', function(){ renderModules(); var xpc=document.getElementById('xp-counter');if(xpc)xpc.textContent=(parseInt(localStorage.getItem('noetix_xp')||'0'))+' XP'; });
+    // Meta row
+    document.getElementById('detail-meta').innerHTML = `
+      <div class="dhb-meta-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        ${course.duration}
+      </div>
+      <div class="dhb-meta-item">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+        ${course.level}
+      </div>
+      <div class="dhb-meta-item">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        ${course.cohort}
+      </div>
+    `;
+
+    // Overview
+    document.getElementById('detail-overview').textContent = course.overview;
+
+    // Learn points
+    document.getElementById('detail-learn').innerHTML = course.learnPoints.map(p => `
+      <li>
+        <div class="learn-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        ${p}
+      </li>
+    `).join('');
+
+    // Curriculum
+    document.getElementById('detail-curriculum').innerHTML = course.curriculum.map(m => `
+      <div class="curriculum-item">
+        <span class="week-pill">${m.week}</span>
+        <span>${m.name}</span>
+      </div>
+    `).join('');
+
+    // Certificate
+    document.getElementById('detail-cert').textContent = course.certificate;
+    document.getElementById('detail-outcomes').innerHTML = course.outcomes.map(o => `
+      <div class="outcome-item">
+        <div class="outcome-dot"></div>
+        <span>${o}</span>
+      </div>
+    `).join('');
+
+    // Sidebar stats
+    document.getElementById('sidebar-stats').innerHTML = `
+      <div class="ss-item"><span class="ss-label">Duration</span><span class="ss-val">${course.duration}</span></div>
+      <div class="ss-item"><span class="ss-label">Level</span><span class="ss-val">${course.level}</span></div>
+      <div class="ss-item"><span class="ss-label">Cohort Size</span><span class="ss-val">${course.cohort}</span></div>
+      <div class="ss-item"><span class="ss-label">Certificate</span><span class="ss-val">Yes — Verified</span></div>
+      <div class="ss-item"><span class="ss-label">Format</span><span class="ss-val">Project-Based</span></div>
+    `;
+
+    // Related programs
+    const others = courses.filter(c => c.id !== course.id);
+    relatedGrid.innerHTML = others.map(c => `
+      <div class="related-card" data-id="${c.id}" tabindex="0" role="button">
+        <h4>${c.title}</h4>
+        <p>${c.shortDesc}</p>
+        <div class="related-link">
+          View Program
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll('.related-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const c = courses.find(x => x.id === parseInt(card.dataset.id));
+        if (c) showDetail(c);
+      });
+    });
+
+    // Switch views
+    homepage.classList.add('hidden-page');
+    detailPage.classList.remove('hidden-page');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ══════════════════════════════════════
+     BACK BUTTON
+  ══════════════════════════════════════ */
+  backBtn.addEventListener('click', e => {
+    e.preventDefault();
+    homepage.classList.remove('hidden-page');
+    detailPage.classList.add('hidden-page');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ══════════════════════════════════════
+     FILTER BUTTONS
+  ══════════════════════════════════════ */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      renderCards(this.dataset.filter);
+    });
+  });
+
+  /* ══════════════════════════════════════
+     SCROLL PROGRESS + NAV
+  ══════════════════════════════════════ */
+  const spBar   = document.getElementById('scroll-progress');
+  const mainNav = document.getElementById('mainNav');
+  const hbg     = document.getElementById('hamburgerBtn');
+  const mobn    = document.getElementById('mobileNav');
+  window.addEventListener('scroll', () => {
+    spBar.style.width = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100, 100) + '%';
+    mainNav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+  hbg.addEventListener('click', e => { e.stopPropagation(); mobn.classList.toggle('open'); });
+  mobn.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobn.classList.remove('open')));
+  document.addEventListener('click', e => { if (!mobn.contains(e.target) && !hbg.contains(e.target)) mobn.classList.remove('open'); });
+
+  /* ══════════════════════════════════════
+     REVEAL OBSERVER
+  ══════════════════════════════════════ */
+  const revObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  /* ══════════════════════════════════════
+     SECTION SEPARATORS
+  ══════════════════════════════════════ */
+  const sepObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('run'); });
+  }, { threshold: .5 });
+  document.querySelectorAll('.section-sep').forEach(el => sepObs.observe(el));
+
+  /* ══════════════════════════════════════
+     DOT NAV
+  ══════════════════════════════════════ */
+  const dotItems = document.querySelectorAll('.dn-item');
+  const sections = ['courses-top', 'courses-grid', 'cta'];
+  function updateDotNav() {
+    let scrollPos = window.scrollY + 160;
+    let activeIdx = sections.length - 1;
+    for (let i = 0; i < sections.length; i++) {
+      let sec = document.getElementById(sections[i]);
+      if (sec && sec.offsetTop > scrollPos) { activeIdx = i - 1; break; }
+    }
+    if (activeIdx < 0) activeIdx = 0;
+    dotItems.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+  }
+  window.addEventListener('scroll', updateDotNav, { passive: true });
+  dotItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const t = document.getElementById(item.getAttribute('data-sec'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  updateDotNav();
+
+  /* ══════════════════════════════════════
+     RIPPLE
+  ══════════════════════════════════════ */
+  document.querySelectorAll('.ripple-tgt').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const rect = this.getBoundingClientRect();
+      const rpl  = document.createElement('span');
+      rpl.className  = 'ripple-wave';
+      rpl.style.left = (e.clientX - rect.left) + 'px';
+      rpl.style.top  = (e.clientY - rect.top)  + 'px';
+      this.appendChild(rpl);
+      setTimeout(() => rpl.remove(), 600);
+    });
+  });
+
+  /* ══════════════════════════════════════
+     MAGNETIC
+  ══════════════════════════════════════ */
+  document.querySelectorAll('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', function (e) {
+      const rect = this.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width  / 2) * .2;
+      const y = (e.clientY - rect.top  - rect.height / 2) * .2;
+      this.style.transform = `translate(${x}px,${y}px)`;
+    });
+    el.addEventListener('mouseleave', function () { this.style.transform = ''; });
+  });
+
+  /* ══════════════════════════════════════
+     COUNTDOWN
+  ══════════════════════════════════════ */
+  const cdD = document.getElementById('cd-d');
+  const cdH = document.getElementById('cd-h');
+  const cdM = document.getElementById('cd-m');
+  if (cdD) {
+    const deadline = new Date();
+    deadline.setDate(deadline.getDate() + 14);
+    function tick() {
+      const diff = deadline - new Date();
+      if (diff < 0) { cdD.textContent = '0'; cdH.textContent = '00'; cdM.textContent = '00'; return; }
+      cdD.textContent = Math.floor(diff / 86400000);
+      cdH.textContent = Math.floor((diff / 3600000) % 24).toString().padStart(2, '0');
+      cdM.textContent = Math.floor((diff / 60000)   % 60).toString().padStart(2, '0');
+    }
+    setInterval(tick, 1000);
+    tick();
+  }
+
+  /* ══════════════════════════════════════
+     WAITLIST FORM + TOAST
+  ══════════════════════════════════════ */
+  const wlEmail  = document.getElementById('wl-email');
+  const wlInd    = document.getElementById('wl-ind');
+  const wlBtn    = document.getElementById('wl-btn');
+  const toast    = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+  function showToast(msg, icon = '🎉') {
+    toastMsg.innerText = msg;
+    document.querySelector('.toast-ico').innerText = icon;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+  if (wlEmail) {
+    wlEmail.addEventListener('input', function () {
+      const val   = this.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if (!val) { wlInd.className = 'wl-ind'; this.classList.remove('ok','bad'); return; }
+      if (valid) { this.classList.add('ok'); this.classList.remove('bad'); wlInd.textContent = '✓'; wlInd.classList.add('show'); }
+      else       { this.classList.add('bad'); this.classList.remove('ok'); wlInd.textContent = '✗'; wlInd.classList.add('show'); }
+    });
+    wlBtn.addEventListener('click', e => {
+      e.preventDefault();
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(wlEmail.value.trim())) {
+        showToast("You're on the waitlist — we'll be in touch!");
+        wlEmail.value = ''; wlInd.classList.remove('show'); wlEmail.classList.remove('ok','bad');
+      } else {
+        showToast('Please enter a valid email', '⚠️');
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════
+     INIT
+  ══════════════════════════════════════ */
+  renderCards();
+
+})();
 </script>
 </body>
 </html>
